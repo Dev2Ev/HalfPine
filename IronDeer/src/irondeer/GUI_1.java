@@ -13,12 +13,13 @@ import java.util.Date;
  * @author mtblock
  */
 public class GUI_1 extends javax.swing.JFrame implements Runnable {
-
+    boolean pressed=false;
+    linkPrintBalance stub=new linkPrintBalance();
     /**
      * Creates new form GUI_1
      */
     public GUI_1() {
-        initComponents();
+        initComponents();        
     }
 
     /**
@@ -37,16 +38,17 @@ public class GUI_1 extends javax.swing.JFrame implements Runnable {
         jTree1 = new javax.swing.JTree();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        Vaschetta = new javax.swing.JButton();
+        Stampa = new javax.swing.JButton();
+        Cliente = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
+        AddNewLine = new javax.swing.JPanel();
+        Tara1 = new javax.swing.JButton();
         Tue = new javax.swing.JPanel();
         Wed = new javax.swing.JPanel();
         Thu = new javax.swing.JPanel();
@@ -61,56 +63,91 @@ public class GUI_1 extends javax.swing.JFrame implements Runnable {
         Settimana.setLayout(SettimanaLayout);
         SettimanaLayout.setHorizontalGroup(
             SettimanaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addGap(0, 932, Short.MAX_VALUE)
         );
         SettimanaLayout.setVerticalGroup(
             SettimanaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 541, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("tab1", Settimana);
+        jTabbedPane1.addTab("Settimana", Settimana);
 
         jScrollPane1.setViewportView(jTree1);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Nome Prodotto", "Ora di Consegna", "+", "Q.tà", "-", "Extra", "PerSempre"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                LineOrderPressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                LineOrderReleased(evt);
+            }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+                LineOrderClick(evt);
             }
         });
         jScrollPane2.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+        }
 
-        jButton1.setText("jButton1");
+        Vaschetta.setText("Tara");
+        Vaschetta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VaschettaActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("jButton1");
+        Stampa.setText("jButton1");
+        Stampa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StampaActionPerformed(evt);
+            }
+        });
 
-        jLabel2.setText("jLabel2");
+        jLabel2.setText("Cliente");
 
-        jTextField2.setText("jTextField2");
+        jTextField2.setText("Nome fighissimo");
 
-        jTextField3.setText("jTextField3");
+        jTextField3.setEditable(false);
+        jTextField3.setText("6:00");
 
-        jLabel3.setText("jLabel3");
+        jLabel3.setText("Orario Consegna");
 
-        jTextField4.setText("jTextField3");
+        jTextField4.setEditable(false);
+        jTextField4.setText("18:00:15");
 
-        jTextField5.setText("jTextField3");
+        jTextField5.setEditable(false);
+        jTextField5.setText("+5");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout ClienteLayout = new javax.swing.GroupLayout(Cliente);
+        Cliente.setLayout(ClienteLayout);
+        ClienteLayout.setHorizontalGroup(
+            ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ClienteLayout.createSequentialGroup()
                 .addComponent(jLabel2)
                 .addGap(3, 3, 3)
                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -124,11 +161,11 @@ public class GUI_1 extends javax.swing.JFrame implements Runnable {
                 .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        ClienteLayout.setVerticalGroup(
+            ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ClienteLayout.createSequentialGroup()
                 .addContainerGap(16, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -137,16 +174,23 @@ public class GUI_1 extends javax.swing.JFrame implements Runnable {
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout AddNewLineLayout = new javax.swing.GroupLayout(AddNewLine);
+        AddNewLine.setLayout(AddNewLineLayout);
+        AddNewLineLayout.setHorizontalGroup(
+            AddNewLineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        AddNewLineLayout.setVerticalGroup(
+            AddNewLineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
         );
+
+        Tara1.setText("Tara");
+        Tara1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Tara1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout MonLayout = new javax.swing.GroupLayout(Mon);
         Mon.setLayout(MonLayout);
@@ -158,25 +202,28 @@ public class GUI_1 extends javax.swing.JFrame implements Runnable {
                 .addGroup(MonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
                     .addGroup(MonLayout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(Vaschetta, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Tara1, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Stampa, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Cliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(AddNewLine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         MonLayout.setVerticalGroup(
             MonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
             .addGroup(MonLayout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(AddNewLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(MonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(Vaschetta, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Stampa, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Tara1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jTabbedPane1.addTab("tab1", Mon);
@@ -185,7 +232,7 @@ public class GUI_1 extends javax.swing.JFrame implements Runnable {
         Tue.setLayout(TueLayout);
         TueLayout.setHorizontalGroup(
             TueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addGap(0, 932, Short.MAX_VALUE)
         );
         TueLayout.setVerticalGroup(
             TueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,7 +245,7 @@ public class GUI_1 extends javax.swing.JFrame implements Runnable {
         Wed.setLayout(WedLayout);
         WedLayout.setHorizontalGroup(
             WedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addGap(0, 932, Short.MAX_VALUE)
         );
         WedLayout.setVerticalGroup(
             WedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,7 +258,7 @@ public class GUI_1 extends javax.swing.JFrame implements Runnable {
         Thu.setLayout(ThuLayout);
         ThuLayout.setHorizontalGroup(
             ThuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addGap(0, 932, Short.MAX_VALUE)
         );
         ThuLayout.setVerticalGroup(
             ThuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,7 +271,7 @@ public class GUI_1 extends javax.swing.JFrame implements Runnable {
         Fri.setLayout(FriLayout);
         FriLayout.setHorizontalGroup(
             FriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addGap(0, 932, Short.MAX_VALUE)
         );
         FriLayout.setVerticalGroup(
             FriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,7 +284,7 @@ public class GUI_1 extends javax.swing.JFrame implements Runnable {
         Sat.setLayout(SatLayout);
         SatLayout.setHorizontalGroup(
             SatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addGap(0, 932, Short.MAX_VALUE)
         );
         SatLayout.setVerticalGroup(
             SatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -250,7 +297,7 @@ public class GUI_1 extends javax.swing.JFrame implements Runnable {
         Sun.setLayout(SunLayout);
         SunLayout.setHorizontalGroup(
             SunLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addGap(0, 932, Short.MAX_VALUE)
         );
         SunLayout.setVerticalGroup(
             SunLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -281,26 +328,51 @@ public class GUI_1 extends javax.swing.JFrame implements Runnable {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void LineOrderClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LineOrderClick
+        if(!pressed)
+            toConsole(evt);
+    }//GEN-LAST:event_LineOrderClick
+
+    private void StampaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StampaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_StampaActionPerformed
+
+    private void VaschettaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VaschettaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_VaschettaActionPerformed
+
+    private void Tara1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tara1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Tara1ActionPerformed
+
+    private void LineOrderPressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LineOrderPressed
         toConsole(evt);
-    }//GEN-LAST:event_jTable1MouseClicked
+        pressed=true;
+    }//GEN-LAST:event_LineOrderPressed
+
+    private void LineOrderReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LineOrderReleased
+        if(pressed)
+            toConsole(evt);
+        pressed=false;
+    }//GEN-LAST:event_LineOrderReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel AddNewLine;
+    private javax.swing.JPanel Cliente;
     private javax.swing.JPanel Fri;
     private javax.swing.JPanel Mon;
     private javax.swing.JPanel Sat;
     private javax.swing.JPanel Settimana;
+    private javax.swing.JButton Stampa;
     private javax.swing.JPanel Sun;
+    private javax.swing.JButton Tara1;
     private javax.swing.JPanel Thu;
     private javax.swing.JPanel Tue;
+    private javax.swing.JButton Vaschetta;
     private javax.swing.JPanel Wed;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -330,6 +402,8 @@ public class GUI_1 extends javax.swing.JFrame implements Runnable {
                     mes=mes+"[D]";
                     break;
             }
+           if(pressed)
+               mes+="Premuto e non click";
         System.out.println(mes);
         }
         catch(Exception e){
