@@ -326,9 +326,6 @@ public class GUI_1 extends javax.swing.JFrame implements Runnable {
                 case "java.awt.event.MouseEvent":
                     mes=mes+"[MouseEvent]";                    
                     break;
-                case "java.awt.event.MouseEvent":
-                    mes=mes+"[MouseEvent]";                    
-                    break;
                 default:
                     mes=mes+"[D]";
                     break;
