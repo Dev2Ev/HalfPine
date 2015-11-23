@@ -14,11 +14,17 @@ import java.util.ArrayList;
  */
 public class PrototipoOrdine implements Serializable
 {
+    long id;
+    int giorno;
+    String codiceCliente;
     ArrayList<PrototipoProdotto> lista;
 
-    public PrototipoOrdine()
+    public PrototipoOrdine(long id,String codiceCliente, int giorno)
     {
-        lista = new ArrayList<PrototipoProdotto>();
+        this.id = id;
+        this.codiceCliente = codiceCliente;
+        this.giorno = giorno;
+        this.lista = new ArrayList<PrototipoProdotto>();
     }
     public int size()
     {

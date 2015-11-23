@@ -23,7 +23,7 @@ public class DataBase implements Serializable{
     }
     public void test()
     {
-        elencoPrototipiOrdini.test();
         elencoClienti.test();
+        elencoPrototipiOrdini.test();
     }
 }

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 import javax.swing.ButtonModel;
+import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout.Group;
 import javax.swing.GroupLayout.ParallelGroup;
 import javax.swing.GroupLayout.SequentialGroup;
@@ -27,7 +28,7 @@ public class Interfaccia extends javax.swing.JFrame {
      * Creates new form Interfaccia
      */
     private PrototipoOrdine ordineSelezionato;
-    private static ArrayList<InterfBarraPesata> barrePesate;
+    private static ArrayList<InterfPesata> barrePesate;
     Font font = font = new Font( "SansSerif", 0, 20);
     Dimension dimRadioButton = new Dimension(200, 100);
     boolean giornoOk;
@@ -42,9 +43,41 @@ public class Interfaccia extends javax.swing.JFrame {
         ricercaComboCalendario.setText("");
         initComboCalendario();
         initTime();
-        selezionaOrdine();
+        initListaOrdini();
         initPesate();
         initScrollPanelPesate();
+    }
+    private void initListaOrdini()
+    {
+        ElencoPrototipiOrdini el = Bollettario.dataBase.elencoPrototipiOrdini;
+        int oggi = getIntOggi();
+        ElencoPrototipiOrdini selezione = new ElencoPrototipiOrdini();
+        for(int i=0; i<el.size(); i++)
+        {
+            if(el.get(i).giorno == oggi)
+            {
+                selezione.add(el.get(i));
+            }
+        }
+        DefaultListModel listModel = new DefaultListModel();
+        for(int i=0; i<selezione.size(); i++)
+        {
+            String ragioneSociale = Bollettario.dataBase.elencoClienti.get(
+                    selezione.get(i).codiceCliente
+            ).ragioneSociale;
+            listModel.addElement(
+                    new ElementoIndicizzato(
+                            selezione.get(i).id,
+                            ragioneSociale
+                    )
+            );
+        }
+        
+           
+        if(selezione.size()>0)
+        {
+            jList1.setModel(listModel);
+        }
     }
     private void initScrollPanelPesate()
     {
@@ -52,18 +85,31 @@ public class Interfaccia extends javax.swing.JFrame {
     }
     private void selezionaOrdine()
     {
-        this.ordineSelezionato = new PrototipoOrdine();
-        ordineSelezionato.test();
-        creaBarrePesate();
+        ElementoIndicizzato e = (ElementoIndicizzato) jList1.getModel().getElementAt(jList1.getSelectedIndex());
+        if(e != null)
+        {
+            ordineSelezionato = Bollettario.dataBase.elencoPrototipiOrdini.get(e.id);
+            creaBarrePesate();
+        }
     }
     private void creaBarrePesate()
     {
-        barrePesate = new ArrayList<InterfBarraPesata>();
-        for(int i=0; i<ordineSelezionato.size(); i++)
+        if(ordineSelezionato != null)
         {
-            String nome = ordineSelezionato.get(i).idProdotto;
-            String quantita = ordineSelezionato.get(i).quantita.toString();
-            barrePesate.add(new InterfBarraPesata(nome, quantita, i));
+            barrePesate = new ArrayList<InterfPesata>();
+            for(int i=0; i<ordineSelezionato.size(); i++)
+            {
+                String nome = ordineSelezionato.get(i).idProdotto;
+                Quantita quantita = ordineSelezionato.get(i).quantita;
+                if(quantita.unita == UnitaDiMisura.NUMERO)
+                {
+                    barrePesate.add(new InterfBarraPesataNumero(nome, quantita.toString(), i));
+                }
+                if(quantita.unita == UnitaDiMisura.KILOGRAMMI)
+                {
+                    barrePesate.add(new InterfBarraPesataPeso(nome, quantita.toString(), i));
+                }
+            }
         }
     }
     public static void selezioneFocusPesata(int id)
@@ -81,48 +127,63 @@ public class Interfaccia extends javax.swing.JFrame {
     }
     private void initPesate()
     {
-        javax.swing.GroupLayout jPanelSfondoLayout = new javax.swing.GroupLayout(jPanelSfondo);
-        jPanelSfondo.setLayout(jPanelSfondoLayout);
-        
-        ParallelGroup gruppoParallelo2 = jPanelSfondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
-        for(int i=0; i<barrePesate.size(); i++)
+        if(ordineSelezionato != null)
         {
-            gruppoParallelo2.addComponent(
-                    barrePesate.get(i).pannello,
-                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                    Short.MAX_VALUE);
-        }
-        
-        SequentialGroup gruppoSequenziale = jPanelSfondoLayout.createSequentialGroup();
-        gruppoSequenziale.addContainerGap();
-        gruppoSequenziale.addGroup(gruppoParallelo2);
-        gruppoSequenziale.addContainerGap();
-        
-        ParallelGroup gruppoParallelo1 = jPanelSfondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
-        gruppoParallelo1.addGroup(gruppoSequenziale);
-        
-        jPanelSfondoLayout.setHorizontalGroup(gruppoParallelo1);
-        
-        SequentialGroup gruppoV2 = jPanelSfondoLayout.createSequentialGroup();
-        gruppoV2.addContainerGap();
-        for(int i=0; i<barrePesate.size(); i++)
-        {
-            if(i != 0)
+            javax.swing.GroupLayout jPanelSfondoLayout = new javax.swing.GroupLayout(jPanelSfondo);
+            jPanelSfondo.setLayout(jPanelSfondoLayout);
+
+            ParallelGroup gruppoParallelo2 = jPanelSfondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
+            for(int i=0; i<barrePesate.size(); i++)
             {
-                gruppoV2.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED);
+                gruppoParallelo2.addComponent(
+                        barrePesate.get(i).pannello,
+                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                        Short.MAX_VALUE);
             }
-            gruppoV2.addComponent(barrePesate.get(i).pannello,
-                    javax.swing.GroupLayout.PREFERRED_SIZE,
-                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                    javax.swing.GroupLayout.PREFERRED_SIZE);
+
+            SequentialGroup gruppoSequenziale = jPanelSfondoLayout.createSequentialGroup();
+            gruppoSequenziale.addContainerGap();
+            gruppoSequenziale.addGroup(gruppoParallelo2);
+            gruppoSequenziale.addContainerGap();
+
+            ParallelGroup gruppoParallelo1 = jPanelSfondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
+            gruppoParallelo1.addGroup(gruppoSequenziale);
+
+            jPanelSfondoLayout.setHorizontalGroup(gruppoParallelo1);
+
+            SequentialGroup gruppoV2 = jPanelSfondoLayout.createSequentialGroup();
+            gruppoV2.addContainerGap();
+            for(int i=0; i<barrePesate.size(); i++)
+            {
+                if(i != 0)
+                {
+                    gruppoV2.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED);
+                }
+                gruppoV2.addComponent(barrePesate.get(i).pannello,
+                        javax.swing.GroupLayout.PREFERRED_SIZE,
+                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                        javax.swing.GroupLayout.PREFERRED_SIZE);
+            }
+            gruppoV2.addContainerGap();
+            Group gruppoV = jPanelSfondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER);
+            gruppoV.addGroup(gruppoV2);
+            jPanelSfondoLayout.setVerticalGroup(gruppoV);
+
+            jScrollPane5.setViewportView(jPanelSfondo);
         }
-        gruppoV2.addContainerGap();
-        Group gruppoV = jPanelSfondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER);
-        gruppoV.addGroup(gruppoV2);
-        jPanelSfondoLayout.setVerticalGroup(gruppoV);
-        
-        jScrollPane5.setViewportView(jPanelSfondo);
+    }
+    private int getIntOggi()
+    {
+        /*
+        1 domenica - 7 sabato
+        */
+        return Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+    }
+    private String getStringOggi()
+    {
+        Calendar myCal = Calendar.getInstance();
+        return myCal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ITALIAN);
     }
     private void initTime()
     {
@@ -132,8 +193,8 @@ public class Interfaccia extends javax.swing.JFrame {
         for (String s : dayNames) { 
            System.out.print(s + " ");
         }*/
-        Calendar myCal = Calendar.getInstance();
-        String oggi = myCal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ITALIAN);
+        
+        String oggi = getStringOggi();
         
         jRadioButtonLunedi.setText("Lunedì");
         jRadioButtonMartedi.setText("Martedì");
@@ -259,10 +320,10 @@ public class Interfaccia extends javax.swing.JFrame {
                 selezione.add(el.get(i));
             }
         }
-        ClienteIndicizzato[] comboCalendario = new ClienteIndicizzato[selezione.size()];
+        ElementoIndicizzato[] comboCalendario = new ElementoIndicizzato[selezione.size()];
         for(int i=0; i<selezione.size(); i++)
         {
-            comboCalendario[i] = new ClienteIndicizzato(
+            comboCalendario[i] = new ElementoIndicizzato(
                     selezione.get(i).codice,
                     selezione.get(i).ragioneSociale);
         }
@@ -402,6 +463,11 @@ public class Interfaccia extends javax.swing.JFrame {
             public Object getElementAt(int i) { return strings[i]; }
         });
         jList1.setFont(font);
+        jList1.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jList1ValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList1);
 
         jLabel3.setText("Ora Attuale");
@@ -766,6 +832,10 @@ public class Interfaccia extends javax.swing.JFrame {
         }
         aggiornaPannelloOrdini();
     }//GEN-LAST:event_jRadioButtonDomenicaItemStateChanged
+
+    private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
+        selezionaOrdine();
+    }//GEN-LAST:event_jList1ValueChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

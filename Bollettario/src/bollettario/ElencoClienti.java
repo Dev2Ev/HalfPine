@@ -48,6 +48,19 @@ public class ElencoClienti implements Serializable{
         }
         return null;
     }
+    public Cliente get(String codice)
+    {
+        for(int i=0; i<elenco.size(); i++)
+        {
+            String a = elenco.get(i).codice;
+            boolean b = codice.equals(elenco.get(i).codice);
+            if(b)
+            {
+                return elenco.get(i);
+            }
+        }
+        return null;
+    }
     public void test()
     {
         int maxClienti = 15;
