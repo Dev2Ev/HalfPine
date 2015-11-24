@@ -1,2 +1,0 @@
-bollettario.Cliente
-bollettario.ClienteRagioneSocialeComparator

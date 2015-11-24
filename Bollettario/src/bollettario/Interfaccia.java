@@ -290,7 +290,7 @@ public class Interfaccia extends javax.swing.JFrame {
         }
         if(jRadioButtonDomenica.isSelected())
         {
-            giornoDaVisualizzare = GregorianCalendar.SUNDAY;
+            giornoDaVisualizzare = GregorianCalendar.SUNDAY+7;
         }
     }
     private void aggiornaPannelloOrdini()
