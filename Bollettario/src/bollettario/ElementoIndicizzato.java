@@ -13,18 +13,10 @@ public class ElementoIndicizzato
 {
     String codice;
     String contenuto;
-    long id;
 
     public ElementoIndicizzato(String codice, String ragioneSociale)
     {
         this.codice = codice;
-        this.id = -1;
-        this.contenuto = ragioneSociale;
-    }
-    public ElementoIndicizzato(long id, String ragioneSociale)
-    {
-        this.id = id;
-        this.codice = "";
         this.contenuto = ragioneSociale;
     }
 
@@ -36,11 +28,7 @@ public class ElementoIndicizzato
     public String getCodice() {
         return codice;
     }
-    public long getId()
-    {
-        return id;
-    }
-    public String getRagioneSociale() {
+    public String getContenuto() {
         return contenuto;
     } 
 }

@@ -13,17 +13,17 @@ import java.io.Serializable;
  */
 public class DataBase implements Serializable{
     ElencoClienti elencoClienti;
-    ElencoPrototipiOrdini elencoPrototipiOrdini;
+    ElencoOrdini elencoiOrdini;
     ElencoOrdiniElaborati elencoOrdiniElaborati;
 
     public DataBase() {
         elencoClienti = new ElencoClienti();
         elencoOrdiniElaborati = new ElencoOrdiniElaborati();
-        elencoPrototipiOrdini = new ElencoPrototipiOrdini();
+        elencoiOrdini = new ElencoOrdini();
     }
     public void test()
     {
         elencoClienti.test();
-        elencoPrototipiOrdini.test();
+        elencoiOrdini.test();
     }
 }

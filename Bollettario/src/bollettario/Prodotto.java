@@ -11,12 +11,12 @@ import java.io.Serializable;
  *
  * @author DiegoCarlo
  */
-public class PrototipoProdotto implements Serializable
+public class Prodotto implements Serializable
 {
     String idProdotto;
     Quantita quantita;
 
-    public PrototipoProdotto(String idProdotto, Quantita quantita) {
+    public Prodotto(String idProdotto, Quantita quantita) {
         this.idProdotto = idProdotto;
         this.quantita = quantita;
     }

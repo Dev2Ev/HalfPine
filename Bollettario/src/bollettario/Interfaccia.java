@@ -10,12 +10,14 @@ import java.awt.Font;
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 import javax.swing.ButtonModel;
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout.Group;
 import javax.swing.GroupLayout.ParallelGroup;
 import javax.swing.GroupLayout.SequentialGroup;
+import javax.swing.JPanel;
 import javax.swing.table.TableColumn;
 
 /**
@@ -27,11 +29,13 @@ public class Interfaccia extends javax.swing.JFrame {
     /**
      * Creates new form Interfaccia
      */
-    private PrototipoOrdine ordineSelezionato;
+    private Ordine ordineSelezionato;
     private static ArrayList<InterfPesata> barrePesate;
     Font font = font = new Font( "SansSerif", 0, 20);
     Dimension dimRadioButton = new Dimension(200, 100);
-    boolean giornoOk;
+    Calendar giornoVisualizzato;
+    int giornoDaVisualizzare;
+    ElencoOrdini elencoJListOrdini;
     public Interfaccia() {
         initComponents();
         initComponents2();
@@ -49,16 +53,8 @@ public class Interfaccia extends javax.swing.JFrame {
     }
     private void initListaOrdini()
     {
-        ElencoPrototipiOrdini el = Bollettario.dataBase.elencoPrototipiOrdini;
-        int oggi = getIntOggi();
-        ElencoPrototipiOrdini selezione = new ElencoPrototipiOrdini();
-        for(int i=0; i<el.size(); i++)
-        {
-            if(el.get(i).giorno == oggi)
-            {
-                selezione.add(el.get(i));
-            }
-        }
+        /*ElencoOrdini selezione = Bollettario.dataBase.elencoPrototipiOrdini.getOrdiniGiorno(getOggi());
+        
         DefaultListModel listModel = new DefaultListModel();
         for(int i=0; i<selezione.size(); i++)
         {
@@ -67,7 +63,7 @@ public class Interfaccia extends javax.swing.JFrame {
             ).ragioneSociale;
             listModel.addElement(
                     new ElementoIndicizzato(
-                            selezione.get(i).id,
+                            selezione.get(i).id
                             ragioneSociale
                     )
             );
@@ -77,7 +73,7 @@ public class Interfaccia extends javax.swing.JFrame {
         if(selezione.size()>0)
         {
             jList1.setModel(listModel);
-        }
+        }*/
     }
     private void initScrollPanelPesate()
     {
@@ -85,17 +81,18 @@ public class Interfaccia extends javax.swing.JFrame {
     }
     private void selezionaOrdine()
     {
-        ElementoIndicizzato e = (ElementoIndicizzato) jList1.getModel().getElementAt(jList1.getSelectedIndex());
+        /*ElementoIndicizzato e = (ElementoIndicizzato) jList1.getModel().getElementAt(jList1.getSelectedIndex());
         if(e != null)
         {
             ordineSelezionato = Bollettario.dataBase.elencoPrototipiOrdini.get(e.id);
             creaBarrePesate();
-        }
+        }*/
     }
     private void creaBarrePesate()
     {
         if(ordineSelezionato != null)
         {
+            barrePesate = null;
             barrePesate = new ArrayList<InterfPesata>();
             for(int i=0; i<ordineSelezionato.size(); i++)
             {
@@ -129,6 +126,7 @@ public class Interfaccia extends javax.swing.JFrame {
     {
         if(ordineSelezionato != null)
         {
+            jPanelSfondo = new JPanel();
             javax.swing.GroupLayout jPanelSfondoLayout = new javax.swing.GroupLayout(jPanelSfondo);
             jPanelSfondo.setLayout(jPanelSfondoLayout);
 
@@ -173,28 +171,10 @@ public class Interfaccia extends javax.swing.JFrame {
             jScrollPane5.setViewportView(jPanelSfondo);
         }
     }
-    private int getIntOggi()
-    {
-        /*
-        1 domenica - 7 sabato
-        */
-        return Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-    }
-    private String getStringOggi()
-    {
-        Calendar myCal = Calendar.getInstance();
-        return myCal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ITALIAN);
-    }
     private void initTime()
     {
-        /*
-        DateFormatSymbols symbols = new DateFormatSymbols(new Locale("it"));
-        String[] dayNames = symbols.getWeekdays();
-        for (String s : dayNames) { 
-           System.out.print(s + " ");
-        }*/
-        
-        String oggi = getStringOggi();
+        Calendar c = GregorianCalendar.getInstance();
+        giornoDaVisualizzare = c.get(Calendar.DAY_OF_WEEK);
         
         jRadioButtonLunedi.setText("Lunedì");
         jRadioButtonMartedi.setText("Martedì");
@@ -203,41 +183,37 @@ public class Interfaccia extends javax.swing.JFrame {
         jRadioButtonVenerdi.setText("Venerdì");
         jRadioButtonSabato.setText("Sabato");
         jRadioButtonDomenica.setText("Domenica");
-        switch(oggi)
+        switch(giornoDaVisualizzare)
         {
-            case "lunedì":
+            case 2:
                 jRadioButtonLunedi.setText("LUNEDI");
                 jRadioButtonLunedi.setSelected(true);
                 break;
-            case "martedì":
+            case 3:
                 jRadioButtonMartedi.setText("MARTEDI");
                 jRadioButtonMartedi.setSelected(true);
                 break;
-            case "mercoledì":
+            case 4:
                 jRadioButtonMercoledi.setText("MERCOLEDI");
                 jRadioButtonMercoledi.setSelected(true);
                 break;
-            case "giovedì":
+            case 5:
                 jRadioButtonGiovedi.setText("GIOVEDI");
                 jRadioButtonGiovedi.setSelected(true);
                 break;
-            case "venerdì":
+            case 6:
                 jRadioButtonVenerdi.setText("VENERDI");
                 jRadioButtonVenerdi.setSelected(true);
                 break;
-            case "sabato":
+            case 7:
                 jRadioButtonSabato.setText("SABATO");
                 jRadioButtonSabato.setSelected(true);
                 break;
-            case "domenica":
+            case 1:
                 jRadioButtonDomenica.setText("DOMENICA");
                 jRadioButtonDomenica.setSelected(true);
                 break;
         }
-        
-    }
-    private void aggiornaGiorno()
-    {
         
     }
     private void initJTable()
@@ -286,13 +262,72 @@ public class Interfaccia extends javax.swing.JFrame {
             case 2: aggiornaPannelloOpzioni(); break;
         }
     }
+    private void setGiornoDaVisualizzare()
+    {
+        if(jRadioButtonLunedi.isSelected())
+        {
+            giornoDaVisualizzare = GregorianCalendar.MONDAY;
+        }
+        if(jRadioButtonMartedi.isSelected())
+        {
+            giornoDaVisualizzare = GregorianCalendar.TUESDAY;
+        }
+        if(jRadioButtonMercoledi.isSelected())
+        {
+            giornoDaVisualizzare = GregorianCalendar.WEDNESDAY;
+        }
+        if(jRadioButtonGiovedi.isSelected())
+        {
+            giornoDaVisualizzare = GregorianCalendar.THURSDAY;
+        }
+        if(jRadioButtonVenerdi.isSelected())
+        {
+            giornoDaVisualizzare = GregorianCalendar.FRIDAY;
+        }
+        if(jRadioButtonSabato.isSelected())
+        {
+            giornoDaVisualizzare = GregorianCalendar.SATURDAY;
+        }
+        if(jRadioButtonDomenica.isSelected())
+        {
+            giornoDaVisualizzare = GregorianCalendar.SUNDAY;
+        }
+    }
     private void aggiornaPannelloOrdini()
     {
-        toggleStampa();
+        setGiornoDaVisualizzare();
+        togglePulsanti();
+        aggiornaListaOrdini();
     }
-    private void toggleStampa()
+    private void aggiornaListaPesate()
     {
-        if(giornoOk)
+        ordineSelezionato = elencoJListOrdini.get(jList1.getSelectedIndex());
+        creaBarrePesate();
+        initPesate();
+    }
+    private void aggiornaListaOrdini()
+    {
+        int gap = giornoDaVisualizzare - GregorianCalendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        Calendar c = GregorianCalendar.getInstance();
+        c.add(GregorianCalendar.DAY_OF_MONTH, gap);
+        elencoJListOrdini = Bollettario.dataBase.elencoiOrdini.getOrdiniGiorno(c);
+        elencoJListOrdini.ordinaData();
+        final String[] testoLista = new String[elencoJListOrdini.size()];
+        for(int i=0; i<elencoJListOrdini.size(); i++)
+        {
+            String codice = elencoJListOrdini.get(i).codiceCliente;
+            String ragioneSociale = Bollettario.dataBase.elencoClienti.get(codice).ragioneSociale;
+            testoLista[i] = ragioneSociale;
+        }
+        jList1.setModel(new javax.swing.AbstractListModel() {
+        String[] strings = testoLista;
+        public int getSize() { return strings.length; }
+        public Object getElementAt(int i) { return strings[i]; }
+        });
+    }
+    private void togglePulsanti()
+    {
+        if(GregorianCalendar.getInstance().get(Calendar.DAY_OF_WEEK) == giornoDaVisualizzare)
         {
             jButtonStampa.setEnabled(true);
             jButtonTara.setEnabled(true);
@@ -746,95 +781,40 @@ public class Interfaccia extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6MousePressed
 
     private void jButtonStampaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonStampaMousePressed
-        //stampaPesatePronte();
+        barrePesate = null;
+        
     }//GEN-LAST:event_jButtonStampaMousePressed
 
     private void jRadioButtonLunediItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonLunediItemStateChanged
-        if(Calendar.MONDAY == Calendar.getInstance().get(Calendar.DAY_OF_WEEK))
-        {
-            giornoOk = true;
-        }
-        else
-        {
-            giornoOk = false;
-        }
         aggiornaPannelloOrdini();
     }//GEN-LAST:event_jRadioButtonLunediItemStateChanged
 
     private void jRadioButtonMartediItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonMartediItemStateChanged
-        if(Calendar.TUESDAY == Calendar.getInstance().get(Calendar.DAY_OF_WEEK))
-        {
-            giornoOk = true;
-        }
-        else
-        {
-            giornoOk = false;
-        }
         aggiornaPannelloOrdini();
     }//GEN-LAST:event_jRadioButtonMartediItemStateChanged
 
     private void jRadioButtonMercolediItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonMercolediItemStateChanged
-        if(Calendar.WEDNESDAY == Calendar.getInstance().get(Calendar.DAY_OF_WEEK))
-        {
-            giornoOk = true;
-        }
-        else
-        {
-            giornoOk = false;
-        }
         aggiornaPannelloOrdini();
     }//GEN-LAST:event_jRadioButtonMercolediItemStateChanged
 
     private void jRadioButtonGiovediItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonGiovediItemStateChanged
-        if(Calendar.THURSDAY == Calendar.getInstance().get(Calendar.DAY_OF_WEEK))
-        {
-            giornoOk = true;
-        }
-        else
-        {
-            giornoOk = false;
-        }
         aggiornaPannelloOrdini();
     }//GEN-LAST:event_jRadioButtonGiovediItemStateChanged
 
     private void jRadioButtonVenerdiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonVenerdiItemStateChanged
-        if(Calendar.FRIDAY == Calendar.getInstance().get(Calendar.DAY_OF_WEEK))
-        {
-            giornoOk = true;
-        }
-        else
-        {
-            giornoOk = false;
-        }
         aggiornaPannelloOrdini();
     }//GEN-LAST:event_jRadioButtonVenerdiItemStateChanged
 
     private void jRadioButtonSabatoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonSabatoItemStateChanged
-        if(Calendar.SATURDAY == Calendar.getInstance().get(Calendar.DAY_OF_WEEK))
-        {
-            giornoOk = true;
-        }
-        else
-        {
-            giornoOk = false;
-        }
         aggiornaPannelloOrdini();
     }//GEN-LAST:event_jRadioButtonSabatoItemStateChanged
 
     private void jRadioButtonDomenicaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonDomenicaItemStateChanged
-        if(Calendar.SUNDAY == Calendar.getInstance().get(Calendar.DAY_OF_WEEK))
-        {
-            giornoOk = true;
-        }
-        else
-        {
-            giornoOk = false;
-        }
         aggiornaPannelloOrdini();
     }//GEN-LAST:event_jRadioButtonDomenicaItemStateChanged
 
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
-        selezionaOrdine();
+        aggiornaListaPesate();
     }//GEN-LAST:event_jList1ValueChanged
 
 
