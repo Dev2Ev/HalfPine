@@ -17,7 +17,7 @@ import javax.swing.SwingConstants;
  *
  * @author DiegoCarlo
  */
-public class InterfBarraPesataNumero extends InterfPesata{
+public class InterfBarraPesataNumero extends InterfBarraPesata{
    
     JButton meno;
     JButton piu;
@@ -38,26 +38,7 @@ public class InterfBarraPesataNumero extends InterfPesata{
         initComponents(nome, numero);
     }
     
-    public void setStato(StatoPesata stato)
-    {
-        this.stato = stato;
-        switch(stato)
-        {
-            case ESAURITA:
-                pannello.setBackground(new Color(204, 204, 255));
-                break;
-            case INATTIVA:
-                pannello.setBackground(new Color(240,240,240));
-                break;
-            case FOCUS_ATTIVA:
-                pannello.setBackground(new Color(153, 255, 153));
-                Bollettario.interfaccia.selezioneFocusPesata(id);
-                break;
-            case ATTIVA:
-                pannello.setBackground(new Color(255, 255, 204));
-        }
-        
-    }
+    
     
     public void initComponents(String nome, String numero)
     {

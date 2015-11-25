@@ -43,7 +43,7 @@ public class Ordine implements Serializable
     }
     void test()
     {
-        int tot = (int)(Math.random()*5);
+        int tot = 2+(int)(Math.random()*8);
         System.out.println(tot+"pesata");
         for(int i=0; i<tot; i++)
         {

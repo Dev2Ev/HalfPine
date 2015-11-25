@@ -12,12 +12,12 @@ import javax.swing.JPanel;
  *
  * @author DiegoCarlo
  */
-public class InterfPesata {
+public class InterfBarraPesata {
     protected int id;
     public StatoPesata stato;
     public JPanel pannello;
 
-    public InterfPesata(int id) {
+    public InterfBarraPesata(int id) {
         this.id = id;
         pannello = new JPanel();
         this.stato = StatoPesata.INATTIVA;
@@ -36,12 +36,11 @@ public class InterfPesata {
                 break;
             case FOCUS_ATTIVA:
                 pannello.setBackground(new Color(153, 255, 153));
-                Bollettario.interfaccia.selezioneFocusPesata(id);
+                // Bollettario.interfaccia.selezioneFocusPesata(id);
                 break;
             case ATTIVA:
                 pannello.setBackground(new Color(255, 255, 204));
         }
-        
     }
     public int getId()
     {

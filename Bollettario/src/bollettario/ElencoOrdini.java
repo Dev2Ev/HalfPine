@@ -29,10 +29,11 @@ class ElencoOrdini
         int tot = 28;
         System.out.println(tot+"ordini");
         int max = Bollettario.dataBase.elencoClienti.size();
-        int indice = (int)(Math.random()*max);
-        String codice = Bollettario.dataBase.elencoClienti.get(indice).codice;
+        
         for(int i=0; i<tot; i++)
         {
+            int indice = (int)(Math.random()*max);
+            String codice = Bollettario.dataBase.elencoClienti.get(indice).codice;
             Calendar g = new GregorianCalendar().getInstance();
             int giorno = (int)((i+1)%7);
             switch(giorno)

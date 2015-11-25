@@ -17,7 +17,7 @@ import javax.swing.SwingConstants;
  *
  * @author DiegoCarlo
  */
-public class InterfBarraPesataPeso extends InterfPesata
+public class InterfBarraPesataPeso extends InterfBarraPesata
 {
    
     JTextField tara;

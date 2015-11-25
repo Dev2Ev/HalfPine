@@ -29,13 +29,13 @@ public class Interfaccia extends javax.swing.JFrame {
     /**
      * Creates new form Interfaccia
      */
-    private Ordine ordineSelezionato;
-    private static ArrayList<InterfPesata> barrePesate;
-    Font font = font = new Font( "SansSerif", 0, 20);
+    InterfPesate interfPesate;
+    Font font = font = new Font("SansSerif", 0, 20);
     Dimension dimRadioButton = new Dimension(200, 100);
     Calendar giornoVisualizzato;
     int giornoDaVisualizzare;
     ElencoOrdini elencoJListOrdini;
+    
     public Interfaccia() {
         initComponents();
         initComponents2();
@@ -48,8 +48,8 @@ public class Interfaccia extends javax.swing.JFrame {
         initComboCalendario();
         initTime();
         initListaOrdini();
-        initPesate();
         initScrollPanelPesate();
+        aggiornaInterfacciaPesate();
     }
     private void initListaOrdini()
     {
@@ -78,98 +78,6 @@ public class Interfaccia extends javax.swing.JFrame {
     private void initScrollPanelPesate()
     {
         jScrollPane5.getVerticalScrollBar().setPreferredSize(new Dimension(50, 0));
-    }
-    private void selezionaOrdine()
-    {
-        /*ElementoIndicizzato e = (ElementoIndicizzato) jList1.getModel().getElementAt(jList1.getSelectedIndex());
-        if(e != null)
-        {
-            ordineSelezionato = Bollettario.dataBase.elencoPrototipiOrdini.get(e.id);
-            creaBarrePesate();
-        }*/
-    }
-    private void creaBarrePesate()
-    {
-        if(ordineSelezionato != null)
-        {
-            barrePesate = null;
-            barrePesate = new ArrayList<InterfPesata>();
-            for(int i=0; i<ordineSelezionato.size(); i++)
-            {
-                String nome = ordineSelezionato.get(i).idProdotto;
-                Quantita quantita = ordineSelezionato.get(i).quantita;
-                if(quantita.unita == UnitaDiMisura.NUMERO)
-                {
-                    barrePesate.add(new InterfBarraPesataNumero(nome, quantita.toString(), i));
-                }
-                if(quantita.unita == UnitaDiMisura.KILOGRAMMI)
-                {
-                    barrePesate.add(new InterfBarraPesataPeso(nome, quantita.toString(), i));
-                }
-            }
-        }
-    }
-    public static void selezioneFocusPesata(int id)
-    {
-        for(int i=0; i<barrePesate.size(); i++)
-        {
-            if(
-                    barrePesate.get(i).stato == StatoPesata.FOCUS_ATTIVA &&
-                    barrePesate.get(i).id != id
-            )
-            {
-                barrePesate.get(i).setStato(StatoPesata.ATTIVA);
-            }
-        }
-    }
-    private void initPesate()
-    {
-        if(ordineSelezionato != null)
-        {
-            jPanelSfondo = new JPanel();
-            javax.swing.GroupLayout jPanelSfondoLayout = new javax.swing.GroupLayout(jPanelSfondo);
-            jPanelSfondo.setLayout(jPanelSfondoLayout);
-
-            ParallelGroup gruppoParallelo2 = jPanelSfondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
-            for(int i=0; i<barrePesate.size(); i++)
-            {
-                gruppoParallelo2.addComponent(
-                        barrePesate.get(i).pannello,
-                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                        Short.MAX_VALUE);
-            }
-
-            SequentialGroup gruppoSequenziale = jPanelSfondoLayout.createSequentialGroup();
-            gruppoSequenziale.addContainerGap();
-            gruppoSequenziale.addGroup(gruppoParallelo2);
-            gruppoSequenziale.addContainerGap();
-
-            ParallelGroup gruppoParallelo1 = jPanelSfondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
-            gruppoParallelo1.addGroup(gruppoSequenziale);
-
-            jPanelSfondoLayout.setHorizontalGroup(gruppoParallelo1);
-
-            SequentialGroup gruppoV2 = jPanelSfondoLayout.createSequentialGroup();
-            gruppoV2.addContainerGap();
-            for(int i=0; i<barrePesate.size(); i++)
-            {
-                if(i != 0)
-                {
-                    gruppoV2.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED);
-                }
-                gruppoV2.addComponent(barrePesate.get(i).pannello,
-                        javax.swing.GroupLayout.PREFERRED_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                        javax.swing.GroupLayout.PREFERRED_SIZE);
-            }
-            gruppoV2.addContainerGap();
-            Group gruppoV = jPanelSfondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER);
-            gruppoV.addGroup(gruppoV2);
-            jPanelSfondoLayout.setVerticalGroup(gruppoV);
-
-            jScrollPane5.setViewportView(jPanelSfondo);
-        }
     }
     private void initTime()
     {
@@ -299,11 +207,10 @@ public class Interfaccia extends javax.swing.JFrame {
         togglePulsanti();
         aggiornaListaOrdini();
     }
-    private void aggiornaListaPesate()
+    private void aggiornaInterfacciaPesate()
     {
-        ordineSelezionato = elencoJListOrdini.get(jList1.getSelectedIndex());
-        creaBarrePesate();
-        initPesate();
+        interfPesate = new InterfPesate();
+        jScrollPane5.setViewportView(interfPesate.getJPanel(elencoJListOrdini.get(jList1.getSelectedIndex())));
     }
     private void aggiornaListaOrdini()
     {
@@ -397,7 +304,7 @@ public class Interfaccia extends javax.swing.JFrame {
         jButtonTara = new javax.swing.JButton();
         jComboBoxTara = new javax.swing.JComboBox();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jPanelSfondo = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -524,18 +431,18 @@ public class Interfaccia extends javax.swing.JFrame {
 
         jComboBoxTara.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        javax.swing.GroupLayout jPanelSfondoLayout = new javax.swing.GroupLayout(jPanelSfondo);
-        jPanelSfondo.setLayout(jPanelSfondoLayout);
-        jPanelSfondoLayout.setHorizontalGroup(
-            jPanelSfondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 737, Short.MAX_VALUE)
         );
-        jPanelSfondoLayout.setVerticalGroup(
-            jPanelSfondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 466, Short.MAX_VALUE)
         );
 
-        jScrollPane5.setViewportView(jPanelSfondo);
+        jScrollPane5.setViewportView(jPanel3);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ordine"));
 
@@ -781,8 +688,7 @@ public class Interfaccia extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6MousePressed
 
     private void jButtonStampaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonStampaMousePressed
-        barrePesate = null;
-        
+              
     }//GEN-LAST:event_jButtonStampaMousePressed
 
     private void jRadioButtonLunediItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonLunediItemStateChanged
@@ -814,7 +720,7 @@ public class Interfaccia extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButtonDomenicaItemStateChanged
 
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
-        aggiornaListaPesate();
+        aggiornaInterfacciaPesate();
     }//GEN-LAST:event_jList1ValueChanged
 
 
@@ -836,10 +742,10 @@ public class Interfaccia extends javax.swing.JFrame {
     private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelCalendario;
     private javax.swing.JPanel jPanelOpzioni;
     private javax.swing.JPanel jPanelOrdini;
-    private javax.swing.JPanel jPanelSfondo;
     private javax.swing.JRadioButton jRadioButtonDomenica;
     private javax.swing.JRadioButton jRadioButtonGiovedi;
     private javax.swing.JRadioButton jRadioButtonLunedi;
