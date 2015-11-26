@@ -6,6 +6,7 @@
 package bollettario.FolderDataBase;
 
 import bollettario.Bollettario;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -16,12 +17,11 @@ import java.util.GregorianCalendar;
  *
  * @author DiegoCarlo
  */
-class ElencoOrdini
+public class ElencoOrdini extends ElencoIndicizzato implements Serializable
 {
-    
     public ElencoOrdini()
     {
-        elenco = new ArrayList<Ordine>();
+        super(new ArrayList<Ordine>());
     }
     public void test()
     {
@@ -32,7 +32,7 @@ class ElencoOrdini
         for(int i=0; i<tot; i++)
         {
             int indice = (int)(Math.random()*max);
-            String codice = Bollettario.dataBase.elencoClienti.get(indice).codice;
+            long idCliente = Bollettario.dataBase.getCliente(indice).getId();
             Calendar g = new GregorianCalendar().getInstance();
             int giorno = (int)((i+1)%7);
             switch(giorno)
@@ -59,60 +59,59 @@ class ElencoOrdini
                     g.add(GregorianCalendar.DAY_OF_MONTH, 3);
                     break;
             }
-            Ordine p = new Ordine(getNewId(), codice, g);
-            p.test();
-            elenco.add(p);
+            add(idCliente, g);
         }
     }
-    public int size()
+    public void add(long idCliente, Calendar dataRichiesta)
     {
-        return elenco.size();
+        StatoContabileOrdine statoContabile = StatoContabileOrdine.PENDENTE;
+        StatoFisicoOrdine statoFisico = StatoFisicoOrdine.DA_FARE;
+        Ordine o = new Ordine
+            (
+                    getNewId(),
+                    idCliente,
+                    dataRichiesta,
+                    statoContabile,
+                    statoFisico
+            );
+        elenco.add(o);
     }
-    public long getNewId()
+    public Ordine get(long id)
     {
-        long temp = id;
-        id++;
-        return temp; 
-    }
-    public void add(Ordine ordine)
-    {
-        elenco.add(ordine);
-    }
-    public Ordine get(int i)
-    {
-        if(i >= 0 && i < elenco.size())
+        for(int i=0; i<size(); i++)
         {
-            return elenco.get(i);
-        }
-        return null;
-    }
-    public Ordine get(long indice)
-    {
-        for(int i=0; i<elenco.size(); i++)
-        {    
-            if(elenco.get(i).id == indice)
+            Ordine o = (Ordine)elenco.get(i);
+            if(o.getId() == id)
             {
-                return elenco.get(i);
+                return o;
             }
         }
         return null;
+    }
+    public Ordine get(int i)
+    {
+        return (Ordine)super.get(i);
     }
     public ElencoOrdini getOrdiniGiorno(Calendar data)
     {
         ElencoOrdini el = new ElencoOrdini();
         for(int i=0; i<elenco.size(); i++)
         {
-            Calendar d = elenco.get(i).dataRichiesta;
+            Calendar d = ((Ordine)elenco.get(i)).dataRichiesta;
             if(
                     d.get(GregorianCalendar.YEAR) == data.get(GregorianCalendar.YEAR) &&
                     d.get(GregorianCalendar.MONTH) == data.get(GregorianCalendar.MONTH) &&
                     d.get(GregorianCalendar.DAY_OF_MONTH) == data.get(GregorianCalendar.DAY_OF_MONTH)
                     )
             {
-                el.add(elenco.get(i));
+                el.add((Ordine)elenco.get(i));
             }
         }
         return el;
+    }
+    private void add(Ordine a)
+    {
+        elenco.add(a);
     }
     public void ordinaData()
     {

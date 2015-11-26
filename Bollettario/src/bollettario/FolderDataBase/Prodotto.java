@@ -13,10 +13,10 @@ import java.io.Serializable;
  */
 public class Prodotto extends OggettoIndicizzato implements Serializable
 {
-    String nome;
-    long idUnitaDiMisura;
+    public String nome;
+    public UnitaDiMisura idUnitaDiMisura;
 
-    public Prodotto(long id, String nome, long idUnitaDiMisura)
+    public Prodotto(long id, String nome, UnitaDiMisura idUnitaDiMisura)
     {
         super(id);
         this.nome = nome;

@@ -12,14 +12,12 @@ import java.io.Serializable;
  * @author DiegoCarlo
  */
 public class DataBase implements Serializable{
-    ElencoClienti elencoClienti;
-    ElencoOrdini elencoOrdini;
-    ElencoProdotti elencoProdotti;
-    ElencoUnitaDiMisura elencoUnitaDiMisura;
-    ElencoPesate elencoPesate;
+    public ElencoClienti elencoClienti;
+    public ElencoOrdini elencoOrdini;
+    public ElencoProdotti elencoProdotti;
+    public ElencoPesate elencoPesate;
     
     public DataBase() {
-        elencoUnitaDiMisura = new ElencoUnitaDiMisura();
         elencoClienti = new ElencoClienti();
         elencoProdotti = new ElencoProdotti();
         elencoOrdini = new ElencoOrdini();
@@ -29,12 +27,43 @@ public class DataBase implements Serializable{
     {
         elencoClienti.test();
         
-        elencoUnitaDiMisura.test();
-        
         elencoProdotti.test();
         
         elencoOrdini.test();
         
         elencoPesate.test();
+    }
+    public Cliente getCliente(long id)
+    {
+        return elencoClienti.get(id);
+    }
+    public Ordine getOrdine(long id)
+    {
+        return elencoOrdini.get(id);
+    }
+    public Prodotto getProdotto(long id)
+    {
+        return elencoProdotti.get(id);
+    }
+    public Pesata getPesata(long id)
+    {
+        return elencoPesate.get(id);
+    }
+    
+    public Cliente getCliente(int i)
+    {
+        return elencoClienti.get(i);
+    }
+    public Ordine getOrdine(int i)
+    {
+        return elencoOrdini.get(i);
+    }
+    public Prodotto getProdotto(int i)
+    {
+        return elencoProdotti.get(i);
+    }
+    public Pesata getPesata(int i)
+    {
+        return elencoPesate.get(i);
     }
 }

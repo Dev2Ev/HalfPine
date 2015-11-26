@@ -14,19 +14,22 @@ import javax.swing.JPanel;
  *
  * @author DiegoCarlo
  */
-public class InterfBarraPesata {
-    public StatoPesata stato;
+public class InterfBarraPesata
+{
     public JPanel pannello;
-    public Pesata pesataRichiesta;
-    public Pesata pesataDaFare;
-    public InterfBarraPesata(Pesata pesataRichiesta) {
-        this.pesataRichiesta = pesataRichiesta;
+    public long idPesata;
+    public long id;
+    
+    public InterfBarraPesata(long id, long idPesata)
+    {
+        this.id = id;
+        this.idPesata = idPesata;
         pannello = new JPanel();
-        this.stato = StatoPesata.INATTIVA;
     }
 
     public void setStato(StatoPesata stato)
     {
+        /*
         this.stato = stato;
         switch(stato)
         {
@@ -42,10 +45,10 @@ public class InterfBarraPesata {
                 break;
             case ATTIVA:
                 pannello.setBackground(new Color(255, 255, 204));
-        }
+        }*/
     }
     public long getId()
     {
-        return pesataRichiesta.id;
+        return idPesata;
     }
 }

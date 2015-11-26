@@ -22,18 +22,18 @@ public class Ordine extends OggettoIndicizzato implements Serializable
     Calendar dataDiCompletamento;
     StatoContabileOrdine statoContabile;
     StatoFisicoOrdine statoFisico;
-    
-    
-    public Ordine(long id, long idCliente, Calendar dataDiConsegna)
+
+    public Ordine(long id,long idCliente, Calendar dataRichiesta, StatoContabileOrdine statoContabile, StatoFisicoOrdine statoFisico) 
     {
         super(id);
         this.idCliente = idCliente;
-        this.dataRichiesta = dataDiConsegna;
-        
-        this.statoContabile = StatoContabileOrdine.PENDENTE;
-        this.statoFisico = StatoFisicoOrdine.DA_FARE;
-        
+        this.dataRichiesta = dataRichiesta;
+        this.statoContabile = statoContabile;
+        this.statoFisico = statoFisico;
     }
+    
+    
+    
 }
 class OrdineDataComparator implements Comparator<Ordine>
 {

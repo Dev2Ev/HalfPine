@@ -255,7 +255,7 @@ public class Interfaccia extends javax.swing.JFrame {
     }
     private void initComboCalendario()
     {
-        ElencoClienti selezione = new ElencoClienti();
+        /*ElencoClienti selezione = new ElencoClienti();
         ElencoClienti el = Bollettario.dataBase.elencoClienti;
         for(int i=0; i<el.size(); i++)
         {
@@ -271,7 +271,7 @@ public class Interfaccia extends javax.swing.JFrame {
                     selezione.get(i).codice,
                     selezione.get(i).ragioneSociale);
         }
-        jComboBoxCalendarioClienti.setModel(new javax.swing.DefaultComboBoxModel(comboCalendario));
+        jComboBoxCalendarioClienti.setModel(new javax.swing.DefaultComboBoxModel(comboCalendario));*/
     }
     private void aggiornaPannelloOpzioni()
     {

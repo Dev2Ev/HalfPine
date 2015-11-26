@@ -30,9 +30,9 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
     //Pesata pesataRichiesta;
     //Pesata pesataDaFare;
     
-    public InterfBarraPesataNumero(Pesata pesataRichiesta)
+    public InterfBarraPesataNumero(long id, long idPesata)
     {
-        super(pesataRichiesta);
+        super(id, idPesata);
         this.jFMeno = new javax.swing.JButton();
         this.jTBprodotto = new javax.swing.JToggleButton();
         this.jBPiu = new javax.swing.JButton();
@@ -51,14 +51,15 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
         Font fontGrassetto = new Font(nomeFont, Font.BOLD, dimFont);
         Font font = new Font(nomeFont, 0, dimFont);
         
-        String prodotto = Bollettario.dataBase.elencoProdotti.get(pesataRichiesta.idProdotto);
-        jTBprodotto.setText(nome);
+        Pesata p = Bollettario.dataBase.getPesata(idPesata);
+        String nomeProdotto = Bollettario.dataBase.getProdotto(p.idProdotto).nome;
+        jTBprodotto.setText(nomeProdotto);
         jTBprodotto.setFont(font);
 
         jFMeno.setText("-");
         jFMeno.setFont(font);
         
-        jTFQuantitaRichiesta.setText(numero);
+        jTFQuantitaRichiesta.setText(p.quantitaRichiesta+"");
         jTFQuantitaRichiesta.setHorizontalAlignment(SwingConstants.CENTER);
         jTFQuantitaRichiesta.setFont(fontGrassetto);
         jTFQuantitaRichiesta.setEditable(false);
@@ -109,7 +110,7 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
         );
         jBOk.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                switch(stato)
+                /*switch(stato)
                 {
                     case ESAURITA:
                         break;
@@ -120,12 +121,12 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
                         break;
                     case ATTIVA:
                         break;
-                }
+                }*/
             }
         });
         jTBprodotto.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                switch(stato)
+               /* switch(stato)
                 {
                     case ESAURITA:
                         break;
@@ -136,12 +137,12 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
                         break;
                     case ATTIVA:
                         break;
-                }
+                }*/
             }
         });
         jTBprodotto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                switch(stato)
+                /*switch(stato)
                 {
                     case ESAURITA: break;
                     case INATTIVA: 
@@ -155,7 +156,7 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
                     case ATTIVA: 
                         setStato(StatoPesata.FOCUS_ATTIVA);
                         break;
-                }
+                }*/
             }
         });
         jTFQuantitaRichiesta.addMouseListener(new java.awt.event.MouseAdapter() {

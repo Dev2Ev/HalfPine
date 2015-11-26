@@ -5,37 +5,24 @@
  */
 package bollettario.FolderDataBase;
 
-import java.io.Serializable;
-
 /**
  *
  * @author DiegoCarlo
  */
-public class UnitaDiMisura extends OggettoIndicizzato implements Serializable
+public enum UnitaDiMisura
 {
-    String sigla;
-    String descrizione;
+    KILOGRAMMO ("Kg"),
+    QUANTITA ("n°")
+    ;
 
-    public UnitaDiMisura(long id, String sigla, String descrizione)
-    {
-        super(id);
-        this.sigla = sigla;
-        this.descrizione = descrizione;
-    }
-
-    public boolean equals(UnitaDiMisura b)
-    {
-        if(sigla.equals(b.toString()))
-        {
-            return true;
-        }
-        return false;
+    private final String text;
+    
+    private UnitaDiMisura(final String text) {
+        this.text = text;
     }
     
     @Override
     public String toString() {
-        return sigla;
+        return text;
     }
-    
-    
 }

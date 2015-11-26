@@ -67,6 +67,10 @@ public class ElencoClienti extends ElencoIndicizzato implements Serializable
         }
         return null;
     }
+    public Cliente get(int i)
+    {
+        return (Cliente)super.get(i);
+    }
     public void test()
     {
         int maxClienti = 15;

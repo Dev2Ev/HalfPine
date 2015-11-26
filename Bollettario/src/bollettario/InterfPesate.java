@@ -5,11 +5,9 @@
  */
 package bollettario;
 
-import bollettario.FolderDataBase.StatoPesata;
-import bollettario.FolderDataBase.Quantita;
 import bollettario.FolderDataBase.UnitaDiMisura;
-import bollettario.FolderDataBase.Ordine;
-import java.awt.Component;
+import bollettario.FolderDataBase.Pesata;
+import bollettario.FolderDataBase.Prodotto;
 import java.util.ArrayList;
 import javax.swing.GroupLayout.Group;
 import javax.swing.GroupLayout.ParallelGroup;
@@ -21,8 +19,9 @@ import javax.swing.JPanel;
  * @author DiegoCarlo
  */
 public class InterfPesate {
+    
     private ArrayList<InterfBarraPesata> barrePesate;
-    Ordine ordineSelezionato;
+    long idOrdine;
 
     public InterfPesate()
     {
@@ -32,21 +31,22 @@ public class InterfPesate {
     
     public void creaBarrePesate()
     {
-        if(ordineSelezionato != null)
+        if(idOrdine >= 0)
         {
             barrePesate = null;
             barrePesate = new ArrayList<InterfBarraPesata>();
-            for(int i=0; i<ordineSelezionato.size(); i++)
+            ArrayList<Long> listaIdPesate = Bollettario.dataBase.elencoPesate.listaIdPesate(idOrdine);
+            for(int i=0; i<listaIdPesate.size(); i++)
             {
-                String nome = ordineSelezionato.get(i).idProdotto;
-                Quantita quantita = ordineSelezionato.get(i).quantita;
-                if(quantita.unita == UnitaDiMisura.NUMERO)
+                Pesata pe = Bollettario.dataBase.getPesata(listaIdPesate.get(i));
+                Prodotto pr = Bollettario.dataBase.getProdotto(pe.idProdotto);
+                if(pr.idUnitaDiMisura == UnitaDiMisura.QUANTITA)
                 {
-                    barrePesate.add(new InterfBarraPesataNumero(nome, quantita.toString(), i));
+                    barrePesate.add(new InterfBarraPesataNumero(i, pe.getId()));
                 }
-                if(quantita.unita == UnitaDiMisura.KILOGRAMMI)
+                if(pr.idUnitaDiMisura == UnitaDiMisura.KILOGRAMMO)
                 {
-                    barrePesate.add(new InterfBarraPesataPeso(nome, quantita.toString(), i));
+                    barrePesate.add(new InterfBarraPesataPeso(i, pe.getId()));
                 }
             }
         }
@@ -55,22 +55,22 @@ public class InterfPesate {
     {
         for(int i=0; i<barrePesate.size(); i++)
         {
-            if(
-                    barrePesate.get(i).stato == StatoPesata.FOCUS_ATTIVA &&
+            /*if(
+                    barrePesate.get(i).idPesata == StatoPesata.FOCUS_ATTIVA &&
                     barrePesate.get(i).id != id
             )
             {
                 barrePesate.get(i).setStato(StatoPesata.ATTIVA);
-            }
+            }*/
         }
     }
 
-    public JPanel getJPanel(Ordine ordineSelezionato)
+    public JPanel getJPanel(long idOrdine)
     {
-        this.ordineSelezionato = ordineSelezionato;
+        this.idOrdine = idOrdine;
         JPanel jPanelSfondo = new javax.swing.JPanel();
         
-        if(ordineSelezionato != null)
+        if(idOrdine >= 0)
         {
             creaBarrePesate();
             jPanelSfondo = new JPanel();

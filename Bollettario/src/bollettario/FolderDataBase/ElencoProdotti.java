@@ -20,21 +20,21 @@ public class ElencoProdotti extends ElencoIndicizzato implements Serializable
     }
     public void test()
     {
-        elenco.add(new Prodotto(getNewId(), "Pane", 0));
-        elenco.add(new Prodotto(getNewId(), "Focaccia", 1));
-        elenco.add(new Prodotto(getNewId(), "Grano Duro", 0));
-        elenco.add(new Prodotto(getNewId(), "Ciabatte", 1));
-        elenco.add(new Prodotto(getNewId(), "Pizza", 1));
-        elenco.add(new Prodotto(getNewId(), "Kinoa Amaranto", 0));
-        elenco.add(new Prodotto(getNewId(), "Brioches Marmellata", 1));
-        elenco.add(new Prodotto(getNewId(), "Brioches Crema", 1));
-        elenco.add(new Prodotto(getNewId(), "Brioches Cioccolata", 1));
-        elenco.add(new Prodotto(getNewId(), "Brioches Vuote", 1));
-        elenco.add(new Prodotto(getNewId(), "Focaccia Farcita", 1));
-        elenco.add(new Prodotto(getNewId(), "Pizza Farcita", 1));
-        elenco.add(new Prodotto(getNewId(), "Pane Expo", 1));
-        elenco.add(new Prodotto(getNewId(), "Fondo Pizza", 0));
-        elenco.add(new Prodotto(getNewId(), "Pizza Tonda", 1));
+        elenco.add(new Prodotto(getNewId(), "Pane", UnitaDiMisura.KILOGRAMMO));
+        elenco.add(new Prodotto(getNewId(), "Focaccia", UnitaDiMisura.QUANTITA));
+        elenco.add(new Prodotto(getNewId(), "Grano Duro", UnitaDiMisura.KILOGRAMMO));
+        elenco.add(new Prodotto(getNewId(), "Ciabatte", UnitaDiMisura.QUANTITA));
+        elenco.add(new Prodotto(getNewId(), "Pizza", UnitaDiMisura.QUANTITA));
+        elenco.add(new Prodotto(getNewId(), "Kinoa Amaranto", UnitaDiMisura.KILOGRAMMO));
+        elenco.add(new Prodotto(getNewId(), "Brioches Marmellata", UnitaDiMisura.QUANTITA));
+        elenco.add(new Prodotto(getNewId(), "Brioches Crema", UnitaDiMisura.QUANTITA));
+        elenco.add(new Prodotto(getNewId(), "Brioches Cioccolata", UnitaDiMisura.QUANTITA));
+        elenco.add(new Prodotto(getNewId(), "Brioches Vuote", UnitaDiMisura.QUANTITA));
+        elenco.add(new Prodotto(getNewId(), "Focaccia Farcita", UnitaDiMisura.QUANTITA));
+        elenco.add(new Prodotto(getNewId(), "Pizza Farcita", UnitaDiMisura.QUANTITA));
+        elenco.add(new Prodotto(getNewId(), "Pane Expo", UnitaDiMisura.QUANTITA));
+        elenco.add(new Prodotto(getNewId(), "Fondo Pizza", UnitaDiMisura.KILOGRAMMO));
+        elenco.add(new Prodotto(getNewId(), "Pizza Tonda", UnitaDiMisura.QUANTITA));
     }
     public Prodotto get(long id)
     {
@@ -49,6 +49,10 @@ public class ElencoProdotti extends ElencoIndicizzato implements Serializable
         return null;
     }
     
+    public Prodotto get(int i)
+    {
+        return (Prodotto)super.get(i);
+    }
     public String getNome(long id)
     {
         for(int i=0; i<elenco.size(); i++)
@@ -62,7 +66,7 @@ public class ElencoProdotti extends ElencoIndicizzato implements Serializable
         return "";
     }
     
-    public long getIdUnitaDiMisura(long id)
+    public UnitaDiMisura getIdUnitaDiMisura(long id)
     {
         for(int i=0; i<elenco.size(); i++)
         {
@@ -72,6 +76,6 @@ public class ElencoProdotti extends ElencoIndicizzato implements Serializable
                 return p.idUnitaDiMisura; 
             }
         }
-        return -1;
+        return null;
     }
 }

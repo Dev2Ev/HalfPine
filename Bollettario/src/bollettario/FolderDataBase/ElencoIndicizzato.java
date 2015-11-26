@@ -35,4 +35,12 @@ public class ElencoIndicizzato implements Serializable
         return elenco.size();
     }
     
+    public Object get(int i)
+    {
+        if(i >= 0 && i < size())
+        {
+            return elenco.get(i);
+        }
+        return null;
+    }
 }

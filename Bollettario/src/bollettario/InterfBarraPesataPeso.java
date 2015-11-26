@@ -5,6 +5,7 @@
  */
 package bollettario;
 
+import bollettario.FolderDataBase.Pesata;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JButton;
@@ -19,7 +20,7 @@ import javax.swing.SwingConstants;
  */
 public class InterfBarraPesataPeso extends InterfBarraPesata
 {
-   
+    long idPesata;
     JTextField tara;
     JToggleButton prodotto;
     JTextField qRichiesta;
@@ -27,29 +28,32 @@ public class InterfBarraPesataPeso extends InterfBarraPesata
     JTextField qDaFare;
     JButton ok;
 
-    public InterfBarraPesataPeso(String nome, String numero, int id)
+    public InterfBarraPesataPeso(long id, long idPesata)
     {
-        super(id);
+        super(id, idPesata);
         this.prodotto = new javax.swing.JToggleButton();
         this.tara = new javax.swing.JTextField();
         this.qRichiesta = new javax.swing.JTextField();
         this.ok = new javax.swing.JButton();
         this.qDaFare = new javax.swing.JTextField();
-        initComponents(nome, numero);
+        initComponents();
     }
     
     
     
-    public void initComponents(String nome, String numero)
+    public void initComponents()
     {
         String nomeFont = "SansSerif";
         int dimFont = 25;
         Font fontGrassetto = new Font(nomeFont, Font.BOLD, dimFont);
         Font font = new Font(nomeFont, 0, dimFont);
-        prodotto.setText(nome);
+        
+        Pesata p = Bollettario.dataBase.getPesata(idPesata);
+        String nomeProdotto = Bollettario.dataBase.getProdotto(p.idProdotto).nome;
+        prodotto.setText(nomeProdotto);
         prodotto.setFont(font);
         
-        qRichiesta.setText(numero);
+        qRichiesta.setText(p.quantitaRichiesta+"");
         qRichiesta.setHorizontalAlignment(SwingConstants.CENTER);
         qRichiesta.setFont(fontGrassetto);
         

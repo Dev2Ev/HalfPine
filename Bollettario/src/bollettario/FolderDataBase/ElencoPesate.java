@@ -21,34 +21,74 @@ public class ElencoPesate extends ElencoIndicizzato implements Serializable
         super(new ArrayList<Pesata>());
     }
 
-    public void add(Calendar dataRichiesta, long idProdotto, long idOrdine, float quantita, StatoPesata stato)
+    public void add(long idProdotto, long idOrdine, float quantita)
     {
+        StatoPesata stato = StatoPesata.INATTIVA;
         Pesata p = new Pesata
             (
-                    getNewId(), 
-                    dataRichiesta,
+                    getNewId(),
                     idProdotto, 
                     idOrdine, 
                     quantita, 
-                    stato);
+                    stato
+            );
+    }
+    public Pesata get(long id)
+    {
+        for(int i=0; i<size(); i++)
+        {
+            Pesata p = (Pesata)elenco.get(i);
+            if(p.getId() == id)
+            {
+                return p;
+            }
+        }
+        return null;
+    }
+    public Pesata get(int i)
+    {
+        return (Pesata)super.get(i);
+    }
+    public ArrayList<Long> listaIdPesate(long idOrdine)
+    {
+        ArrayList<Long> listaIdPesate = new ArrayList<Long>();
+        for(int i=0; i<size(); i++)
+        {
+            Pesata p = (Pesata)get(i);
+            if(p.idOrdine == idOrdine)
+            {
+                listaIdPesate.add(p.getId());
+            }
+        }
+        return listaIdPesate;
     }
     void test()
     {
-        int tot = 2+(int)(Math.random()*8);
-        System.out.println(tot+"pesata");
-        for(int i=0; i<tot; i++)
+        int totaleOrdini = bollettario.Bollettario.dataBase.elencoOrdini.size();
+        for(int j=0; j<totaleOrdini; j++)
         {
-            long idUnitaDiMisura = 0;
-            double random = Math.random();
-            double quantita = 1+(int)(random*20);
-            if(0.5 > Math.random())
+            int totPesateOrdine = 2+(int)(Math.random()*8);
+            int totProdotti = bollettario.Bollettario.dataBase.elencoProdotti.size();
+            ArrayList<Integer> indiciProdotti = bollettario.Utilita.indiciUnivoci(totPesateOrdine, 0, totProdotti);
+            for(int i=0; i<totPesateOrdine; i++)
             {
-                idUnitaDiMisura = 1;
-                quantita = ((int)(random*10000))/1000;
+                Prodotto p = bollettario.Bollettario.dataBase.getProdotto(indiciProdotti.get(i));
+                float quantita = (float)Math.random();
+                if(p.idUnitaDiMisura == UnitaDiMisura.KILOGRAMMO)
+                {
+                    quantita = ((int) quantita * 10000)/1000;
+                }
+                if(p.idUnitaDiMisura == UnitaDiMisura.QUANTITA)
+                {
+                    quantita = (int)(quantita * 7.25f);
+                }          
+                add
+                (
+                        indiciProdotti.get(i),//prodotto
+                        bollettario.Bollettario.dataBase.getOrdine(j).getId(),//ordine
+                        quantita
+                );
             }
-            
-                    
-            add(null); 
         }
     }
     

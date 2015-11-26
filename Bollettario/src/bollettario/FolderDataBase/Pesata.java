@@ -13,24 +13,29 @@ import java.io.Serializable;
  */
 public class Pesata extends OggettoIndicizzato implements Serializable
 {
-    long idProdotto;
-    long idOrdine;
-    float quantita;
+    public long idProdotto;
+    public long idOrdine;
+    public float quantitaRichiesta;
+    public float quantitaFisica;
     StatoPesata stato;
 
     public Pesata
-        (
-                long id,
-                long idProdotto,
-                long idOrdine,
-                float quantita,
-                StatoPesata stato
-        )
+    (
+            long id,
+            long idProdotto,
+            long idOrdine,
+            float quantitaRichiesta,
+            StatoPesata stato
+    )
     {
         super(id);
         this.idProdotto = idProdotto;
         this.idOrdine = idOrdine;
-        this.quantita = quantita;
+        this.quantitaRichiesta = quantitaRichiesta;
         this.stato = stato;
+    }
+    public void setQuantitaFisica(float quantitaFisica)
+    {
+        this.quantitaFisica = quantitaFisica;
     }
 }
