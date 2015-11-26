@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bollettario;
+package bollettario.FolderDataBase;
 
 import java.io.Serializable;
 
@@ -11,13 +11,10 @@ import java.io.Serializable;
  *
  * @author DiegoCarlo
  */
-public class Prodotto implements Serializable
+public enum StatoFisicoOrdine implements Serializable
 {
-    String idProdotto;
-    Quantita quantita;
-
-    public Prodotto(String idProdotto, Quantita quantita) {
-        this.idProdotto = idProdotto;
-        this.quantita = quantita;
-    }
+    DA_FARE,
+    INCOMPLETO,
+    COMPLETO,
+    CONSEGNATO,
 }

@@ -5,6 +5,8 @@
  */
 package bollettario;
 
+import bollettario.FolderDataBase.StatoPesata;
+import bollettario.FolderDataBase.Pesata;
 import java.awt.Color;
 import javax.swing.JPanel;
 
@@ -13,12 +15,12 @@ import javax.swing.JPanel;
  * @author DiegoCarlo
  */
 public class InterfBarraPesata {
-    protected int id;
     public StatoPesata stato;
     public JPanel pannello;
-
-    public InterfBarraPesata(int id) {
-        this.id = id;
+    public Pesata pesataRichiesta;
+    public Pesata pesataDaFare;
+    public InterfBarraPesata(Pesata pesataRichiesta) {
+        this.pesataRichiesta = pesataRichiesta;
         pannello = new JPanel();
         this.stato = StatoPesata.INATTIVA;
     }
@@ -42,8 +44,8 @@ public class InterfBarraPesata {
                 pannello.setBackground(new Color(255, 255, 204));
         }
     }
-    public int getId()
+    public long getId()
     {
-        return id;
+        return pesataRichiesta.id;
     }
 }

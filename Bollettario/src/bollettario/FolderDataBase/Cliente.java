@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bollettario;
+package bollettario.FolderDataBase;
 
 import java.io.Serializable;
 import java.util.Comparator;
@@ -12,7 +12,8 @@ import java.util.Comparator;
  *
  * @author DiegoCarlo
  */
-public class Cliente implements Serializable{
+public class Cliente extends OggettoIndicizzato implements Serializable
+{    
     String ragioneSociale;
     String codice;
     String partitaIva;
@@ -25,7 +26,9 @@ public class Cliente implements Serializable{
     String telefono;
     String fax;
 
-    public Cliente(String ragioneSociale, String codice, String partitaIva, String codiceFiscale, String indirizzo, String cap, String citta, String provincia, String stato, String telefono, String fax) {
+    public Cliente(long id, String ragioneSociale, String codice, String partitaIva, String codiceFiscale, String indirizzo, String cap, String citta, String provincia, String stato, String telefono, String fax) 
+    {
+        super(id);
         this.ragioneSociale = ragioneSociale;
         this.codice = codice;
         this.partitaIva = partitaIva;

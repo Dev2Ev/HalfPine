@@ -3,15 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bollettario;
-
-import java.io.Serializable;
+package bollettario.FolderDataBase;
 
 /**
  *
  * @author DiegoCarlo
  */
-public enum UnitaDiMisura implements Serializable{
-    KILOGRAMMI,
-    NUMERO
+public class OggettoIndicizzato
+{
+    private long id;
+
+    public OggettoIndicizzato(long id) {
+        this.id = id;
+    }
+
+    public long getId() {
+        return id;
+    }
 }

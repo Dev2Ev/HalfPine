@@ -5,6 +5,7 @@
  */
 package bollettario;
 
+import bollettario.FolderDataBase.Cliente;
 import java.util.ArrayList;
 
 /**

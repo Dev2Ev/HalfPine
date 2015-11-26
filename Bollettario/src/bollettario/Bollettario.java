@@ -5,6 +5,7 @@
  */
 package bollettario;
 
+import bollettario.FolderDataBase.DataBase;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 /**

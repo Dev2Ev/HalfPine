@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bollettario;
+package bollettario.FolderDataBase;
+
+import java.io.Serializable;
 
 /**
  *
  * @author DiegoCarlo
  */
-public enum StatoPesata
+public enum StatoPesata implements Serializable
 {
     INATTIVA, // quando non è ancora stata attivata o è stata disattivata
     ESAURITA, // quando è stata pesata

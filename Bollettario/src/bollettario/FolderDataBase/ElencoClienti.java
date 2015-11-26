@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bollettario;
+package bollettario.FolderDataBase;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,11 +13,11 @@ import java.util.Collections;
  *
  * @author DiegoCarlo
  */
-public class ElencoClienti implements Serializable{
-    ArrayList<Cliente> elenco;
-
-    public ElencoClienti(){
-        elenco = new ArrayList<Cliente>();
+public class ElencoClienti extends ElencoIndicizzato implements Serializable
+{
+    public ElencoClienti()
+    {
+        super(new ArrayList<Cliente>());
     }
 
     
@@ -31,32 +31,38 @@ public class ElencoClienti implements Serializable{
     {
         Collections.sort(elenco, new ClienteRagioneSocialeComparator());
     }
-    public void add(Cliente cliente)
+    public void add(String ragioneSociale, String codice, String partitaIva, String codiceFiscale, String indirizzo, String cap, String citta, String provincia, String stato, String telefono, String fax)
     {
-        elenco.add(cliente);
+        Cliente c = new Cliente
+        (
+                getNewId(),
+                ragioneSociale,
+                codice,
+                partitaIva,
+                codiceFiscale,
+                indirizzo,
+                cap,
+                citta,
+                provincia,
+                stato,
+                telefono,
+                fax
+        );
+        elenco.add(c);
         ordina();
     }
     public int size()
     {
         return elenco.size();
     }
-    public Cliente get(int i)
+    public Cliente get(long id)
     {
-        if(i >= 0 && i < elenco.size())
+        for(int i=0; i<size(); i++)
         {
-            return elenco.get(i);
-        }
-        return null;
-    }
-    public Cliente get(String codice)
-    {
-        for(int i=0; i<elenco.size(); i++)
-        {
-            String a = elenco.get(i).codice;
-            boolean b = codice.equals(elenco.get(i).codice);
-            if(b)
+            Cliente c = (Cliente)elenco.get(i);
+            if(c.getId() == id)
             {
-                return elenco.get(i);
+                return c;
             }
         }
         return null;
@@ -78,21 +84,19 @@ public class ElencoClienti implements Serializable{
             String stato = "stato "+1;
             String telefono = "telefono "+1;
             String fax = "fax "+1;
-            Cliente cliente = new Cliente
+            add
             (
-                ragioneSociale,
-                codice,
-                partitaIva,
-                codiceFiscale,
-                indirizzo,
-                cap,
-                citta,
-                provincia,
-                stato,
-                telefono,
-                fax
-            );
-            elenco.add(cliente);
+                    ragioneSociale,
+                    codice,
+                    partitaIva,
+                    codiceFiscale,
+                    indirizzo,
+                    cap,
+                    citta,
+                    provincia,
+                    stato,
+                    telefono,
+                    fax);
         }
     }
 }

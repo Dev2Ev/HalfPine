@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bollettario;
+package bollettario.FolderDataBase;
 
+import bollettario.Bollettario;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -18,8 +19,6 @@ import java.util.GregorianCalendar;
 class ElencoOrdini
 {
     
-    ArrayList<Ordine> elenco;
-    long id;
     public ElencoOrdini()
     {
         elenco = new ArrayList<Ordine>();
@@ -103,7 +102,7 @@ class ElencoOrdini
         ElencoOrdini el = new ElencoOrdini();
         for(int i=0; i<elenco.size(); i++)
         {
-            Calendar d = elenco.get(i).dataDiConsegna;
+            Calendar d = elenco.get(i).dataRichiesta;
             if(
                     d.get(GregorianCalendar.YEAR) == data.get(GregorianCalendar.YEAR) &&
                     d.get(GregorianCalendar.MONTH) == data.get(GregorianCalendar.MONTH) &&

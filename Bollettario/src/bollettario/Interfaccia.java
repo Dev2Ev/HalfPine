@@ -5,6 +5,8 @@
  */
 package bollettario;
 
+import bollettario.FolderDataBase.ElencoClienti;
+import bollettario.FolderDataBase.ElencoOrdini;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.text.DateFormatSymbols;
@@ -217,7 +219,7 @@ public class Interfaccia extends javax.swing.JFrame {
         int gap = giornoDaVisualizzare - GregorianCalendar.getInstance().get(Calendar.DAY_OF_WEEK);
         Calendar c = GregorianCalendar.getInstance();
         c.add(GregorianCalendar.DAY_OF_MONTH, gap);
-        elencoJListOrdini = Bollettario.dataBase.elencoiOrdini.getOrdiniGiorno(c);
+        elencoJListOrdini = Bollettario.dataBase.elencoOrdini.getOrdiniGiorno(c);
         elencoJListOrdini.ordinaData();
         final String[] testoLista = new String[elencoJListOrdini.size()];
         for(int i=0; i<elencoJListOrdini.size(); i++)
@@ -306,11 +308,12 @@ public class Interfaccia extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButtonOrdineAggiungi = new javax.swing.JButton();
+        jButtonOrdineElimina = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jButtonProdottoElimina = new javax.swing.JButton();
         jButtonProdottoAggiungi = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jButtonProdottoModifica = new javax.swing.JButton();
         jPanelCalendario = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -446,11 +449,11 @@ public class Interfaccia extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ordine"));
 
-        jButton1.setText("Aggiungi");
-        jButton1.setFont(font);
+        jButtonOrdineAggiungi.setText("Aggiungi");
+        jButtonOrdineAggiungi.setFont(font);
 
-        jButton3.setText("Elimina");
-        jButton3.setFont(font);
+        jButtonOrdineElimina.setText("Elimina");
+        jButtonOrdineElimina.setFont(font);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -459,27 +462,29 @@ public class Interfaccia extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE))
+                    .addComponent(jButtonOrdineElimina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonOrdineAggiungi, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonOrdineAggiungi, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonOrdineElimina, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Prodotto"));
 
+        jButtonProdottoElimina.setText("Elimina");
+        jButtonProdottoElimina.setFont(font);
+
         jButtonProdottoAggiungi.setText("Aggiungi");
         jButtonProdottoAggiungi.setFont(font);
 
-        jButton4.setText("Elimina");
-        jButton4.setFont(font);
+        jButtonProdottoModifica.setText("Modifica");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -487,9 +492,11 @@ public class Interfaccia extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonProdottoAggiungi, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonProdottoAggiungi, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonProdottoElimina, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                    .addComponent(jButtonProdottoModifica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -498,7 +505,10 @@ public class Interfaccia extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonProdottoAggiungi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButtonProdottoElimina, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonProdottoModifica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -726,11 +736,12 @@ public class Interfaccia extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButtonOrdineAggiungi;
+    private javax.swing.JButton jButtonOrdineElimina;
     private javax.swing.JButton jButtonProdottoAggiungi;
+    private javax.swing.JButton jButtonProdottoElimina;
+    private javax.swing.JButton jButtonProdottoModifica;
     private javax.swing.JButton jButtonStampa;
     private javax.swing.JButton jButtonTara;
     private javax.swing.JComboBox jComboBoxCalendarioClienti;

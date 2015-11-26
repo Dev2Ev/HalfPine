@@ -5,6 +5,10 @@
  */
 package bollettario;
 
+import bollettario.FolderDataBase.StatoPesata;
+import bollettario.FolderDataBase.Quantita;
+import bollettario.FolderDataBase.UnitaDiMisura;
+import bollettario.FolderDataBase.Ordine;
 import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.GroupLayout.Group;
