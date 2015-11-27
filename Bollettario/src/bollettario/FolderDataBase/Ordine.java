@@ -17,11 +17,11 @@ import java.util.Calendar;
  */
 public class Ordine extends OggettoIndicizzato implements Serializable
 {
-    long idCliente;
-    Calendar dataRichiesta;
-    Calendar dataDiCompletamento;
-    StatoContabileOrdine statoContabile;
-    StatoFisicoOrdine statoFisico;
+    public long idCliente;
+    public Calendar dataRichiesta;
+    public Calendar dataDiCompletamento;
+    public StatoContabileOrdine statoContabile;
+    public StatoFisicoOrdine statoFisico;
 
     public Ordine(long id,long idCliente, Calendar dataRichiesta, StatoContabileOrdine statoContabile, StatoFisicoOrdine statoFisico) 
     {
@@ -37,7 +37,8 @@ public class Ordine extends OggettoIndicizzato implements Serializable
 }
 class OrdineDataComparator implements Comparator<Ordine>
 {
-    public int compare(Ordine ordine1, Ordine ordine2) {
+    public int compare(Ordine ordine1, Ordine ordine2)
+    {
         if(ordine1.dataRichiesta.getTimeInMillis() - ordine2.dataRichiesta.getTimeInMillis()>=0)
         {
             return 1;

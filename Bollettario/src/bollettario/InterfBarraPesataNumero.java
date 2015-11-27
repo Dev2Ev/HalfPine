@@ -59,7 +59,8 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
         jFMeno.setText("-");
         jFMeno.setFont(font);
         
-        jTFQuantitaRichiesta.setText(p.quantitaRichiesta+"");
+        int a = (int)p.quantitaRichiesta;
+        jTFQuantitaRichiesta.setText(a+"");
         jTFQuantitaRichiesta.setHorizontalAlignment(SwingConstants.CENTER);
         jTFQuantitaRichiesta.setFont(fontGrassetto);
         jTFQuantitaRichiesta.setEditable(false);

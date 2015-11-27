@@ -14,9 +14,16 @@ import java.util.ArrayList;
  */
 public class ElencoProdotti extends ElencoIndicizzato implements Serializable
 {
+    ArrayList<Prodotto> elenco;
+    
     public ElencoProdotti()
     {
-        super(new ArrayList<Prodotto>());
+        super();
+        this.elenco = new ArrayList<Prodotto>();
+    }
+    public int size()
+    {
+        return elenco.size();
     }
     public void test()
     {
@@ -51,7 +58,7 @@ public class ElencoProdotti extends ElencoIndicizzato implements Serializable
     
     public Prodotto get(int i)
     {
-        return (Prodotto)super.get(i);
+        return elenco.get(i);
     }
     public String getNome(long id)
     {

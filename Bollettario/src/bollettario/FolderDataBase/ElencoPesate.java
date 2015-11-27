@@ -15,23 +15,31 @@ import java.util.Calendar;
  */
 public class ElencoPesate extends ElencoIndicizzato implements Serializable
 {
-
+    ArrayList<Pesata> elenco;
     public ElencoPesate()
     {
-        super(new ArrayList<Pesata>());
+        super();
+        this.elenco = new ArrayList<Pesata>();
     }
 
     public void add(long idProdotto, long idOrdine, float quantita)
     {
         StatoPesata stato = StatoPesata.INATTIVA;
-        Pesata p = new Pesata
-            (
-                    getNewId(),
-                    idProdotto, 
-                    idOrdine, 
-                    quantita, 
-                    stato
-            );
+        elenco.add
+        (
+                new Pesata
+                (
+                        getNewId(),
+                        idProdotto, 
+                        idOrdine, 
+                        quantita, 
+                        stato
+                )
+        );
+    }
+    public int size()
+    {
+        return elenco.size();
     }
     public Pesata get(long id)
     {
@@ -47,7 +55,7 @@ public class ElencoPesate extends ElencoIndicizzato implements Serializable
     }
     public Pesata get(int i)
     {
-        return (Pesata)super.get(i);
+        return elenco.get(i);
     }
     public ArrayList<Long> listaIdPesate(long idOrdine)
     {

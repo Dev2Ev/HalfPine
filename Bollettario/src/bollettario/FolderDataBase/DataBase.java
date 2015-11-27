@@ -32,6 +32,7 @@ public class DataBase implements Serializable{
         elencoOrdini.test();
         
         elencoPesate.test();
+        int a = 2;
     }
     public Cliente getCliente(long id)
     {
