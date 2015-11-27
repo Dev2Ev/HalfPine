@@ -15,12 +15,14 @@ import java.util.Collections;
  */
 public class ElencoClienti extends ElencoIndicizzato implements Serializable
 {
+    ArrayList<Cliente> elenco;
+    long idCounter;
+    
     public ElencoClienti()
     {
-        super(new ArrayList<Cliente>());
+        super();
+        this.elenco = new ArrayList<Cliente>();
     }
-
-    
     void setArrayList(ArrayList<Cliente> elenco)
     {
         this.elenco = elenco;
@@ -29,7 +31,10 @@ public class ElencoClienti extends ElencoIndicizzato implements Serializable
 
     private void ordina()
     {
-        Collections.sort(elenco, new ClienteRagioneSocialeComparator());
+        if(elenco.size() > 1)
+        {
+            Collections.sort(elenco, new ClienteRagioneSocialeComparator());
+        }
     }
     public void add(String ragioneSociale, String codice, String partitaIva, String codiceFiscale, String indirizzo, String cap, String citta, String provincia, String stato, String telefono, String fax)
     {
@@ -69,7 +74,7 @@ public class ElencoClienti extends ElencoIndicizzato implements Serializable
     }
     public Cliente get(int i)
     {
-        return (Cliente)super.get(i);
+        return elenco.get(i);
     }
     public void test()
     {

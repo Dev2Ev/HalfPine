@@ -5,8 +5,8 @@
  */
 package bollettario;
 
-import bollettario.FolderDataBase.StatoPesata;
 import bollettario.FolderDataBase.Pesata;
+import bollettario.FolderDataBase.StatoPesata;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JButton;
@@ -21,31 +21,35 @@ import javax.swing.SwingConstants;
  */
 public class InterfBarraPesataNumero extends InterfBarraPesata{
    
-    JButton jFMeno;
+    JButton jBMeno;
     JButton jBPiu;
-    JToggleButton jTBprodotto;
     JTextField jTFQuantitaRichiesta;
     JTextField jTFQuantitaDaFare;
-    JButton jBOk;
     //Pesata pesataRichiesta;
     //Pesata pesataDaFare;
     
     public InterfBarraPesataNumero(long id, long idPesata)
     {
         super(id, idPesata);
-        this.jFMeno = new javax.swing.JButton();
-        this.jTBprodotto = new javax.swing.JToggleButton();
+        this.jBMeno = new javax.swing.JButton();
         this.jBPiu = new javax.swing.JButton();
         this.jTFQuantitaRichiesta = new javax.swing.JTextField();
-        this.jBOk = new javax.swing.JButton();
         this.jTFQuantitaDaFare = new javax.swing.JTextField();
         initComponents();
     }
     
     
-    
+    public void setEnableItems(boolean enable)
+    {
+        jBMeno.setEnabled(enable);
+        jBPiu.setEnabled(enable);
+        jTFQuantitaRichiesta.setEnabled(enable);
+        jTFQuantitaDaFare.setEnabled(enable);
+    }
     public void initComponents()
     {
+        super.initComponents();
+        setEnableItems(false);
         String nomeFont = "SansSerif";
         int dimFont = 25;
         Font fontGrassetto = new Font(nomeFont, Font.BOLD, dimFont);
@@ -56,10 +60,11 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
         jTBprodotto.setText(nomeProdotto);
         jTBprodotto.setFont(font);
 
-        jFMeno.setText("-");
-        jFMeno.setFont(font);
+        jBMeno.setText("-");
+        jBMeno.setFont(font);
         
-        jTFQuantitaRichiesta.setText(p.quantitaRichiesta+"");
+        int a = (int)p.quantitaRichiesta;
+        jTFQuantitaRichiesta.setText(a+"");
         jTFQuantitaRichiesta.setHorizontalAlignment(SwingConstants.CENTER);
         jTFQuantitaRichiesta.setFont(fontGrassetto);
         jTFQuantitaRichiesta.setEditable(false);
@@ -85,7 +90,7 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTFQuantitaRichiesta, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jFMeno, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBMeno, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTFQuantitaDaFare, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -98,7 +103,7 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
             .addGroup(pannelloLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pannelloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jFMeno, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+                    .addComponent(jBMeno, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
                     .addComponent(jBOk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTBprodotto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pannelloLayout.createSequentialGroup()
@@ -126,18 +131,23 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
         });
         jTBprodotto.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-               /* switch(stato)
+                jTBprodottoStateChanged();
+                if(jTBprodotto.isSelected())
                 {
-                    case ESAURITA:
-                        break;
-                    case INATTIVA:
-                        break;
-                    case FOCUS_ATTIVA:
-                        jTBprodotto.setSelected(true);
-                        break;
-                    case ATTIVA:
-                        break;
-                }*/
+                    setEnableItems(true);
+                }
+                else
+                {
+                    if(jBOk.isSelected())
+                    {
+                        setEnableItems(true);
+                    }
+                    else
+                    {
+                        setEnableItems(false);
+                    }
+                }
+                    
             }
         });
         jTBprodotto.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -161,7 +171,47 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
         });
         jTFQuantitaRichiesta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jTFQuantitaDaFare.setText(jTFQuantitaRichiesta.getText());
+                if(jTFQuantitaRichiesta.isEnabled())
+                {
+                    jTFQuantitaDaFare.setText(jTFQuantitaRichiesta.getText());
+                }
+            }
+        });
+        jBPiu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                if(jBPiu.isEnabled())
+                {
+                    String cifra = jTFQuantitaDaFare.getText();
+                    int numero;
+                    try
+                    {
+                        numero = Integer.parseInt(cifra);
+                        numero++;
+                    } catch (NumberFormatException e) {
+                          numero = 0;
+                    }
+                    jTFQuantitaDaFare.setText(numero+"");
+                }
+            }
+        });
+        jBMeno.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                if(jBMeno.isEnabled())
+                {
+                    String cifra = jTFQuantitaDaFare.getText();
+                    int numero;
+                    try
+                    {
+                        numero = Integer.parseInt(cifra);
+                        if(numero > 0)
+                        {
+                            numero--;
+                        }
+                    } catch (NumberFormatException e) {
+                          numero = 0;
+                    }
+                    jTFQuantitaDaFare.setText(numero+"");
+                }
             }
         });
     }

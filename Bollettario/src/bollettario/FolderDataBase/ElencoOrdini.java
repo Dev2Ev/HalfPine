@@ -19,9 +19,13 @@ import java.util.GregorianCalendar;
  */
 public class ElencoOrdini extends ElencoIndicizzato implements Serializable
 {
+    public static int ORDINA_DATA = 1;
+    private ArrayList<Ordine> elenco;
+    
     public ElencoOrdini()
     {
-        super(new ArrayList<Ordine>());
+        super();
+        this.elenco = new ArrayList<Ordine>();
     }
     public void test()
     {
@@ -75,6 +79,11 @@ public class ElencoOrdini extends ElencoIndicizzato implements Serializable
                     statoFisico
             );
         elenco.add(o);
+        ordinaData();
+    }
+    public int size()
+    {
+        return elenco.size();
     }
     public Ordine get(long id)
     {
@@ -90,11 +99,11 @@ public class ElencoOrdini extends ElencoIndicizzato implements Serializable
     }
     public Ordine get(int i)
     {
-        return (Ordine)super.get(i);
+        return elenco.get(i);
     }
-    public ElencoOrdini getOrdiniGiorno(Calendar data)
+    public ArrayList<Long> getOrdiniGiorno(Calendar data)
     {
-        ElencoOrdini el = new ElencoOrdini();
+        ArrayList<Long> el = new ArrayList<Long>();
         for(int i=0; i<elenco.size(); i++)
         {
             Calendar d = ((Ordine)elenco.get(i)).dataRichiesta;
@@ -104,10 +113,45 @@ public class ElencoOrdini extends ElencoIndicizzato implements Serializable
                     d.get(GregorianCalendar.DAY_OF_MONTH) == data.get(GregorianCalendar.DAY_OF_MONTH)
                     )
             {
-                el.add((Ordine)elenco.get(i));
+                el.add(((Ordine)elenco.get(i)).getId());
             }
         }
         return el;
+    }
+    public ArrayList<Long> ordina(int discriminante, ArrayList<Long> selezione)
+    {
+        ElencoOrdini a;
+        switch(discriminante)
+        {
+            case 1:
+                a = get(selezione);
+                a.ordinaData();
+                return a.getIndici();
+            default:
+            {
+                a = get(selezione);
+                a.ordinaData();
+                return a.getIndici();
+            }
+        }
+    }
+    public ArrayList<Long> getIndici()
+    {
+        ArrayList<Long> a = new ArrayList<Long>();
+        for(int i=0; i<size(); i++)
+        {
+            a.add(((Ordine)get(i)).getId());
+        }
+        return a;
+    }
+    private ElencoOrdini get(ArrayList<Long> indici)
+    {
+        ElencoOrdini e = new ElencoOrdini();
+        for(int i=0; i<indici.size(); i++)
+        {
+            e.add(get(indici.get(i)));
+        }
+        return e;
     }
     private void add(Ordine a)
     {

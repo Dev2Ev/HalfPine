@@ -9,6 +9,7 @@ import bollettario.FolderDataBase.UnitaDiMisura;
 import bollettario.FolderDataBase.Pesata;
 import bollettario.FolderDataBase.Prodotto;
 import java.util.ArrayList;
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout.Group;
 import javax.swing.GroupLayout.ParallelGroup;
 import javax.swing.GroupLayout.SequentialGroup;
@@ -22,10 +23,11 @@ public class InterfPesate {
     
     private ArrayList<InterfBarraPesata> barrePesate;
     long idOrdine;
-
+    ButtonGroup gruppo;
     public InterfPesate()
     {
-        barrePesate = new ArrayList<InterfBarraPesata>();
+        this.barrePesate = new ArrayList<InterfBarraPesata>();
+        this.gruppo = new ButtonGroup();
     }
     
     
@@ -40,14 +42,20 @@ public class InterfPesate {
             {
                 Pesata pe = Bollettario.dataBase.getPesata(listaIdPesate.get(i));
                 Prodotto pr = Bollettario.dataBase.getProdotto(pe.idProdotto);
-                if(pr.idUnitaDiMisura == UnitaDiMisura.QUANTITA)
+                InterfBarraPesata barra;
+                switch(pr.unitaDiMisura)
                 {
-                    barrePesate.add(new InterfBarraPesataNumero(i, pe.getId()));
+                    case QUANTITA:
+                        barra = new InterfBarraPesataNumero(i, pe.getId());
+                        break;
+                    case KILOGRAMMO:
+                        barra = new InterfBarraPesataPeso(i, pe.getId());
+                        break;
+                    default:
+                        barra = new InterfBarraPesataPeso(i, pe.getId());
                 }
-                if(pr.idUnitaDiMisura == UnitaDiMisura.KILOGRAMMO)
-                {
-                    barrePesate.add(new InterfBarraPesataPeso(i, pe.getId()));
-                }
+                barrePesate.add(barra);
+                gruppo.add(barra.jTBprodotto);
             }
         }
     }

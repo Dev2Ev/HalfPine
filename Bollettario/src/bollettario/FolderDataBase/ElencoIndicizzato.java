@@ -5,42 +5,23 @@
  */
 package bollettario.FolderDataBase;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
 /**
  *
  * @author DiegoCarlo
  */
-public class ElencoIndicizzato implements Serializable
+public abstract class ElencoIndicizzato
 {
-    protected long idCounter;
-    protected ArrayList elenco;
+    long idCounter;
 
-    public ElencoIndicizzato(ArrayList elenco)
+    public ElencoIndicizzato()
     {
         this.idCounter = 0;
-        this.elenco = elenco;
     }
-    
-    protected long getNewId()
+    public long getNewId()
     {
         long temp = idCounter;
         idCounter++;
         return temp;
     }
     
-    public int size()
-    {
-        return elenco.size();
-    }
-    
-    public Object get(int i)
-    {
-        if(i >= 0 && i < size())
-        {
-            return elenco.get(i);
-        }
-        return null;
-    }
 }

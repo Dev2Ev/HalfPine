@@ -5,22 +5,14 @@
  */
 package bollettario;
 
-import bollettario.FolderDataBase.ElencoClienti;
-import bollettario.FolderDataBase.ElencoOrdini;
+import bollettario.FolderDataBase.*;
+import bollettario.FolderDataBase.Ordine;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Locale;
-import javax.swing.ButtonModel;
-import javax.swing.DefaultListModel;
-import javax.swing.GroupLayout.Group;
-import javax.swing.GroupLayout.ParallelGroup;
-import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.JPanel;
-import javax.swing.table.TableColumn;
 
 /**
  *
@@ -36,56 +28,36 @@ public class Interfaccia extends javax.swing.JFrame {
     Dimension dimRadioButton = new Dimension(200, 100);
     Calendar giornoVisualizzato;
     int giornoDaVisualizzare;
-    ElencoOrdini elencoJListOrdini;
+    ArrayList<Long> elencoJListOrdini;
     
-    public Interfaccia() {
+    public Interfaccia()
+    {
+        initGiorno();
         initComponents();
         initComponents2();
     }
 
+    private void initGiorno()
+    {
+        Calendar c = GregorianCalendar.getInstance();
+        giornoDaVisualizzare = c.get(Calendar.DAY_OF_WEEK);
+    }
     private void initComponents2()
     {
+        initJRBGiorni();
         initJTable();
         ricercaComboCalendario.setText("");
         initComboCalendario();
-        initTime();
-        initListaOrdini();
         initScrollPanelPesate();
         aggiornaInterfacciaPesate();
     }
-    private void initListaOrdini()
-    {
-        /*ElencoOrdini selezione = Bollettario.dataBase.elencoPrototipiOrdini.getOrdiniGiorno(getOggi());
-        
-        DefaultListModel listModel = new DefaultListModel();
-        for(int i=0; i<selezione.size(); i++)
-        {
-            String ragioneSociale = Bollettario.dataBase.elencoClienti.get(
-                    selezione.get(i).codiceCliente
-            ).ragioneSociale;
-            listModel.addElement(
-                    new ElementoIndicizzato(
-                            selezione.get(i).id
-                            ragioneSociale
-                    )
-            );
-        }
-        
-           
-        if(selezione.size()>0)
-        {
-            jList1.setModel(listModel);
-        }*/
-    }
+    
     private void initScrollPanelPesate()
     {
         jScrollPane5.getVerticalScrollBar().setPreferredSize(new Dimension(50, 0));
     }
-    private void initTime()
+    private void initJRBGiorni()
     {
-        Calendar c = GregorianCalendar.getInstance();
-        giornoDaVisualizzare = c.get(Calendar.DAY_OF_WEEK);
-        
         jRadioButtonLunedi.setText("Lunedì");
         jRadioButtonMartedi.setText("Martedì");
         jRadioButtonMercoledi.setText("Mercoledì");
@@ -208,31 +180,59 @@ public class Interfaccia extends javax.swing.JFrame {
         setGiornoDaVisualizzare();
         togglePulsanti();
         aggiornaListaOrdini();
+        aggiornaInterfacciaPesate();
     }
     private void aggiornaInterfacciaPesate()
     {
         interfPesate = new InterfPesate();
-        jScrollPane5.setViewportView(interfPesate.getJPanel(elencoJListOrdini.get(jList1.getSelectedIndex())));
+        int indJlist = jList1.getSelectedIndex();
+        if(indJlist >= 0 && indJlist < elencoJListOrdini.size())
+        {
+            long idOrd = elencoJListOrdini.get(indJlist);
+            jScrollPane5.setViewportView
+            (
+                    interfPesate.getJPanel
+                    (
+                            idOrd
+                    )
+            );
+        }
+        else
+        {
+            jScrollPane5.setViewportView
+            (
+                    new JPanel()
+            );
+        }
     }
     private void aggiornaListaOrdini()
     {
         int gap = giornoDaVisualizzare - GregorianCalendar.getInstance().get(Calendar.DAY_OF_WEEK);
         Calendar c = GregorianCalendar.getInstance();
         c.add(GregorianCalendar.DAY_OF_MONTH, gap);
-        elencoJListOrdini = Bollettario.dataBase.elencoOrdini.getOrdiniGiorno(c);
-        elencoJListOrdini.ordinaData();
-        final String[] testoLista = new String[elencoJListOrdini.size()];
-        for(int i=0; i<elencoJListOrdini.size(); i++)
+        ElencoOrdini e = Bollettario.dataBase.elencoOrdini;
+        elencoJListOrdini = new ArrayList<Long>();
+        elencoJListOrdini = e.getOrdiniGiorno(c);
+        if(elencoJListOrdini.size() >= 0)
         {
-            String codice = elencoJListOrdini.get(i).codiceCliente;
-            String ragioneSociale = Bollettario.dataBase.elencoClienti.get(codice).ragioneSociale;
-            testoLista[i] = ragioneSociale;
+            elencoJListOrdini = e.ordina(ElencoOrdini.ORDINA_DATA, elencoJListOrdini);
+        
+            final String[] testoLista = new String[elencoJListOrdini.size()];
+            for(int i=0; i<elencoJListOrdini.size(); i++)
+            {
+                Ordine o = (Ordine)e.get(elencoJListOrdini.get(i));
+                long idOrdine = o.getId();
+                String ragioneSociale = ((Cliente)Bollettario.dataBase.elencoClienti.get(o.idCliente)).ragioneSociale;
+                testoLista[i] = idOrdine + "| " + ragioneSociale;
+            }
+            jList1.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = testoLista;
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+            });
+            DataBase s = Bollettario.dataBase;
+            int i = 0;
         }
-        jList1.setModel(new javax.swing.AbstractListModel() {
-        String[] strings = testoLista;
-        public int getSize() { return strings.length; }
-        public Object getElementAt(int i) { return strings[i]; }
-        });
     }
     private void togglePulsanti()
     {
@@ -485,6 +485,7 @@ public class Interfaccia extends javax.swing.JFrame {
         jButtonProdottoAggiungi.setFont(font);
 
         jButtonProdottoModifica.setText("Modifica");
+        jButtonProdottoModifica.setFont(font);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -492,23 +493,23 @@ public class Interfaccia extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButtonProdottoAggiungi, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonProdottoElimina, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
-                    .addComponent(jButtonProdottoModifica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButtonProdottoElimina, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonProdottoModifica, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE))
+                    .addComponent(jButtonProdottoAggiungi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jButtonProdottoAggiungi, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonProdottoAggiungi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButtonProdottoElimina, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonProdottoModifica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jButtonProdottoModifica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonProdottoElimina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -579,7 +580,7 @@ public class Interfaccia extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelOrdiniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
-                    .addComponent(jScrollPane5))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelOrdiniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonStampa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

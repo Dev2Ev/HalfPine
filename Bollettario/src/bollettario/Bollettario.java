@@ -18,7 +18,9 @@ public class Bollettario {
     public static DataBase dataBase;
     public static String nomeDB = "DataBaseGF";
     public static String estensione = ".dbn";
-    public static void main(String[] args) {
+    
+    public static void main(String[] args)
+    {
         caricaStile();
         dataBase = new DataBase();
         carica();

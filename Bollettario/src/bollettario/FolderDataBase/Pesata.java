@@ -17,7 +17,7 @@ public class Pesata extends OggettoIndicizzato implements Serializable
     public long idOrdine;
     public float quantitaRichiesta;
     public float quantitaFisica;
-    StatoPesata stato;
+    public StatoPesata stato;
 
     public Pesata
     (

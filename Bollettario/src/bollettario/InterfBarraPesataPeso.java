@@ -22,19 +22,15 @@ public class InterfBarraPesataPeso extends InterfBarraPesata
 {
     long idPesata;
     JTextField tara;
-    JToggleButton prodotto;
     JTextField qRichiesta;
     JTextField altro;
     JTextField qDaFare;
-    JButton ok;
 
     public InterfBarraPesataPeso(long id, long idPesata)
     {
         super(id, idPesata);
-        this.prodotto = new javax.swing.JToggleButton();
         this.tara = new javax.swing.JTextField();
         this.qRichiesta = new javax.swing.JTextField();
-        this.ok = new javax.swing.JButton();
         this.qDaFare = new javax.swing.JTextField();
         initComponents();
     }
@@ -43,6 +39,7 @@ public class InterfBarraPesataPeso extends InterfBarraPesata
     
     public void initComponents()
     {
+        super.initComponents();
         String nomeFont = "SansSerif";
         int dimFont = 25;
         Font fontGrassetto = new Font(nomeFont, Font.BOLD, dimFont);
@@ -50,8 +47,8 @@ public class InterfBarraPesataPeso extends InterfBarraPesata
         
         Pesata p = Bollettario.dataBase.getPesata(idPesata);
         String nomeProdotto = Bollettario.dataBase.getProdotto(p.idProdotto).nome;
-        prodotto.setText(nomeProdotto);
-        prodotto.setFont(font);
+        jTBprodotto.setText(nomeProdotto);
+        jTBprodotto.setFont(font);
         
         qRichiesta.setText(p.quantitaRichiesta+"");
         qRichiesta.setHorizontalAlignment(SwingConstants.CENTER);
@@ -67,8 +64,8 @@ public class InterfBarraPesataPeso extends InterfBarraPesata
         
         
         
-        ok.setText("OK");
-        ok.setFont(font);
+        jBOk.setText("OK");
+        jBOk.setFont(font);
         
         pannello.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         
@@ -77,7 +74,7 @@ public class InterfBarraPesataPeso extends InterfBarraPesata
         pannelloLayout.setHorizontalGroup(pannelloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pannelloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(prodotto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTBprodotto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(qRichiesta, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -85,7 +82,7 @@ public class InterfBarraPesataPeso extends InterfBarraPesata
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(qDaFare, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(ok, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBOk, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         pannelloLayout.setVerticalGroup(pannelloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,8 +90,8 @@ public class InterfBarraPesataPeso extends InterfBarraPesata
                 .addContainerGap()
                 .addGroup(pannelloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pannelloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(prodotto, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-                        .addComponent(ok, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE))
+                        .addComponent(jTBprodotto, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+                        .addComponent(jBOk, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE))
                     .addGroup(pannelloLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(qDaFare))
@@ -102,5 +99,10 @@ public class InterfBarraPesataPeso extends InterfBarraPesata
                     .addComponent(tara, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
+        jTBprodotto.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jTBprodottoStateChanged();
+            }
+        });
     }
 }

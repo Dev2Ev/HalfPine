@@ -1,0 +1,2 @@
+bollettario.FolderDataBase.Cliente
+bollettario.FolderDataBase.ClienteRagioneSocialeComparator

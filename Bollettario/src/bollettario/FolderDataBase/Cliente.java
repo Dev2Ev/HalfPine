@@ -14,17 +14,17 @@ import java.util.Comparator;
  */
 public class Cliente extends OggettoIndicizzato implements Serializable
 {    
-    String ragioneSociale;
-    String codice;
-    String partitaIva;
-    String codiceFiscale;
-    String indirizzo;
-    String cap;
-    String citta;
-    String provincia;
-    String stato;
-    String telefono;
-    String fax;
+    public String ragioneSociale;
+    public String codice;
+    public String partitaIva;
+    public String codiceFiscale;
+    public String indirizzo;
+    public String cap;
+    public String citta;
+    public String provincia;
+    public String stato;
+    public String telefono;
+    public String fax;
 
     public Cliente(long id, String ragioneSociale, String codice, String partitaIva, String codiceFiscale, String indirizzo, String cap, String citta, String provincia, String stato, String telefono, String fax) 
     {

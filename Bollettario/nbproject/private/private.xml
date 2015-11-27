@@ -3,27 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/DiegoCarlo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/FolderDataBase/UnitaDiMisura.java</file>
-            <file>file:/C:/Users/DiegoCarlo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/FolderDataBase/StatoPesata.java</file>
-            <file>file:/C:/Users/DiegoCarlo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/Interfaccia.java</file>
-            <file>file:/C:/Users/DiegoCarlo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/FolderDataBase/ElencoProdotti.java</file>
-            <file>file:/C:/Users/DiegoCarlo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/FolderDataBase/Pesata.java</file>
-            <file>file:/C:/Users/DiegoCarlo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/InterfPesate.java</file>
-            <file>file:/C:/Users/DiegoCarlo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/FolderDataBase/Cliente.java</file>
-            <file>file:/C:/Users/DiegoCarlo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/FolderDataBase/StatoContabileOrdine.java</file>
-            <file>file:/C:/Users/DiegoCarlo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/FolderDataBase/ElencoIndicizzato.java</file>
-            <file>file:/C:/Users/DiegoCarlo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/FolderDataBase/Ordine.java</file>
-            <file>file:/C:/Users/DiegoCarlo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/InterfBarraPesataPeso.java</file>
-            <file>file:/C:/Users/DiegoCarlo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/FolderDataBase/ElencoClienti.java</file>
-            <file>file:/C:/Users/DiegoCarlo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/Utilita.java</file>
-            <file>file:/C:/Users/DiegoCarlo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/InterfBarraPesataNumero.java</file>
-            <file>file:/C:/Users/DiegoCarlo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/FolderDataBase/DataBase.java</file>
-            <file>file:/C:/Users/DiegoCarlo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/FolderDataBase/ElencoPesate.java</file>
-            <file>file:/C:/Users/DiegoCarlo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/InterfBarraPesata.java</file>
-            <file>file:/C:/Users/DiegoCarlo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/FolderDataBase/OggettoIndicizzato.java</file>
-            <file>file:/C:/Users/DiegoCarlo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/FolderDataBase/StatoFisicoOrdine.java</file>
-            <file>file:/C:/Users/DiegoCarlo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/FolderDataBase/ElencoOrdini.java</file>
-            <file>file:/C:/Users/DiegoCarlo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/FolderDataBase/Prodotto.java</file>
+            <file>file:/C:/Users/Armandillo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/FolderDataBase/StatoPesata.java</file>
+            <file>file:/C:/Users/Armandillo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/InterfBarraPesataNumero.java</file>
+            <file>file:/C:/Users/Armandillo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/FolderDataBase/ElencoProdotti.java</file>
+            <file>file:/C:/Users/Armandillo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/FolderDataBase/Pesata.java</file>
+            <file>file:/C:/Users/Armandillo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/InterfPesate.java</file>
+            <file>file:/C:/Users/Armandillo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/FolderDataBase/Prodotto.java</file>
+            <file>file:/C:/Users/Armandillo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/InterfBarraPesataPeso.java</file>
+            <file>file:/C:/Users/Armandillo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/FolderDataBase/ElencoPesate.java</file>
+            <file>file:/C:/Users/Armandillo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/Interfaccia.java</file>
+            <file>file:/C:/Users/Armandillo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/InterfBarraPesata.java</file>
+            <file>file:/C:/Users/Armandillo/Documents/GitHub/HalfPine/Bollettario/src/bollettario/InputFile.java</file>
         </group>
     </open-files>
 </project-private>

@@ -14,9 +14,16 @@ import java.util.ArrayList;
  */
 public class ElencoProdotti extends ElencoIndicizzato implements Serializable
 {
+    ArrayList<Prodotto> elenco;
+    
     public ElencoProdotti()
     {
-        super(new ArrayList<Prodotto>());
+        super();
+        this.elenco = new ArrayList<Prodotto>();
+    }
+    public int size()
+    {
+        return elenco.size();
     }
     public void test()
     {
@@ -32,8 +39,8 @@ public class ElencoProdotti extends ElencoIndicizzato implements Serializable
         elenco.add(new Prodotto(getNewId(), "Brioches Vuote", UnitaDiMisura.QUANTITA));
         elenco.add(new Prodotto(getNewId(), "Focaccia Farcita", UnitaDiMisura.QUANTITA));
         elenco.add(new Prodotto(getNewId(), "Pizza Farcita", UnitaDiMisura.QUANTITA));
-        elenco.add(new Prodotto(getNewId(), "Pane Expo", UnitaDiMisura.QUANTITA));
-        elenco.add(new Prodotto(getNewId(), "Fondo Pizza", UnitaDiMisura.KILOGRAMMO));
+        elenco.add(new Prodotto(getNewId(), "Pane Expo", UnitaDiMisura.KILOGRAMMO));
+        elenco.add(new Prodotto(getNewId(), "Fondo Pizza", UnitaDiMisura.QUANTITA));
         elenco.add(new Prodotto(getNewId(), "Pizza Tonda", UnitaDiMisura.QUANTITA));
     }
     public Prodotto get(long id)
@@ -51,7 +58,7 @@ public class ElencoProdotti extends ElencoIndicizzato implements Serializable
     
     public Prodotto get(int i)
     {
-        return (Prodotto)super.get(i);
+        return elenco.get(i);
     }
     public String getNome(long id)
     {
@@ -73,7 +80,7 @@ public class ElencoProdotti extends ElencoIndicizzato implements Serializable
             Prodotto p = (Prodotto)elenco.get(i); 
             if(id == p.getId())
             {
-                return p.idUnitaDiMisura; 
+                return p.unitaDiMisura; 
             }
         }
         return null;
