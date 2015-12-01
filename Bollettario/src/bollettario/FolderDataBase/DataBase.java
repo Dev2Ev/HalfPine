@@ -11,17 +11,22 @@ import java.io.Serializable;
  *
  * @author DiegoCarlo
  */
-public class DataBase implements Serializable{
+public class DataBase implements Serializable
+{
     public ElencoClienti elencoClienti;
     public ElencoOrdini elencoOrdini;
     public ElencoProdotti elencoProdotti;
     public ElencoPesate elencoPesate;
     
+    
     public DataBase() {
+        
+        
         elencoClienti = new ElencoClienti();
         elencoProdotti = new ElencoProdotti();
         elencoOrdini = new ElencoOrdini();
         elencoPesate = new ElencoPesate();
+        
     }
     public void test()
     {
@@ -34,6 +39,19 @@ public class DataBase implements Serializable{
         elencoPesate.test();
         int a = 2;
     }
+
+    @Override
+    public String toString()
+    {
+        String a = "DataBase";
+        a += elencoClienti.toString() +"\n";
+        a += elencoProdotti.toString() +"\n";
+        a += elencoOrdini.toString() +"\n";
+        a += elencoPesate.toString() +"\n";
+        
+        return a;
+    }
+    
     public Cliente getCliente(long id)
     {
         return elencoClienti.get(id);

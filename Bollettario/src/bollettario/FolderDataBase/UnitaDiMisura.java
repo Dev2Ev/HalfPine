@@ -5,11 +5,13 @@
  */
 package bollettario.FolderDataBase;
 
+import java.io.Serializable;
+
 /**
  *
  * @author DiegoCarlo
  */
-public enum UnitaDiMisura
+public enum UnitaDiMisura implements Serializable
 {
     KILOGRAMMO ("Kg"),
     QUANTITA ("n°")

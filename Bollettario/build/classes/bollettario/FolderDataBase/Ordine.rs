@@ -1,2 +1,2 @@
-bollettario.FolderDataBase.OrdineDataComparator
 bollettario.FolderDataBase.Ordine
+bollettario.FolderDataBase.OrdineDataComparator

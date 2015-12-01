@@ -5,14 +5,8 @@
  */
 package bollettario;
 
-import bollettario.FolderDataBase.Pesata;
-import bollettario.FolderDataBase.StatoPesata;
-import java.awt.Color;
-import java.awt.Font;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 
 /**
@@ -23,7 +17,6 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
    
     JButton jBMeno;
     JButton jBPiu;
-    JTextField jTFQuantitaRichiesta;
     JTextField jTFQuantitaDaFare;
     //Pesata pesataRichiesta;
     //Pesata pesataDaFare;
@@ -33,7 +26,6 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
         super(id, idPesata);
         this.jBMeno = new javax.swing.JButton();
         this.jBPiu = new javax.swing.JButton();
-        this.jTFQuantitaRichiesta = new javax.swing.JTextField();
         this.jTFQuantitaDaFare = new javax.swing.JTextField();
         initComponents();
     }
@@ -50,24 +42,10 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
     {
         super.initComponents();
         setEnableItems(false);
-        String nomeFont = "SansSerif";
-        int dimFont = 25;
-        Font fontGrassetto = new Font(nomeFont, Font.BOLD, dimFont);
-        Font font = new Font(nomeFont, 0, dimFont);
         
-        Pesata p = Bollettario.dataBase.getPesata(idPesata);
-        String nomeProdotto = Bollettario.dataBase.getProdotto(p.idProdotto).nome;
-        jTBprodotto.setText(nomeProdotto);
-        jTBprodotto.setFont(font);
-
+        
         jBMeno.setText("-");
         jBMeno.setFont(font);
-        
-        int a = (int)p.quantitaRichiesta;
-        jTFQuantitaRichiesta.setText(a+"");
-        jTFQuantitaRichiesta.setHorizontalAlignment(SwingConstants.CENTER);
-        jTFQuantitaRichiesta.setFont(fontGrassetto);
-        jTFQuantitaRichiesta.setEditable(false);
         
         jTFQuantitaDaFare.setText("0");
         jTFQuantitaDaFare.setHorizontalAlignment(SwingConstants.CENTER);
@@ -76,8 +54,8 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
         jBPiu.setText("+");
         jBPiu.setFont(font);
         
-        jBOk.setText("OK");
-        jBOk.setFont(font);
+        jTBOk.setText("OK");
+        jTBOk.setFont(font);
         
         pannello.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         
@@ -96,7 +74,7 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBPiu, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jBOk, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTBOk, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         pannelloLayout.setVerticalGroup(pannelloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,7 +82,7 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
                 .addContainerGap()
                 .addGroup(pannelloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBMeno, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-                    .addComponent(jBOk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTBOk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTBprodotto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pannelloLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
@@ -113,7 +91,7 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
                     .addComponent(jBPiu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jBOk.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTBOk.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 /*switch(stato)
                 {
@@ -138,7 +116,7 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
                 }
                 else
                 {
-                    if(jBOk.isSelected())
+                    if(jTBOk.isSelected())
                     {
                         setEnableItems(true);
                     }

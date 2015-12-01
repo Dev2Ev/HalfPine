@@ -100,6 +100,7 @@ public class Interfaccia extends javax.swing.JFrame {
     }
     private void initJTable()
     {
+        
         int righe = 25;
         int colonne = 8;
         Object[][] tab = new Object [righe][colonne];
@@ -146,6 +147,7 @@ public class Interfaccia extends javax.swing.JFrame {
     }
     private void setGiornoDaVisualizzare()
     {
+        
         if(jRadioButtonLunedi.isSelected())
         {
             giornoDaVisualizzare = GregorianCalendar.MONDAY;
@@ -222,7 +224,7 @@ public class Interfaccia extends javax.swing.JFrame {
             {
                 Ordine o = (Ordine)e.get(elencoJListOrdini.get(i));
                 long idOrdine = o.getId();
-                String ragioneSociale = ((Cliente)Bollettario.dataBase.elencoClienti.get(o.idCliente)).ragioneSociale;
+                String ragioneSociale = (Bollettario.dataBase.elencoClienti.get(o.idCliente)).ragioneSociale;
                 testoLista[i] = idOrdine + "| " + ragioneSociale;
             }
             jList1.setModel(new javax.swing.AbstractListModel() {
@@ -236,6 +238,7 @@ public class Interfaccia extends javax.swing.JFrame {
     }
     private void togglePulsanti()
     {
+        
         if(GregorianCalendar.getInstance().get(Calendar.DAY_OF_WEEK) == giornoDaVisualizzare)
         {
             jButtonStampa.setEnabled(true);
@@ -255,6 +258,7 @@ public class Interfaccia extends javax.swing.JFrame {
     }
     private void initComboCalendario()
     {
+        
         /*ElencoClienti selezione = new ElencoClienti();
         ElencoClienti el = Bollettario.dataBase.elencoClienti;
         for(int i=0; i<el.size(); i++)
@@ -731,7 +735,10 @@ public class Interfaccia extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButtonDomenicaItemStateChanged
 
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
-        aggiornaInterfacciaPesate();
+        if (!evt.getValueIsAdjusting())
+        {//This line prevents double events
+            aggiornaInterfacciaPesate();
+        }
     }//GEN-LAST:event_jList1ValueChanged
 
 

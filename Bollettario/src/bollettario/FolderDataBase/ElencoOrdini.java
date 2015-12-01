@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -27,10 +26,20 @@ public class ElencoOrdini extends ElencoIndicizzato implements Serializable
         super();
         this.elenco = new ArrayList<Ordine>();
     }
+    @Override
+    public String toString()
+    {
+        String a = "ElencoOrdini";
+        for(int i=0; i<elenco.size(); i++)
+        {
+            a += "\n  " + elenco.get(i).toString();
+        }
+        return a;
+    }
     public void test()
     {
         int tot = 28;
-        System.out.println(tot+"ordini");
+        //System.out.println(tot+"ordini");
         int max = Bollettario.dataBase.elencoClienti.size();
         
         for(int i=0; i<tot; i++)
@@ -124,12 +133,12 @@ public class ElencoOrdini extends ElencoIndicizzato implements Serializable
         switch(discriminante)
         {
             case 1:
-                a = get(selezione);
+                a = getElenco(selezione);
                 a.ordinaData();
                 return a.getIndici();
             default:
             {
-                a = get(selezione);
+                a = getElenco(selezione);
                 a.ordinaData();
                 return a.getIndici();
             }
@@ -144,7 +153,7 @@ public class ElencoOrdini extends ElencoIndicizzato implements Serializable
         }
         return a;
     }
-    private ElencoOrdini get(ArrayList<Long> indici)
+    private ElencoOrdini getElenco(ArrayList<Long> indici)
     {
         ElencoOrdini e = new ElencoOrdini();
         for(int i=0; i<indici.size(); i++)

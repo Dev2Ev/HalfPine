@@ -18,12 +18,14 @@ public class Bollettario {
     public static DataBase dataBase;
     public static String nomeDB = "DataBaseGF";
     public static String estensione = ".dbn";
-    
+    public static boolean sysVisibile = false;
     public static void main(String[] args)
     {
         caricaStile();
         dataBase = new DataBase();
         carica();
+        salva();
+        System.out.print(dataBase.toString());
         interfaccia = new Interfaccia();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

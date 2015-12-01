@@ -41,6 +41,14 @@ public class Cliente extends OggettoIndicizzato implements Serializable
         this.telefono = telefono;
         this.fax = fax;
     }
+
+    @Override
+    public String toString()
+    {
+        String s = getId() +" "+ ragioneSociale;
+        return s;
+    }
+    
 }
 class ClienteRagioneSocialeComparator implements Comparator<Cliente>
 {

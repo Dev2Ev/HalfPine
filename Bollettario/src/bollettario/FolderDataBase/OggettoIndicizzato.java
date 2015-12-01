@@ -5,11 +5,13 @@
  */
 package bollettario.FolderDataBase;
 
+import java.io.Serializable;
+
 /**
  *
  * @author DiegoCarlo
  */
-public class OggettoIndicizzato
+public class OggettoIndicizzato implements Serializable
 {
     private long id;
 

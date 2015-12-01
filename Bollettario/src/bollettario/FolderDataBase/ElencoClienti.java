@@ -76,6 +76,16 @@ public class ElencoClienti extends ElencoIndicizzato implements Serializable
     {
         return elenco.get(i);
     }
+    @Override
+    public String toString()
+    {
+        String a = "ElencoClienti";
+        for(int i=0; i<elenco.size(); i++)
+        {
+            a += "\n  " + elenco.get(i).toString();
+        }
+        return a;
+    }
     public void test()
     {
         int maxClienti = 15;

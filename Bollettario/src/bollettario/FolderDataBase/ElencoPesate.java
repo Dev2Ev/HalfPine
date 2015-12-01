@@ -70,6 +70,16 @@ public class ElencoPesate extends ElencoIndicizzato implements Serializable
         }
         return listaIdPesate;
     }
+    @Override
+    public String toString()
+    {
+        String a = "ElencoPesate";
+        for(int i=0; i<elenco.size(); i++)
+        {
+            a += "\n  " + elenco.get(i).toString();
+        }
+        return a;
+    }
     void test()
     {
         int totaleOrdini = bollettario.Bollettario.dataBase.elencoOrdini.size();

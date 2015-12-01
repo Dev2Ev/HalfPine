@@ -5,11 +5,13 @@
  */
 package bollettario.FolderDataBase;
 
+import java.io.Serializable;
+
 /**
  *
  * @author DiegoCarlo
  */
-public abstract class ElencoIndicizzato
+public abstract class ElencoIndicizzato implements Serializable
 {
     long idCounter;
 

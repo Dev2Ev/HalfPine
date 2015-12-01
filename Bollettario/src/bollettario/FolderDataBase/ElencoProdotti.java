@@ -25,6 +25,18 @@ public class ElencoProdotti extends ElencoIndicizzato implements Serializable
     {
         return elenco.size();
     }
+
+    @Override
+    public String toString()
+    {
+        String a = "ElencoProdotti";
+        for(int i=0; i<elenco.size(); i++)
+        {
+            a += "\n  " + elenco.get(i).toString();
+        }
+        return a;
+    }
+    
     public void test()
     {
         elenco.add(new Prodotto(getNewId(), "Pane", UnitaDiMisura.KILOGRAMMO));

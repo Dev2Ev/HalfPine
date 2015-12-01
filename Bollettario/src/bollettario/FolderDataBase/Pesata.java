@@ -38,4 +38,11 @@ public class Pesata extends OggettoIndicizzato implements Serializable
     {
         this.quantitaFisica = quantitaFisica;
     }
+
+    @Override
+    public String toString()
+    {
+        String s = getId() +" "+ idOrdine +" "+ idProdotto +" "+ quantitaRichiesta +" "+ stato;
+        return s;
+    }
 }

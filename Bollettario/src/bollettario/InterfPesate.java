@@ -40,7 +40,9 @@ public class InterfPesate {
             ArrayList<Long> listaIdPesate = Bollettario.dataBase.elencoPesate.listaIdPesate(idOrdine);
             for(int i=0; i<listaIdPesate.size(); i++)
             {
+                // cerca la pesata
                 Pesata pe = Bollettario.dataBase.getPesata(listaIdPesate.get(i));
+                // cerca il prodotto
                 Prodotto pr = Bollettario.dataBase.getProdotto(pe.idProdotto);
                 InterfBarraPesata barra;
                 switch(pr.unitaDiMisura)

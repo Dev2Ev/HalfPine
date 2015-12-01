@@ -22,4 +22,12 @@ public class Prodotto extends OggettoIndicizzato implements Serializable
         this.nome = nome;
         this.unitaDiMisura = unitaDiMisura;
     }
+
+    @Override
+    public String toString()
+    {
+        String s = getId() +" "+ nome +" "+ unitaDiMisura;
+        return s;
+    }
+    
 }

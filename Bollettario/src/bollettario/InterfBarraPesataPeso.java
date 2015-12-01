@@ -6,12 +6,8 @@
 package bollettario;
 
 import bollettario.FolderDataBase.Pesata;
-import java.awt.Color;
 import java.awt.Font;
-import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 
 /**
@@ -20,9 +16,7 @@ import javax.swing.SwingConstants;
  */
 public class InterfBarraPesataPeso extends InterfBarraPesata
 {
-    long idPesata;
     JTextField tara;
-    JTextField qRichiesta;
     JTextField altro;
     JTextField qDaFare;
 
@@ -30,7 +24,6 @@ public class InterfBarraPesataPeso extends InterfBarraPesata
     {
         super(id, idPesata);
         this.tara = new javax.swing.JTextField();
-        this.qRichiesta = new javax.swing.JTextField();
         this.qDaFare = new javax.swing.JTextField();
         initComponents();
     }
@@ -50,10 +43,6 @@ public class InterfBarraPesataPeso extends InterfBarraPesata
         jTBprodotto.setText(nomeProdotto);
         jTBprodotto.setFont(font);
         
-        qRichiesta.setText(p.quantitaRichiesta+"");
-        qRichiesta.setHorizontalAlignment(SwingConstants.CENTER);
-        qRichiesta.setFont(fontGrassetto);
-        
         qDaFare.setText("0");
         qDaFare.setHorizontalAlignment(SwingConstants.CENTER);
         qDaFare.setFont(font);
@@ -64,8 +53,8 @@ public class InterfBarraPesataPeso extends InterfBarraPesata
         
         
         
-        jBOk.setText("OK");
-        jBOk.setFont(font);
+        jTBOk.setText("OK");
+        jTBOk.setFont(font);
         
         pannello.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         
@@ -76,13 +65,13 @@ public class InterfBarraPesataPeso extends InterfBarraPesata
                 .addContainerGap()
                 .addComponent(jTBprodotto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(qRichiesta, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTFQuantitaRichiesta, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tara, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(qDaFare, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jBOk, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTBOk, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         pannelloLayout.setVerticalGroup(pannelloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,11 +80,11 @@ public class InterfBarraPesataPeso extends InterfBarraPesata
                 .addGroup(pannelloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pannelloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTBprodotto, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-                        .addComponent(jBOk, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE))
+                        .addComponent(jTBOk, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE))
                     .addGroup(pannelloLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(qDaFare))
-                    .addComponent(qRichiesta, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTFQuantitaRichiesta, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(tara, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
