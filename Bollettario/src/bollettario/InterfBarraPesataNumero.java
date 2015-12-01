@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bollettario;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-/**
- *
- * @author DiegoCarlo
- */
 public class InterfBarraPesataNumero extends InterfBarraPesata{
    
     JButton jBMeno;
@@ -43,9 +34,9 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
         super.initComponents();
         setEnableItems(false);
         
-        
         jBMeno.setText("-");
         jBMeno.setFont(font);
+
         
         jTFQuantitaDaFare.setText("0");
         jTFQuantitaDaFare.setHorizontalAlignment(SwingConstants.CENTER);

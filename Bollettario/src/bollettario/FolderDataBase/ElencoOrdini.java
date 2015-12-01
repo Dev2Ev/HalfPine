@@ -25,6 +25,7 @@ public class ElencoOrdini extends ElencoIndicizzato implements Serializable
     {
         super();
         this.elenco = new ArrayList<Ordine>();
+
     }
     @Override
     public String toString()
@@ -153,6 +154,7 @@ public class ElencoOrdini extends ElencoIndicizzato implements Serializable
         }
         return a;
     }
+
     private ElencoOrdini getElenco(ArrayList<Long> indici)
     {
         ElencoOrdini e = new ElencoOrdini();

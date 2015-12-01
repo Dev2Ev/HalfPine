@@ -224,6 +224,7 @@ public class Interfaccia extends javax.swing.JFrame {
             {
                 Ordine o = (Ordine)e.get(elencoJListOrdini.get(i));
                 long idOrdine = o.getId();
+
                 String ragioneSociale = (Bollettario.dataBase.elencoClienti.get(o.idCliente)).ragioneSociale;
                 testoLista[i] = idOrdine + "| " + ragioneSociale;
             }

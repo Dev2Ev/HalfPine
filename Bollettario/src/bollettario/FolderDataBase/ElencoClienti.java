@@ -75,6 +75,7 @@ public class ElencoClienti extends ElencoIndicizzato implements Serializable
     public Cliente get(int i)
     {
         return elenco.get(i);
+
     }
     @Override
     public String toString()
@@ -85,6 +86,7 @@ public class ElencoClienti extends ElencoIndicizzato implements Serializable
             a += "\n  " + elenco.get(i).toString();
         }
         return a;
+
     }
     public void test()
     {
