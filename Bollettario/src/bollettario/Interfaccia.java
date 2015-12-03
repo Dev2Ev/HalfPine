@@ -6,6 +6,7 @@
 package bollettario;
 
 import bollettario.FolderDataBase.*;
+import java.io.InputStream;
 import bollettario.FolderDataBase.Ordine;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -24,7 +25,7 @@ public class Interfaccia extends javax.swing.JFrame {
      * Creates new form Interfaccia
      */
     InterfPesate interfPesate;
-    Font font = font = new Font("SansSerif", 0, 20);
+    Font font = new Font("Sans-serif", 0, 25);
     Dimension dimRadioButton = new Dimension(200, 100);
     Calendar giornoVisualizzato;
     int giornoDaVisualizzare;
@@ -32,6 +33,14 @@ public class Interfaccia extends javax.swing.JFrame {
     
     public Interfaccia()
     {
+        /*try { 
+           font = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, new java.io.File("src\\Font\\OpenDyslexicAlta-Regular.ttf")); 
+           font =  font.deriveFont(30F);
+        } 
+        catch(Exception ex) { 
+           System.out.println(ex.getMessage()); 
+        } */
+
         initGiorno();
         initComponents();
         initComponents2();
@@ -235,7 +244,7 @@ public class Interfaccia extends javax.swing.JFrame {
             giornoDaVisualizzare = GregorianCalendar.SUNDAY+7;
         }
     }
-    private void aggiornaPannelloOrdini()
+    public void aggiornaPannelloOrdini()
     {
         setGiornoDaVisualizzare();
         togglePulsanti();
@@ -265,6 +274,14 @@ public class Interfaccia extends javax.swing.JFrame {
                     new JPanel()
             );
         }
+    }
+    public void aggiorna()
+    {
+        this.setEnabled(true);
+        
+        jList1.setSelectedIndex(jList1.getSelectedIndex());
+        this.requestFocus();
+        aggiornaInterfacciaPesate();
     }
     private void aggiornaListaOrdini()
     {
@@ -397,6 +414,7 @@ public class Interfaccia extends javax.swing.JFrame {
 
         buttonGroup1.add(jRadioButtonLunedi);
         jRadioButtonLunedi.setText("Lunedì");
+        jRadioButtonLunedi.setMaximumSize(new java.awt.Dimension(60, 23));
         jRadioButtonLunedi.setFont(font);
         jRadioButtonLunedi.setSize(dimRadioButton);
         jRadioButtonLunedi.addItemListener(new java.awt.event.ItemListener() {
@@ -589,7 +607,7 @@ public class Interfaccia extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelOrdiniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelOrdiniLayout.createSequentialGroup()
-                        .addComponent(jRadioButtonLunedi, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jRadioButtonLunedi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jRadioButtonMartedi)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -632,14 +650,15 @@ public class Interfaccia extends javax.swing.JFrame {
             .addGroup(jPanelOrdiniLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelOrdiniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButtonLunedi, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButtonMartedi)
-                    .addComponent(jRadioButtonMercoledi)
-                    .addComponent(jRadioButtonGiovedi)
-                    .addComponent(jRadioButtonVenerdi)
-                    .addComponent(jRadioButtonSabato)
-                    .addComponent(jRadioButtonDomenica))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jRadioButtonLunedi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelOrdiniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jRadioButtonMartedi)
+                        .addComponent(jRadioButtonMercoledi)
+                        .addComponent(jRadioButtonGiovedi)
+                        .addComponent(jRadioButtonVenerdi)
+                        .addComponent(jRadioButtonSabato)
+                        .addComponent(jRadioButtonDomenica)))
+                .addGap(28, 28, 28)
                 .addGroup(jPanelOrdiniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel3)
@@ -807,10 +826,11 @@ public class Interfaccia extends javax.swing.JFrame {
     }//GEN-LAST:event_jTBProdottoModificaItemStateChanged
 
     private void jButtonProdottoAggiungiMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonProdottoAggiungiMousePressed
-        AggiuntaPesata a = new AggiuntaPesata(interfPesate.idOrdine);
+        AggiuntaPesata a = new AggiuntaPesata(interfPesate.idOrdine, font);
         a.setVisible(true);
         this.setEnabled(false);
-       
+        
+        int unoi = 1;
     }//GEN-LAST:event_jButtonProdottoAggiungiMousePressed
 
 
@@ -851,4 +871,6 @@ public class Interfaccia extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField ricercaComboCalendario;
     // End of variables declaration//GEN-END:variables
+
+
 }
