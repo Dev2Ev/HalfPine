@@ -9,6 +9,7 @@ package bollettario;
  *
  * @author DiegoCarlo
  */
-class ElencoOrdiniElaborati {
-    
+public enum StatoInterfBarraPesata {
+    ATTIVA,
+    NON_ATTIVA
 }

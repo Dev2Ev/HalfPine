@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 /**
- *
+ * Classe adibita alla lettura del file
  * @author DiegoCarlo
  */
 public class InputFile

@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 public enum StatoPesata implements Serializable
 {
-    INATTIVA, // quando non è ancora stata attivata o è stata disattivata
-    PESATA, // quando è stata pesata
-    ATTESA_PESO, // in attesa di conferma del peso
+    NUOVA, // quando non è ancora stata attivata o è stata disattivata
+    VALIDA, // quando è stata pesata
+    STAMPATA  
 }

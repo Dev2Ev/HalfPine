@@ -8,6 +8,7 @@ package bollettario;
 import bollettario.FolderDataBase.UnitaDiMisura;
 import bollettario.FolderDataBase.Pesata;
 import bollettario.FolderDataBase.Prodotto;
+import bollettario.FolderDataBase.StatoPesata;
 import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout.Group;
@@ -126,5 +127,24 @@ public class InterfPesate {
             jPanelSfondoLayout.setVerticalGroup(gruppoV);
         }
         return jPanelSfondo;
+    }
+
+    public void aggiornaInterfaceStato()
+    {
+        for(int i=0; i < barrePesate.size(); i++)
+        {
+            barrePesate.get(i).aggiornaInterfacciaStato();
+        }
+    }
+
+    public void aggiornaStatoBarreStampate()
+    {
+        for(int i=0; i < barrePesate.size(); i++)
+        {
+            if(barrePesate.get(i).getPesata().stato == StatoPesata.STAMPATA)
+            {
+                barrePesate.get(i).jTBOk.setEnabled(false);
+            }
+        }
     }
 }

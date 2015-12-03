@@ -19,10 +19,21 @@ public class Prodotto extends OggettoIndicizzato implements Serializable
     public Prodotto(long id, String nome, UnitaDiMisura unitaDiMisura)
     {
         super(id);
+        
         this.nome = nome;
+        //this.nome = adattaNome(nome);
         this.unitaDiMisura = unitaDiMisura;
     }
 
+    private String adattaNome(String nome)
+    {
+        int max = 12;
+        if(nome.length() < 12)
+        {
+            max = nome.length();
+        }
+        return nome.substring(0, max);
+    }
     @Override
     public String toString()
     {

@@ -9,26 +9,41 @@ import bollettario.FolderDataBase.StatoPesata;
 import bollettario.FolderDataBase.Pesata;
 import bollettario.FolderDataBase.Prodotto;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 
 /**
- *
+ * Questa classe gestisce l'interfaccia di una singola pesata
  * @author DiegoCarlo
  */
 public class InterfBarraPesata
 {
-    public JPanel pannello;
+    
+    public long id;
     public long idPesata;
+    
+    protected static int iconDimension = 30;
+    protected static int larghezzaJText = 150;
+    
+    public JPanel pannello;
     public JToggleButton jTBprodotto;
     public JToggleButton jTBOk;
     public JTextField jTFQuantitaRichiesta;
-    public long id;
+    public JTextField jTFQuantitaFisica;
+    
+    protected float quantitaRichiesta;
+    protected float quantitaFisica;
+    
     protected Font fontGrassetto;
     protected Font font;
+    
+    protected StatoInterfBarraPesata stato;
     
     public InterfBarraPesata(long id, long idPesata)
     {
@@ -36,63 +51,61 @@ public class InterfBarraPesata
         this.idPesata = idPesata;
         this.pannello = new JPanel();
         this.jTBprodotto = new JToggleButton();
+        this.jTBprodotto.setMaximumSize(new Dimension(180, 100));
         this.jTBOk = new JToggleButton();
         this.jTFQuantitaRichiesta = new javax.swing.JTextField();
-        Pesata pe = Bollettario.dataBase.getPesata(idPesata);
+        this.jTFQuantitaFisica = new javax.swing.JTextField();
+        
+        Pesata pe = getPesata();
+        
+        this.quantitaRichiesta = pe.quantitaRichiesta;
+        this.quantitaFisica = pe.quantitaFisica;
+        
         switch(pe.stato)
         {
-            case ATTESA_PESO:
-                jTBprodotto.setSelected(true);
+            case NUOVA:
                 jTBOk.setSelected(false);
                 break;
-            case INATTIVA:
-                jTBprodotto.setSelected(false);
-                jTBOk.setSelected(false);
-                break;
-            case PESATA:
-                jTBprodotto.setSelected(false);
+            case VALIDA:
                 jTBOk.setSelected(true);
                 break;
-                
+            case STAMPATA:
+                jTBOk.setSelected(true);
+                break;    
         }
+        stato = StatoInterfBarraPesata.NON_ATTIVA;
+        aggiornaInterfacciaStato();
+    }
+    protected Pesata getPesata()
+    {
+        return Bollettario.dataBase.getPesata(idPesata);
     }
     public void jTBprodottoStateChanged()
     {
-        /*System.out.println(jTBprodotto.getText());
-        Pesata pe = Bollettario.dataBase.getPesata(idPesata);
-        // cerca il prodotto
-        Prodotto pr = Bollettario.dataBase.getProdotto(pe.idProdotto);
-        System.out.print(pe.getId() + " " + pr.nome+"\n");*/
-        StatoPesata stato = Bollettario.dataBase.getPesata(idPesata).stato;
         if(jTBprodotto.isSelected())
         {
-            stato = StatoPesata.ATTESA_PESO;
-            jTBOk.setEnabled(true);
+            stato = StatoInterfBarraPesata.ATTIVA;
         }
         else
         {
-            if(!jTBOk.isSelected())
-            {
-                stato = StatoPesata.INATTIVA;
-                jTBOk.setEnabled(false);
-            }
+            stato = StatoInterfBarraPesata.NON_ATTIVA;
         }
-        Bollettario.dataBase.getPesata(idPesata).stato = stato;
         aggiornaInterfacciaStato();
-        
-        salva();
+    }
+    protected Prodotto getProdotto(Pesata pe)
+    {
+        return Bollettario.dataBase.getProdotto(pe.idProdotto);
     }
     public void initComponents()
     {
-        
         String nomeFont = "SansSerif";
         int dimFont = 25;
         fontGrassetto = new Font(nomeFont, Font.BOLD, dimFont);
         font = new Font(nomeFont, 0, dimFont);
         
-        Pesata pe = Bollettario.dataBase.getPesata(idPesata);
+        Pesata pe = getPesata();
         // cerca il prodotto
-        Prodotto pr = Bollettario.dataBase.getProdotto(pe.idProdotto);
+        Prodotto pr = getProdotto(pe);
         
         //System.out.print(pe.getId() + " " + pr.nome+"\n");
         
@@ -108,44 +121,77 @@ public class InterfBarraPesata
         jTFQuantitaRichiesta.setFont(fontGrassetto);
         jTFQuantitaRichiesta.setEditable(false);
         
-        jTBOk.setEnabled(false);
         
-        jTBOk.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt)
-            {
-                StatoPesata stato;
-                if(jTBOk.isSelected())
-                {
-                   stato = StatoPesata.PESATA;
-                }
-                else
-                {
-                    stato = StatoPesata.ATTESA_PESO;
-                }
-                Bollettario.dataBase.getPesata(idPesata).stato = stato;
-                aggiornaInterfacciaStato();
-                
-                salva();
-            }
-        });
+        jTFQuantitaFisica.setHorizontalAlignment(SwingConstants.CENTER);
+        jTFQuantitaFisica.setFont(fontGrassetto);
+        
+        
+        
         aggiornaInterfacciaStato();
     }
+    /**
+     * 
+     */
+   
     public void aggiornaInterfacciaStato()
     {
-        Pesata pe = Bollettario.dataBase.getPesata(idPesata);
         
-        switch(pe.stato)
+        switch(stato)
         {
-            case INATTIVA:
-                pannello.setBackground(new Color(240,240,240));// grigio
-                break;
-            case ATTESA_PESO:
-                pannello.setBackground(new Color(204, 204, 255));
-                break;
-            case PESATA:
+            case ATTIVA:
                 pannello.setBackground(new Color(153, 255, 153));
                 break;
+            case NON_ATTIVA:
+                switch(getPesata().stato)
+                {
+                    case NUOVA:
+                        pannello.setBackground(new Color(240,240,240));// grigio
+                        break;
+                    case VALIDA:
+                        pannello.setBackground(new Color(255,204,153));//azzurro
+                        break;
+                    case STAMPATA:
+                        
+                        pannello.setBackground(new Color(204, 204, 255));// arancio
+                        jTBprodotto.setEnabled(false);
+                        jTBOk.setEnabled(false);
+                        break;
+                }
+                break;
         }
+        ImageIcon iconaStatoPesata = new ImageIcon();
+        float gap = quantitaFisica - quantitaRichiesta;
+        
+        if(quantitaFisica == 0)
+        {
+            jTBOk.setEnabled(false);
+            iconaStatoPesata = new ImageIcon(
+                new ImageIcon("src\\Icone\\cross.png")
+                        .getImage()
+                        .getScaledInstance(iconDimension, iconDimension, Image.SCALE_DEFAULT)
+                );
+        }
+        else
+        {
+            if(getPesata().stato != StatoPesata.STAMPATA)jTBOk.setEnabled(true);
+            if(gap == 0)
+            {
+                iconaStatoPesata = new ImageIcon(
+                new ImageIcon("src\\Icone\\checked.png")
+                        .getImage()
+                        .getScaledInstance(iconDimension, iconDimension, Image.SCALE_DEFAULT)
+                );
+            }
+            else
+            {
+                iconaStatoPesata = new ImageIcon(
+                new ImageIcon("src\\Icone\\warning.png")
+                        .getImage()
+                        .getScaledInstance(iconDimension, iconDimension, Image.SCALE_DEFAULT)
+                );
+            }
+        }
+        jTBprodotto.setIcon(iconaStatoPesata);
     }
     public long getId()
     {

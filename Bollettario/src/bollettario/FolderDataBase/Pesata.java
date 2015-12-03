@@ -18,7 +18,7 @@ public class Pesata extends OggettoIndicizzato implements Serializable
     public float quantitaRichiesta;
     public float quantitaFisica;
     public StatoPesata stato;
-
+    
     public Pesata
     (
             long id,
@@ -34,15 +34,19 @@ public class Pesata extends OggettoIndicizzato implements Serializable
         this.quantitaRichiesta = quantitaRichiesta;
         this.stato = stato;
     }
-    public void setQuantitaFisica(float quantitaFisica)
-    {
-        this.quantitaFisica = quantitaFisica;
-    }
+    
 
     @Override
     public String toString()
     {
-        String s = getId() +" "+ idOrdine +" "+ idProdotto +" "+ quantitaRichiesta +" "+ stato;
+        String s = getId() +" "+ idOrdine +" "+ idProdotto +" "+ quantitaRichiesta + " " + quantitaFisica +" "+ stato;
+        return s;
+    }
+    public String stampa()
+    {
+        DataBase d = bollettario.Bollettario.dataBase;
+        Prodotto p = d.getProdotto(idProdotto);
+        String s = "Ordine " + idOrdine +"  "+ p.nome +"  "+ quantitaFisica + p.unitaDiMisura;
         return s;
     }
 }

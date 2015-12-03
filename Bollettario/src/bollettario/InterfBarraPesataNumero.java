@@ -1,5 +1,10 @@
 package bollettario;
 
+import bollettario.FolderDataBase.Pesata;
+import bollettario.FolderDataBase.StatoPesata;
+import java.awt.Event;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -8,7 +13,6 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
    
     JButton jBMeno;
     JButton jBPiu;
-    JTextField jTFQuantitaDaFare;
     //Pesata pesataRichiesta;
     //Pesata pesataDaFare;
     
@@ -17,7 +21,6 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
         super(id, idPesata);
         this.jBMeno = new javax.swing.JButton();
         this.jBPiu = new javax.swing.JButton();
-        this.jTFQuantitaDaFare = new javax.swing.JTextField();
         initComponents();
     }
     
@@ -27,7 +30,7 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
         jBMeno.setEnabled(enable);
         jBPiu.setEnabled(enable);
         jTFQuantitaRichiesta.setEnabled(enable);
-        jTFQuantitaDaFare.setEnabled(enable);
+        jTFQuantitaFisica.setEnabled(enable);
     }
     public void initComponents()
     {
@@ -37,13 +40,10 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
         jBMeno.setText("-");
         jBMeno.setFont(font);
 
-        
-        jTFQuantitaDaFare.setText("0");
-        jTFQuantitaDaFare.setHorizontalAlignment(SwingConstants.CENTER);
-        jTFQuantitaDaFare.setFont(fontGrassetto);
-        
         jBPiu.setText("+");
         jBPiu.setFont(font);
+        
+        aggiornaQFisica(getPesata().quantitaFisica);
         
         jTBOk.setText("OK");
         jTBOk.setFont(font);
@@ -57,11 +57,11 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
                 .addContainerGap()
                 .addComponent(jTBprodotto, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTFQuantitaRichiesta, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTFQuantitaRichiesta, javax.swing.GroupLayout.PREFERRED_SIZE, larghezzaJText-15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBMeno, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTFQuantitaDaFare, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTFQuantitaFisica, javax.swing.GroupLayout.PREFERRED_SIZE, larghezzaJText-15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBPiu, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -78,26 +78,18 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
                     .addGroup(pannelloLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(jTFQuantitaRichiesta))
-                    .addComponent(jTFQuantitaDaFare)
+                    .addComponent(jTFQuantitaFisica)
                     .addComponent(jBPiu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jTBOk.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                /*switch(stato)
-                {
-                    case ESAURITA:
-                        break;
-                    case INATTIVA:
-                        break;
-                    case FOCUS_ATTIVA:
-                        setStato(StatoPesata.ATTIVA);
-                        break;
-                    case ATTIVA:
-                        break;
-                }*/
+        
+        jTBOk.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
+                jTBOkStateChanged();
             }
         });
+        
         jTBprodotto.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jTBprodottoStateChanged();
@@ -107,16 +99,8 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
                 }
                 else
                 {
-                    if(jTBOk.isSelected())
-                    {
-                        setEnableItems(true);
-                    }
-                    else
-                    {
-                        setEnableItems(false);
-                    }
+                    setEnableItems(false);
                 }
-                    
             }
         });
         jTBprodotto.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -142,7 +126,8 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 if(jTFQuantitaRichiesta.isEnabled())
                 {
-                    jTFQuantitaDaFare.setText(jTFQuantitaRichiesta.getText());
+                    aggiornaQFisica(quantitaRichiesta);
+                    aggiornaInterfacciaStato();
                 }
             }
         });
@@ -150,16 +135,9 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 if(jBPiu.isEnabled())
                 {
-                    String cifra = jTFQuantitaDaFare.getText();
-                    int numero;
-                    try
-                    {
-                        numero = Integer.parseInt(cifra);
-                        numero++;
-                    } catch (NumberFormatException e) {
-                          numero = 0;
-                    }
-                    jTFQuantitaDaFare.setText(numero+"");
+                    aggiornaQFisica(quantitaFisica+1);
+                    
+                    aggiornaInterfacciaStato();
                 }
             }
         });
@@ -167,21 +145,42 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 if(jBMeno.isEnabled())
                 {
-                    String cifra = jTFQuantitaDaFare.getText();
-                    int numero;
-                    try
-                    {
-                        numero = Integer.parseInt(cifra);
-                        if(numero > 0)
-                        {
-                            numero--;
-                        }
-                    } catch (NumberFormatException e) {
-                          numero = 0;
-                    }
-                    jTFQuantitaDaFare.setText(numero+"");
+                    float temp = quantitaFisica - 1;
+                    if(temp < 0) temp = 0;
+                    aggiornaQFisica(temp);
+                    
+                    aggiornaInterfacciaStato();
                 }
             }
         });
+    }
+    protected void jTBOkStateChanged()
+    {
+        Pesata pe = getPesata();
+        boolean valida = jTBOk.isSelected();
+        if(valida)
+        {
+            pe.stato = StatoPesata.VALIDA;
+            stato = StatoInterfBarraPesata.NON_ATTIVA;
+            setEnableItems(false);
+        }
+        else
+        {
+            pe.stato = StatoPesata.NUOVA;
+            stato = StatoInterfBarraPesata.ATTIVA;
+            aggiornaQFisica(0);
+            setEnableItems(true);
+        }
+        valida = !valida;
+        
+        jTBprodotto.setEnabled(valida);
+        Bollettario.interfaccia.interfPesate.gruppo.clearSelection();
+        aggiornaInterfacciaStato();
+    }
+    private void aggiornaQFisica(float valore)
+    {
+        quantitaFisica = valore;
+        jTFQuantitaFisica.setText((int)valore+"");
+        getPesata().quantitaFisica = quantitaFisica;
     }
 }

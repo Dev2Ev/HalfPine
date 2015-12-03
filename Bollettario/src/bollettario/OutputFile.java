@@ -6,7 +6,7 @@
 package bollettario;
 
 /**
- *
+ * Classe di scrittura del file
  * @author DiegoCarlo
  */
 

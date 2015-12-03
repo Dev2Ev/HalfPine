@@ -22,9 +22,16 @@ public class ElencoPesate extends ElencoIndicizzato implements Serializable
         this.elenco = new ArrayList<Pesata>();
     }
 
+    public void add(Pesata pesata)
+    {
+        if(pesata != null)
+        {
+            elenco.add(pesata);
+        }
+    }
     public void add(long idProdotto, long idOrdine, float quantita)
     {
-        StatoPesata stato = StatoPesata.INATTIVA;
+        StatoPesata stato = StatoPesata.NUOVA;
         elenco.add
         (
                 new Pesata
@@ -73,10 +80,23 @@ public class ElencoPesate extends ElencoIndicizzato implements Serializable
     @Override
     public String toString()
     {
-        String a = "ElencoPesate";
+        String a = "toString() ElencoPesate";
         for(int i=0; i<elenco.size(); i++)
         {
             a += "\n  " + elenco.get(i).toString();
+        }
+        return a;
+    }
+    public boolean isEmpty()
+    {
+        return elenco.isEmpty();
+    }
+    public String stampa()
+    {
+        String a = "stampa() ElencoPesate";
+        for(int i=0; i<elenco.size(); i++)
+        {
+            a += "\n  " + elenco.get(i).stampa();
         }
         return a;
     }
@@ -92,14 +112,14 @@ public class ElencoPesate extends ElencoIndicizzato implements Serializable
             for(int i=0; i<totPesateOrdine; i++)
             {
                 Prodotto p = bollettario.Bollettario.dataBase.getProdotto(indiciProdotti.get(i));
-                float quantita = (float)Math.random();
+                float quantita = (float)Math.random(); // creao quantità random
                 if(p.unitaDiMisura == UnitaDiMisura.KILOGRAMMO)
                 {
                     quantita = ((int) quantita * 10000)/1000;
                 }
                 if(p.unitaDiMisura == UnitaDiMisura.QUANTITA)
                 {
-                    quantita = (int)(quantita * 7.25f);
+                    quantita = 1+(int)(quantita * 7.25f);
                 }          
                 add
                 (

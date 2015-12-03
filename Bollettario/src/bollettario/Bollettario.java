@@ -3,20 +3,27 @@ package bollettario;
 import bollettario.FolderDataBase.DataBase;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-
+/**
+ * Classe contenente il main del programma e relative costanti
+ * @author DiegoCarlo
+ */
 public class Bollettario
 {
-
     public static Interfaccia interfaccia;
     public static DataBase dataBase;
     public static String nomeDB = "DataBaseGF";
     public static String estensione = ".dbn";
 
+    /**
+     * main
+     * @param args 
+     */
     public static void main(String[] args)
     {
         caricaStile();
         dataBase = new DataBase();
         carica();
+        //dataBase.test();
         salva();
         System.out.print(dataBase.toString());
         interfaccia = new Interfaccia();
@@ -46,10 +53,16 @@ public class Bollettario
            // handle exception
         }
     }
+    /**
+    *   funzione di salvataggio del singolo file DataBase
+    */
     public static void salva()
     {
         OutputFile.scrivi(nomeDB+estensione, dataBase);
     }
+    /**
+     *  funzione di caricamento del singolo file DataBase
+     */
     public static void carica()
     {
         try
