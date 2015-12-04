@@ -5,21 +5,41 @@
  */
 package bollettario;
 
+import bollettario.FolderDataBase.Cliente;
+import bollettario.FolderDataBase.ElencoProdotti;
+import bollettario.FolderDataBase.Ordine;
 import bollettario.FolderDataBase.Pesata;
+import bollettario.FolderDataBase.Prodotto;
+import bollettario.FolderDataBase.StatoPesata;
+import java.awt.Font;
 import java.util.ArrayList;
+import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 
 /**
  *
  * @author DiegoCarlo
  */
-public class EliminaPesata extends javax.swing.JFrame {
+public class JFAggiuntaPesata extends javax.swing.JFrame {
 
     /**
-     * Creates new form EliminaPesata
+     * Creates new form AggiuntaPesata
      */
-    private ArrayList<Long> elencoJListPesate;
-    public EliminaPesata() {
+    ArrayList<Long> elencoJListProdotti;
+    Font font;
+    float quantita;
+    long idOrdine;
+    
+    public JFAggiuntaPesata(long idOrdine, Font font) {
+        this.font = font;
+        this.idOrdine = idOrdine;
         initComponents();
+        
+        Ordine o = Bollettario.dataBase.getOrdine(idOrdine);
+        Cliente c = Bollettario.dataBase.getCliente(o.idCliente);
+        jLabel1.setText(c.ragioneSociale);
+        aggiornaJList();
+        verificaCorrettezza();
     }
 
     /**
@@ -34,13 +54,19 @@ public class EliminaPesata extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         jPanel1 = new javax.swing.JPanel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jButtonReset = new javax.swing.JButton();
         jButtonAggiungi = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
 
+        setTitle("Inserimento singola richiesta");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -55,7 +81,18 @@ public class EliminaPesata extends javax.swing.JFrame {
         jList1.setFont(font);
         jScrollPane1.setViewportView(jList1);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesata", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 18))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Prodotto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 18))); // NOI18N
+
+        jTextField1.setFont(font);
+        jTextField1.setHorizontalAlignment(SwingConstants.CENTER);
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
+
+        jLabel2.setFont(font);
+        jLabel2.setHorizontalAlignment(SwingConstants.CENTER);
 
         jLabel1.setText("jLabel1");
         jLabel1.setFont(font);
@@ -77,26 +114,20 @@ public class EliminaPesata extends javax.swing.JFrame {
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButtonReset, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonAggiungi, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jScrollPane2))
+                        .addComponent(jButtonReset, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonAggiungi, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -104,7 +135,9 @@ public class EliminaPesata extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonAggiungi, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
@@ -136,46 +169,104 @@ public class EliminaPesata extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        Bollettario.interfaccia.setEnabled(true);
+    }//GEN-LAST:event_formWindowClosing
+
+    public void aggiornaJList()
+    {
+        ElencoProdotti e = Bollettario.dataBase.elencoProdotti;
+        elencoJListProdotti = new ArrayList<Long>();
+        final String[] testoLista = new String[e.size()];
+        for(int i=0; i<e.size(); i++)
+        {
+            Prodotto p = e.get(i);
+            
+            long idProdotto = p.getId();
+            String nome = p.nome;
+            elencoJListProdotti.add(idProdotto);
+            testoLista[i] = idProdotto + "| " + nome;
+        }
+        jList1.setModel(new javax.swing.AbstractListModel() {
+        String[] strings = testoLista;
+        public int getSize() { return strings.length; }
+        public Object getElementAt(int i) { return strings[i]; }
+        });
+        verificaCorrettezza();
+    }
+    public void reset()
+    {
+        aggiornaJList();
+        quantita = 0;
+        jTextField1.setText(quantita+"");
+    }
+    private void jButtonResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonResetMouseClicked
+        reset();
+    }//GEN-LAST:event_jButtonResetMouseClicked
+
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
         int i = jList1.getSelectedIndex();
-        if(i >= 0 && i < elencoJListPesate.size())
+        if(i >= 0 && i < elencoJListProdotti.size())
         {
-            Pesata p = Bollettario.dataBase.getPesata(elencoJListPesate.get(i));
-
-            String nome = p.idProdotto;
-            String 
+            Prodotto p = Bollettario.dataBase.getProdotto(elencoJListProdotti.get(i));
+            String a = " "+p.unitaDiMisura;
+            String nome = p.nome+a;
             jLabel2.setText(nome);
         }
     }//GEN-LAST:event_jList1ValueChanged
 
-    private void jButtonResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonResetMouseClicked
-        reset();
-    }//GEN-LAST:event_jButtonResetMouseClicked
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        try
+        {
+            float valore = Float.parseFloat(jTextField1.getText());
+            quantita = valore;
+            verificaCorrettezza();
+        }
+        catch(NumberFormatException e)
+        {
+            quantita = 0;
+            System.out.println(e.toString());
+        }
+    }//GEN-LAST:event_jTextField1KeyReleased
 
     private void jButtonAggiungiMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAggiungiMousePressed
         if(jButtonAggiungi.isEnabled())
         {
             Bollettario.dataBase.elencoPesate.add
-            (
-                elencoJListProdotti.get(jList1.getSelectedIndex()),
-                idOrdine,
-                quantita
-            );
+                    (
+                            elencoJListProdotti.get(jList1.getSelectedIndex()),
+                            idOrdine,
+                            quantita
+                    );
             Bollettario.salva();
             this.setVisible(false);
             Bollettario.interfaccia.aggiorna();
         }
     }//GEN-LAST:event_jButtonAggiungiMousePressed
 
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAggiungi;
     private javax.swing.JButton jButtonReset;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+    private void verificaCorrettezza()
+    {
+        int i = jList1.getSelectedIndex();
+        if(quantita > 0 && (i >= 0 && i < elencoJListProdotti.size()))
+        {
+            jButtonAggiungi.setEnabled(true);
+        }
+        else
+        {
+            jButtonAggiungi.setEnabled(false);
+        }
+    }
 }

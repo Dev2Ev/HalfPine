@@ -31,7 +31,15 @@ public class InterfPesate {
         this.gruppo = new ButtonGroup();
     }
     
-    
+    public ArrayList<Long> getPesate()
+    {
+        ArrayList<Long> e = new ArrayList<Long>();
+        for(int i=0; i<barrePesate.size(); i++)
+        {
+            e.add(barrePesate.get(i).idPesata);
+        }
+        return e;
+    }
     public void creaBarrePesate()
     {
         if(idOrdine >= 0)

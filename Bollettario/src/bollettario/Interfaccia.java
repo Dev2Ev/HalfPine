@@ -10,6 +10,8 @@ import java.io.InputStream;
 import bollettario.FolderDataBase.Ordine;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -25,7 +27,7 @@ public class Interfaccia extends javax.swing.JFrame {
      * Creates new form Interfaccia
      */
     InterfPesate interfPesate;
-    Font font = new Font("Sans-serif", 0, 25);
+    Font font = new Font("Sans-serif", 0, 20);
     Dimension dimRadioButton = new Dimension(200, 100);
     Calendar giornoVisualizzato;
     int giornoDaVisualizzare;
@@ -192,14 +194,14 @@ public class Interfaccia extends javax.swing.JFrame {
         if(indiceLista >= 0 && indiceLista < elencoJListOrdini.size())
         {
             jButtonProdottoAggiungi.setEnabled(true);
-            jTBProdottoModifica.setEnabled(true);
-            jTBProdottoElimina.setEnabled(true);
+            jBProdottoModifica.setEnabled(true);
+            jBProdottoElimina.setEnabled(true);
         }
         else
         {
             jButtonProdottoAggiungi.setEnabled(false);
-            jTBProdottoModifica.setEnabled(false);
-            jTBProdottoElimina.setEnabled(false);
+            jBProdottoModifica.setEnabled(false);
+            jBProdottoElimina.setEnabled(false);
         }
     }
     private void aggiornaTab()
@@ -393,8 +395,8 @@ public class Interfaccia extends javax.swing.JFrame {
         jButtonOrdineElimina = new javax.swing.JButton();
         jPannelloPulsantiProdotto = new javax.swing.JPanel();
         jButtonProdottoAggiungi = new javax.swing.JButton();
-        jTBProdottoModifica = new javax.swing.JToggleButton();
-        jTBProdottoElimina = new javax.swing.JToggleButton();
+        jBProdottoElimina = new javax.swing.JButton();
+        jBProdottoModifica = new javax.swing.JButton();
         jPanelCalendario = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -402,6 +404,7 @@ public class Interfaccia extends javax.swing.JFrame {
         ricercaComboCalendario = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
         jPanelOpzioni = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1200, 800));
@@ -564,14 +567,24 @@ public class Interfaccia extends javax.swing.JFrame {
             }
         });
 
-        jTBProdottoModifica.setText("Modifica");
-        jTBProdottoModifica.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jTBProdottoModificaItemStateChanged(evt);
+        jBProdottoElimina.setText("Elimina");
+        jBProdottoElimina.setFont(font);
+        jBProdottoElimina.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jBProdottoEliminaMousePressed(evt);
             }
         });
 
-        jTBProdottoElimina.setText("Elimina");
+        jBProdottoModifica.setText("Modifica");
+        jBProdottoModifica.setMaximumSize(new java.awt.Dimension(96, 25));
+        jBProdottoModifica.setMinimumSize(new java.awt.Dimension(96, 25));
+        jBProdottoModifica.setPreferredSize(new java.awt.Dimension(96, 25));
+        jBProdottoModifica.setFont(font);
+        jBProdottoModifica.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jBProdottoModificaMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPannelloPulsantiProdottoLayout = new javax.swing.GroupLayout(jPannelloPulsantiProdotto);
         jPannelloPulsantiProdotto.setLayout(jPannelloPulsantiProdottoLayout);
@@ -582,9 +595,9 @@ public class Interfaccia extends javax.swing.JFrame {
                 .addGroup(jPannelloPulsantiProdottoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonProdottoAggiungi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPannelloPulsantiProdottoLayout.createSequentialGroup()
-                        .addComponent(jTBProdottoElimina, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBProdottoElimina, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTBProdottoModifica, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)))
+                        .addComponent(jBProdottoModifica, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPannelloPulsantiProdottoLayout.setVerticalGroup(
@@ -594,8 +607,8 @@ public class Interfaccia extends javax.swing.JFrame {
                 .addComponent(jButtonProdottoAggiungi, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPannelloPulsantiProdottoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTBProdottoModifica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTBProdottoElimina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jBProdottoModifica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBProdottoElimina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -649,15 +662,15 @@ public class Interfaccia extends javax.swing.JFrame {
             jPanelOrdiniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelOrdiniLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelOrdiniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButtonLunedi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelOrdiniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelOrdiniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jRadioButtonMartedi)
                         .addComponent(jRadioButtonMercoledi)
                         .addComponent(jRadioButtonGiovedi)
                         .addComponent(jRadioButtonVenerdi)
                         .addComponent(jRadioButtonSabato)
-                        .addComponent(jRadioButtonDomenica)))
+                        .addComponent(jRadioButtonDomenica))
+                    .addComponent(jRadioButtonLunedi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(jPanelOrdiniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -739,15 +752,28 @@ public class Interfaccia extends javax.swing.JFrame {
 
         jTabbedPane.addTab("Calendario", jPanelCalendario);
 
+        jButton1.setText("Stampante");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButton1MousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelOpzioniLayout = new javax.swing.GroupLayout(jPanelOpzioni);
         jPanelOpzioni.setLayout(jPanelOpzioniLayout);
         jPanelOpzioniLayout.setHorizontalGroup(
             jPanelOpzioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 989, Short.MAX_VALUE)
+            .addGroup(jPanelOpzioniLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addContainerGap(910, Short.MAX_VALUE))
         );
         jPanelOpzioniLayout.setVerticalGroup(
             jPanelOpzioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 715, Short.MAX_VALUE)
+            .addGroup(jPanelOpzioniLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addContainerGap(681, Short.MAX_VALUE))
         );
 
         jTabbedPane.addTab("Opzioni", jPanelOpzioni);
@@ -821,21 +847,49 @@ public class Interfaccia extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jList1ValueChanged
 
-    private void jTBProdottoModificaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jTBProdottoModificaItemStateChanged
-        
-    }//GEN-LAST:event_jTBProdottoModificaItemStateChanged
-
     private void jButtonProdottoAggiungiMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonProdottoAggiungiMousePressed
-        AggiuntaPesata a = new AggiuntaPesata(interfPesate.idOrdine, font);
-        a.setVisible(true);
-        this.setEnabled(false);
-        
-        int unoi = 1;
+        if(jButtonProdottoAggiungi.isEnabled())
+        {
+            JFAggiuntaPesata a = new JFAggiuntaPesata(interfPesate.idOrdine, font);
+            a.setVisible(true);
+            this.setEnabled(false);
+        }
     }//GEN-LAST:event_jButtonProdottoAggiungiMousePressed
+
+    private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
+        PrinterJob pj = PrinterJob.getPrinterJob();
+        if (pj.printDialog()) {
+        try {pj.print();}
+        catch (PrinterException exc) {
+            System.out.println(exc);
+         }
+     }   
+    }//GEN-LAST:event_jButton1MousePressed
+
+    private void jBProdottoEliminaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBProdottoEliminaMousePressed
+        if(jBProdottoElimina.isEnabled())
+        {
+            JFEliminaPesata a = new JFEliminaPesata(interfPesate.idOrdine, font);
+            a.setVisible(true);
+            this.setEnabled(false);
+        }
+    }//GEN-LAST:event_jBProdottoEliminaMousePressed
+
+    private void jBProdottoModificaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBProdottoModificaMousePressed
+        if(jBProdottoModifica.isEnabled())
+        {
+            JFModificaPesata a = new JFModificaPesata(interfPesate.idOrdine, font);
+            a.setVisible(true);
+            this.setEnabled(false);
+        }
+    }//GEN-LAST:event_jBProdottoModificaMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jBProdottoElimina;
+    private javax.swing.JButton jBProdottoModifica;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButtonOrdineAggiungi;
     private javax.swing.JButton jButtonOrdineElimina;
@@ -865,8 +919,6 @@ public class Interfaccia extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JToggleButton jTBProdottoElimina;
-    private javax.swing.JToggleButton jTBProdottoModifica;
     private javax.swing.JTabbedPane jTabbedPane;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField ricercaComboCalendario;

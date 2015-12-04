@@ -130,6 +130,11 @@ public class ElencoPesate extends ElencoIndicizzato implements Serializable
             }
         }
     }
+
+    public void remove(long idPesata)
+    {
+        elenco.remove(get(idPesata));
+    }
     
      
 }
