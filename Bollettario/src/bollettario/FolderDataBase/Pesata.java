@@ -5,48 +5,17 @@
  */
 package bollettario.FolderDataBase;
 
-import java.io.Serializable;
+import java.util.GregorianCalendar;
 
 /**
  *
  * @author DiegoCarlo
  */
-public class Pesata extends OggettoIndicizzato implements Serializable
+public class Pesata
 {
-    public long idProdotto;
-    public long idOrdine;
-    public float quantitaRichiesta;
-    public float quantitaFisica;
-    public StatoPesata stato;
+    long idCliente;
+    long idProdotto;
+    float quantitaFisica;
+    GregorianCalendar dataPesata;
     
-    public Pesata
-    (
-            long id,
-            long idProdotto,
-            long idOrdine,
-            float quantitaRichiesta,
-            StatoPesata stato
-    )
-    {
-        super(id);
-        this.idProdotto = idProdotto;
-        this.idOrdine = idOrdine;
-        this.quantitaRichiesta = quantitaRichiesta;
-        this.stato = stato;
-    }
-    
-
-    @Override
-    public String toString()
-    {
-        String s = getId() +" "+ idOrdine +" "+ idProdotto +" "+ quantitaRichiesta + " " + quantitaFisica +" "+ stato;
-        return s;
-    }
-    public String stampa()
-    {
-        DataBase d = bollettario.Bollettario.dataBase;
-        Prodotto p = d.getProdotto(idProdotto);
-        String s = "Ordine " + idOrdine +"  "+ p.nome +"  "+ quantitaFisica + p.unitaDiMisura;
-        return s;
-    }
 }

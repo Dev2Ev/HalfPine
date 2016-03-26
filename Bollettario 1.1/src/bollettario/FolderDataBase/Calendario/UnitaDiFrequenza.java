@@ -3,18 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bollettario.FolderDataBase;
-
-import java.io.Serializable;
+package bollettario.FolderDataBase.Calendario;
 
 /**
  *
  * @author DiegoCarlo
  */
-public enum StatoFisicoOrdine implements Serializable
+public enum UnitaDiFrequenza
 {
-    DA_FARE,
-    INCOMPLETO,
-    COMPLETO,
-    CONSEGNATO,
+    OCCASIONALE,
+    GIORNALIERA,
+    SETTIMANALE,
+    MENSILE,
+    ANNUALE
 }

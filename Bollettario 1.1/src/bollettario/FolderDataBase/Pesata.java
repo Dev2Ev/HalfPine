@@ -5,15 +5,17 @@
  */
 package bollettario.FolderDataBase;
 
-import java.io.Serializable;
+import java.util.GregorianCalendar;
 
 /**
  *
  * @author DiegoCarlo
  */
-public enum StatoContabileOrdine implements Serializable
+public class Pesata
 {
-    PENDENTE,
-    PAGATO,
-    ANNULLATO
+    long idCliente;
+    long idProdotto;
+    float quantitaFisica;
+    GregorianCalendar dataPesata;
+    
 }
