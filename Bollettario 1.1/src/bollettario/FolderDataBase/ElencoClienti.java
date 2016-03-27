@@ -5,6 +5,7 @@
  */
 package bollettario.FolderDataBase;
 
+import static bollettario.Bollettario.debug;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,16 +22,19 @@ public class ElencoClienti extends ElencoIndicizzato implements Serializable
     public ElencoClienti()
     {
         super();
+        if(debug)System.out.println("ElencoClienti.ElencoClienti()");
         this.elenco = new ArrayList<Cliente>();
     }
     void setArrayList(ArrayList<Cliente> elenco)
     {
+        if(debug)System.out.println("ElencoClienti.setArrayList()");
         this.elenco = elenco;
         ordina();
     }
 
     private void ordina()
     {
+        if(debug)System.out.println("ElencoClienti.ordina()");
         if(elenco.size() > 1)
         {
             Collections.sort(elenco, new ClienteRagioneSocialeComparator());
@@ -38,6 +42,7 @@ public class ElencoClienti extends ElencoIndicizzato implements Serializable
     }
     public void add(String ragioneSociale, String codice, String partitaIva, String codiceFiscale, String indirizzo, String cap, String citta, String provincia, String stato, String telefono, String fax)
     {
+        if(debug)System.out.println("ElencoClienti.add()");
         Cliente c = new Cliente
         (
                 getNewId(),
@@ -58,10 +63,12 @@ public class ElencoClienti extends ElencoIndicizzato implements Serializable
     }
     public int size()
     {
+        if(debug)System.out.println("ElencoClienti.size()");
         return elenco.size();
     }
     public Cliente get(long id)
     {
+        if(debug)System.out.println("ElencoClienti.get()");
         for(int i=0; i<size(); i++)
         {
             Cliente c = (Cliente)elenco.get(i);
@@ -74,12 +81,14 @@ public class ElencoClienti extends ElencoIndicizzato implements Serializable
     }
     public Cliente get(int i)
     {
+        if(debug)System.out.println("ElencoClienti.get()");
         return elenco.get(i);
 
     }
     @Override
     public String toString()
     {
+        if(debug)System.out.println("ElencoClienti.toString()");
         String a = "ElencoClienti";
         for(int i=0; i<elenco.size(); i++)
         {
@@ -90,6 +99,7 @@ public class ElencoClienti extends ElencoIndicizzato implements Serializable
     }
     public void test()
     {
+        if(debug)System.out.println("ElencoClienti.test()");
         int maxClienti = 15;
         elenco = new ArrayList<Cliente>();
         for(int i=0; i<maxClienti; i++)

@@ -5,6 +5,7 @@
  */
 package bollettario;
 
+import static bollettario.Bollettario.debug;
 import bollettario.FolderDataBase.PrototipoPesata;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -23,6 +24,7 @@ public class InterfBarraPesataPeso extends InterfBarraPesata
     public InterfBarraPesataPeso(long id, long idPesata)
     {
         super(id, idPesata);
+        if(debug)System.out.println("InterfBarraPesataPeso.InterfBarraPesataPeso()");
         this.tara = new javax.swing.JTextField();
         this.qDaFare = new javax.swing.JTextField();
         initComponents();
@@ -33,6 +35,7 @@ public class InterfBarraPesataPeso extends InterfBarraPesata
     public void initComponents()
     {
         super.initComponents();
+        if(debug)System.out.println("InterfBarraPesataPeso.initComponents()");
         String nomeFont = "SansSerif";
         int dimFont = 25;
         Font fontGrassetto = new Font(nomeFont, Font.BOLD, dimFont);
@@ -89,7 +92,9 @@ public class InterfBarraPesataPeso extends InterfBarraPesata
                 .addContainerGap())
         );
         jTBprodotto.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
+                if(debug)System.out.println("InterfBarraPesataPeso.jTBprodotto.itemStateChanged()");
                 jTBprodottoStateChanged();
             }
         });

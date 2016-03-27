@@ -5,6 +5,7 @@
  */
 package bollettario;
 
+import static bollettario.Bollettario.debug;
 import java.util.ArrayList;
 
 /**
@@ -15,6 +16,7 @@ public class Utilita {
     
     public static ArrayList<Integer> indiciUnivoci(int quantita, int min, int max)
     {
+        if(debug)System.out.println("Utilita.indiciUnivoci()");
         ArrayList<Integer> numeri = new ArrayList<Integer>();
         while(numeri.size() <= quantita && numeri.size() < max)
         {
@@ -39,6 +41,7 @@ public class Utilita {
     
     public static int getRandom(int min, int max)
     {
+        if(debug)System.out.println("Utilita.getRandom()");
         int i = (int)(min + Math.random() * max);
         return i;
     }

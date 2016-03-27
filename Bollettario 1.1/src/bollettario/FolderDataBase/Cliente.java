@@ -5,6 +5,7 @@
  */
 package bollettario.FolderDataBase;
 
+import static bollettario.Bollettario.debug;
 import java.io.Serializable;
 import java.util.Comparator;
 
@@ -29,6 +30,7 @@ public class Cliente extends OggettoIndicizzato implements Serializable
     public Cliente(long id, String ragioneSociale, String codice, String partitaIva, String codiceFiscale, String indirizzo, String cap, String citta, String provincia, String stato, String telefono, String fax) 
     {
         super(id);
+        if(debug)System.out.println("Cliente.Cliente()");
         this.ragioneSociale = ragioneSociale;
         this.codice = codice;
         this.partitaIva = partitaIva;
@@ -45,6 +47,7 @@ public class Cliente extends OggettoIndicizzato implements Serializable
     @Override
     public String toString()
     {
+        if(debug)System.out.println("Cliente.Cliente()");
         String s = getId() +" "+ ragioneSociale;
         return s;
     }
@@ -54,10 +57,13 @@ class ClienteRagioneSocialeComparator implements Comparator<Cliente>
 {
     public int compare(Cliente Cliente1, Cliente Cliente2)
     {
+        if(debug)System.out.println("Cliente.ClienteRagioneSocialeComparator.compare()");
         return ordineAlfabetico(Cliente1.ragioneSociale, Cliente2.ragioneSociale);
     }
 
-    private int ordineAlfabetico(String uno, String due) {
+    private int ordineAlfabetico(String uno, String due)
+    {
+        if(debug)System.out.println("Cliente.ClienteRagioneSocialeComparator.ordineAlfabetico()");
         int max = 0;
         if(uno.length() > due.length())
         {

@@ -5,6 +5,7 @@
  */
 package bollettario;
 
+import static bollettario.Bollettario.debug;
 import bollettario.FolderDataBase.StatoPesata;
 import bollettario.FolderDataBase.PrototipoPesata;
 import bollettario.FolderDataBase.Prodotto;
@@ -47,6 +48,7 @@ public class InterfBarraPesata
     
     public InterfBarraPesata(long id, long idPesata)
     {
+        if(debug)System.out.println("InterfBarraPesata.InterfBarraPesata()");
         this.id = id;
         this.idPesata = idPesata;
         this.pannello = new JPanel();
@@ -78,10 +80,12 @@ public class InterfBarraPesata
     }
     protected PrototipoPesata getPesata()
     {
+        if(debug)System.out.println("InterfBarraPesata.getPesata()");
         return Bollettario.dataBase.getPesata(idPesata);
     }
     public void jTBprodottoStateChanged()
     {
+        if(debug)System.out.println("InterfBarraPesata.jTBprodottoStateChanged()");
         if(jTBprodotto.isSelected())
         {
             stato = StatoInterfBarraPesata.ATTIVA;
@@ -94,10 +98,12 @@ public class InterfBarraPesata
     }
     protected Prodotto getProdotto(PrototipoPesata pe)
     {
+        if(debug)System.out.println("InterfBarraPesata.getProdotto()");
         return Bollettario.dataBase.getProdotto(pe.idProdotto);
     }
     public void initComponents()
     {
+        if(debug)System.out.println("InterfBarraPesata.initComponents()");
         String nomeFont = "SansSerif";
         int dimFont = 25;
         fontGrassetto = new Font(nomeFont, Font.BOLD, dimFont);
@@ -135,6 +141,7 @@ public class InterfBarraPesata
    
     public void aggiornaInterfacciaStato()
     {
+        if(debug)System.out.println("InterfBarraPesata.aggiornaInterfacciaStato()");
         
         switch(stato)
         {
@@ -195,10 +202,12 @@ public class InterfBarraPesata
     }
     public long getId()
     {
+        if(debug)System.out.println("InterfBarraPesata.getId()");
         return idPesata;
     }
     protected void salva()
     {
+        if(debug)System.out.println("InterfBarraPesata.salva()");
         Bollettario.salva();
     }
 }

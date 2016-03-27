@@ -5,6 +5,7 @@
  */
 package bollettario.FolderDataBase;
 
+import static bollettario.Bollettario.debug;
 import java.io.Serializable;
 
 /**
@@ -20,11 +21,13 @@ public enum UnitaDiMisura implements Serializable
     private final String text;
     
     private UnitaDiMisura(final String text) {
+        if(debug)System.out.println("UnitaDiMisura.UnitaDiMisura()");
         this.text = text;
     }
     
     @Override
     public String toString() {
+        if(debug)System.out.println("UnitaDiMisura.toString()");
         return text;
     }
 }

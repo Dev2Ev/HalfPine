@@ -5,6 +5,8 @@
  */
 package bollettario;
 
+import static bollettario.Bollettario.debug;
+
 /**
  *
  * @author DiegoCarlo
@@ -15,6 +17,7 @@ public class JFAggiungiOrdine extends javax.swing.JFrame {
      * Creates new form JFAggiungiOrdine
      */
     public JFAggiungiOrdine() {
+        if(debug)System.out.println("JFAggiungiOrdine.JFAggiungiOrdine()");
         initComponents();
     }
 

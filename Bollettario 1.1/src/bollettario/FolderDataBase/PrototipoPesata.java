@@ -5,6 +5,7 @@
  */
 package bollettario.FolderDataBase;
 
+import static bollettario.Bollettario.debug;
 import bollettario.FolderDataBase.Calendario.PeriodoEFrequenza;
 import java.io.Serializable;
 import java.util.Calendar;
@@ -33,6 +34,7 @@ public class PrototipoPesata extends OggettoIndicizzato implements Serializable
             )
     {
         super(id);
+        if(debug)System.out.println("PrototipoPesata.PrototipoPesata()");
         this.idProdotto = idProdotto;
         this.idCliente = idCliente;
         this.quantitaRichiesta = quantitaRichiesta;
@@ -44,11 +46,13 @@ public class PrototipoPesata extends OggettoIndicizzato implements Serializable
     @Override
     public String toString()
     {
+        if(debug)System.out.println("PrototipoPesata.toString()");
         String s = getId() +" "+ idCliente +" "+ idProdotto +" "+ quantitaRichiesta + " " + quantitaFisica +" "+ stato;
         return s;
     }
     public String stampa()
     {
+        if(debug)System.out.println("PrototipoPesata.stampa()");
         DataBase d = bollettario.Bollettario.dataBase;
         Prodotto p = d.getProdotto(idProdotto);
         String s = "Ordine " + idCliente +"  "+ p.nome +"  "+ quantitaFisica + p.unitaDiMisura;
@@ -57,6 +61,7 @@ public class PrototipoPesata extends OggettoIndicizzato implements Serializable
     
     public boolean validaIl(GregorianCalendar giorno)
     {
+        if(debug)System.out.println("PrototipoPesata.validaIl()");
         boolean valida = false;
         return valida;
     }

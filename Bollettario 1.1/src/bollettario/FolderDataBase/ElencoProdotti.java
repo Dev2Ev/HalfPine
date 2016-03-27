@@ -5,6 +5,7 @@
  */
 package bollettario.FolderDataBase;
 
+import static bollettario.Bollettario.debug;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -19,16 +20,19 @@ public class ElencoProdotti extends ElencoIndicizzato implements Serializable
     public ElencoProdotti()
     {
         super();
+        if(debug)System.out.println("ElencoProdotti.ElencoProdotti()");
         this.elenco = new ArrayList<Prodotto>();
     }
     public int size()
     {
+        if(debug)System.out.println("ElencoProdotti.size()");
         return elenco.size();
     }
 
     @Override
     public String toString()
     {
+        if(debug)System.out.println("ElencoProdotti.toString()");
         String a = "ElencoProdotti";
         for(int i=0; i<elenco.size(); i++)
         {
@@ -39,6 +43,7 @@ public class ElencoProdotti extends ElencoIndicizzato implements Serializable
     
     public void test()
     {
+        if(debug)System.out.println("ElencoProdotti.test()");
         elenco.add(new Prodotto(getNewId(), "Pane", UnitaDiMisura.KILOGRAMMO));
         elenco.add(new Prodotto(getNewId(), "Focaccia", UnitaDiMisura.QUANTITA));
         elenco.add(new Prodotto(getNewId(), "Grano Duro", UnitaDiMisura.KILOGRAMMO));
@@ -57,6 +62,7 @@ public class ElencoProdotti extends ElencoIndicizzato implements Serializable
     }
     public Prodotto get(long id)
     {
+        if(debug)System.out.println("ElencoProdotti.get()");
         for(int i=0; i<elenco.size(); i++)
         {
             Prodotto p = (Prodotto)elenco.get(i); 
@@ -70,10 +76,12 @@ public class ElencoProdotti extends ElencoIndicizzato implements Serializable
     
     public Prodotto get(int i)
     {
+        if(debug)System.out.println("ElencoProdotti.get()");
         return elenco.get(i);
     }
     public String getNome(long id)
     {
+        if(debug)System.out.println("ElencoProdotti.getNome()");
         for(int i=0; i<elenco.size(); i++)
         {
             Prodotto p = (Prodotto)elenco.get(i); 
@@ -87,6 +95,7 @@ public class ElencoProdotti extends ElencoIndicizzato implements Serializable
     
     public UnitaDiMisura getIdUnitaDiMisura(long id)
     {
+        if(debug)System.out.println("ElencoProdotti.getIdUnitaDiMisura()");
         for(int i=0; i<elenco.size(); i++)
         {
             Prodotto p = (Prodotto)elenco.get(i); 

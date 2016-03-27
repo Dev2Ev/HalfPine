@@ -5,6 +5,7 @@
  */
 package bollettario;
 
+import static bollettario.Bollettario.debug;
 import bollettario.FolderDataBase.ElencoPesate;
 import bollettario.FolderDataBase.PrototipoPesata;
 import bollettario.FolderDataBase.Prodotto;
@@ -26,6 +27,7 @@ public class JFEliminaPesata extends javax.swing.JFrame {
     private long idOrdine;
     public JFEliminaPesata(long idOrdine, Font font)
     {
+        if(debug)System.out.println("JFEliminaPesata.JFEliminaPesata()");
         this.font = font;
         this.idOrdine = idOrdine;
         initComponents();
@@ -34,6 +36,7 @@ public class JFEliminaPesata extends javax.swing.JFrame {
     }
     public void aggiornaJList()
     {
+        if(debug)System.out.println("JFEliminaPesata.aggiornaJList()");
         elencoJListPesate = Bollettario.interfaccia.interfPesate.getPesate();
         final String[] testoLista = new String[elencoJListPesate.size()];
         for(int i=0; i<elencoJListPesate.size(); i++)
@@ -173,6 +176,7 @@ public class JFEliminaPesata extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
+        if(debug)System.out.println("JFEliminaPesata.jList1ValueChanged()");
         int i = jList1.getSelectedIndex();
         if(i >= 0 && i < elencoJListPesate.size())
         {
@@ -185,14 +189,17 @@ public class JFEliminaPesata extends javax.swing.JFrame {
     }//GEN-LAST:event_jList1ValueChanged
 
     private void jButtonResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonResetMouseClicked
+        if(debug)System.out.println("JFEliminaPesata.jButtonResetMouseClicked()");
         annulla();
     }//GEN-LAST:event_jButtonResetMouseClicked
     private void annulla()
     {
+        if(debug)System.out.println("JFEliminaPesata.annulla()");
         jList1.setSelectedIndex(-1);
         
     }
     private void jButtonAggiungiMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAggiungiMousePressed
+        if(debug)System.out.println("JFEliminaPesata.jButtonAggiungiMousePressed()");
         if(jButtonAggiungi.isEnabled())
         {
             int i = jList1.getSelectedIndex();
@@ -204,6 +211,7 @@ public class JFEliminaPesata extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAggiungiMousePressed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if(debug)System.out.println("JFEliminaPesata.formWindowClosing()");
         Bollettario.interfaccia.setEnabled(true);
     }//GEN-LAST:event_formWindowClosing
 
@@ -221,6 +229,7 @@ public class JFEliminaPesata extends javax.swing.JFrame {
 
     private void verificaCorrettezza()
     {
+        if(debug)System.out.println("JFEliminaPesata.verificaCorrettezza()");
         int i = jList1.getSelectedIndex();
         if(i >= 0 && i < elencoJListPesate.size())
         {

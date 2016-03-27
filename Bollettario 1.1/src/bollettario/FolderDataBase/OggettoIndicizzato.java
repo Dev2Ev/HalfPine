@@ -5,6 +5,7 @@
  */
 package bollettario.FolderDataBase;
 
+import static bollettario.Bollettario.debug;
 import java.io.Serializable;
 
 /**
@@ -16,10 +17,12 @@ public class OggettoIndicizzato implements Serializable
     private long id;
 
     public OggettoIndicizzato(long id) {
+        if(debug)System.out.println("OggettoIndicizzato.OggettoIndicizzato()");
         this.id = id;
     }
 
     public long getId() {
+        if(debug)System.out.println("OggettoIndicizzato.getId()");
         return id;
     }
 }

@@ -10,6 +10,7 @@ package bollettario;
  * @author DiegoCarlo
  */
 
+import static bollettario.Bollettario.debug;
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -24,6 +25,7 @@ public class OutputFile
 
     public static void scrivi(String nomeFile, Object oggetto)
     {
+        if(debug)System.out.println("OutputFile.scrivi()");
         File f = new File(nomeFile);
         ObjectOutputStream archivio = null;
         try

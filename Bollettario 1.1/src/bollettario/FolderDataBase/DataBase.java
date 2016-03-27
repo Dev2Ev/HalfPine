@@ -5,6 +5,7 @@
  */
 package bollettario.FolderDataBase;
 
+import static bollettario.Bollettario.debug;
 import java.io.Serializable;
 
 /**
@@ -18,8 +19,9 @@ public class DataBase implements Serializable
     public ElencoPesate elencoPesate;
     
     
-    public DataBase() {
-        
+    public DataBase()
+    {
+        if(debug)System.out.println("DataBase.DataBase()");
         
         elencoClienti = new ElencoClienti();
         elencoProdotti = new ElencoProdotti();
@@ -28,10 +30,10 @@ public class DataBase implements Serializable
     }
     public void test()
     {
+        if(debug)System.out.println("DataBase.test()");
+        
         elencoClienti.test();
-        
         elencoProdotti.test();
-        
         elencoPesate.test();
         int a = 2;
     }
@@ -39,6 +41,8 @@ public class DataBase implements Serializable
     @Override
     public String toString()
     {
+        if(debug)System.out.println("DataBase.toString()");
+        
         String a = "DataBase";
         a += elencoClienti.toString() +"\n";
         a += elencoProdotti.toString() +"\n";
@@ -49,27 +53,33 @@ public class DataBase implements Serializable
     
     public Cliente getCliente(long id)
     {
+        if(debug)System.out.println("DataBase.getCliente()");
         return elencoClienti.get(id);
     }
     public Prodotto getProdotto(long id)
     {
+        if(debug)System.out.println("DataBase.getProdotto()");
         return elencoProdotti.get(id);
     }
     public PrototipoPesata getPesata(long id)
     {
+        if(debug)System.out.println("DataBase.getPesata()");
         return elencoPesate.get(id);
     }
     
     public Cliente getCliente(int i)
     {
+        if(debug)System.out.println("DataBase.getCliente()");
         return elencoClienti.get(i);
     }
     public Prodotto getProdotto(int i)
     {
+        if(debug)System.out.println("DataBase.getProdotto()");
         return elencoProdotti.get(i);
     }
     public PrototipoPesata getPesata(int i)
     {
+        if(debug)System.out.println("DataBase.getPesata()");
         return elencoPesate.get(i);
     }
 }

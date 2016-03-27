@@ -5,6 +5,8 @@
  */
 package bollettario;
 
+import static bollettario.Bollettario.debug;
+
 /**
  *
  * @author DiegoCarlo
@@ -15,6 +17,7 @@ public class JFEliminaOrdine extends javax.swing.JFrame {
      * Creates new form JFEliminaOrdine
      */
     public JFEliminaOrdine() {
+        if(debug)System.out.println("JFEliminaOrdine.JFEliminaOrdine()");
         initComponents();
     }
 

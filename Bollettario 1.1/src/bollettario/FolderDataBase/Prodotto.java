@@ -5,6 +5,7 @@
  */
 package bollettario.FolderDataBase;
 
+import static bollettario.Bollettario.debug;
 import java.io.Serializable;
 
 /**
@@ -19,7 +20,7 @@ public class Prodotto extends OggettoIndicizzato implements Serializable
     public Prodotto(long id, String nome, UnitaDiMisura unitaDiMisura)
     {
         super(id);
-        
+        if(debug)System.out.println("Prodotto.Prodotto()");
         this.nome = nome;
         //this.nome = adattaNome(nome);
         this.unitaDiMisura = unitaDiMisura;
@@ -27,6 +28,7 @@ public class Prodotto extends OggettoIndicizzato implements Serializable
 
     private String adattaNome(String nome)
     {
+        if(debug)System.out.println("Prodotto.adattaNome()");
         int max = 12;
         if(nome.length() < 12)
         {
@@ -37,6 +39,7 @@ public class Prodotto extends OggettoIndicizzato implements Serializable
     @Override
     public String toString()
     {
+        if(debug)System.out.println("Prodotto.toString()");
         String s = getId() +" "+ nome +" "+ unitaDiMisura;
         return s;
     }

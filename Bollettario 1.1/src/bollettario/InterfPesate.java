@@ -5,7 +5,7 @@
  */
 package bollettario;
 
-import bollettario.FolderDataBase.UnitaDiMisura;
+import static bollettario.Bollettario.debug;
 import bollettario.FolderDataBase.PrototipoPesata;
 import bollettario.FolderDataBase.Prodotto;
 import bollettario.FolderDataBase.StatoPesata;
@@ -27,12 +27,14 @@ public class InterfPesate {
     ButtonGroup gruppo;
     public InterfPesate()
     {
+        if(debug)System.out.println("InterfPesate.InterfPesate()");
         this.barrePesate = new ArrayList<InterfBarraPesata>();
         this.gruppo = new ButtonGroup();
     }
     
     public ArrayList<Long> getPesate()
     {
+        if(debug)System.out.println("InterfPesate.getPesate()");
         ArrayList<Long> e = new ArrayList<Long>();
         for(int i=0; i<barrePesate.size(); i++)
         {
@@ -42,6 +44,7 @@ public class InterfPesate {
     }
     public void creaBarrePesate()
     {
+        if(debug)System.out.println("InterfPesate.creaBarrePesate()");
         if(idOrdine >= 0)
         {
             barrePesate = null;
@@ -72,6 +75,7 @@ public class InterfPesate {
     }
     public void selezioneFocusPesata(int id)
     {
+        if(debug)System.out.println("InterfPesate.selezioneFocusPesata()");
         for(int i=0; i<barrePesate.size(); i++)
         {
             /*if(
@@ -86,6 +90,7 @@ public class InterfPesate {
 
     public JPanel getJPanel(long idOrdine)
     {
+        if(debug)System.out.println("InterfPesate.getJPanel()");
         this.idOrdine = idOrdine;
         JPanel jPanelSfondo = new javax.swing.JPanel();
         
@@ -139,6 +144,7 @@ public class InterfPesate {
 
     public void aggiornaInterfaceStato()
     {
+        if(debug)System.out.println("InterfPesate.aggiornaInterfaceStato()");
         for(int i=0; i < barrePesate.size(); i++)
         {
             barrePesate.get(i).aggiornaInterfacciaStato();
@@ -147,6 +153,7 @@ public class InterfPesate {
 
     public void aggiornaStatoBarreStampate()
     {
+        if(debug)System.out.println("InterfPesate.aggiornaStatoBarreStampate()");
         for(int i=0; i < barrePesate.size(); i++)
         {
             if(barrePesate.get(i).getPesata().stato == StatoPesata.STAMPATA)

@@ -5,6 +5,7 @@
  */
 package bollettario;
 
+import static bollettario.Bollettario.debug;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,7 +20,8 @@ public class InputFile
 {
 	public static Object leggi(String nomeFile) throws ClassNotFoundException
 	{
-		File f = new File(nomeFile);
+		if(debug)System.out.println("InputFile.leggi()");
+                File f = new File(nomeFile);
 		ObjectInputStream sorgente = null;
 
 		Object oggetto = null;

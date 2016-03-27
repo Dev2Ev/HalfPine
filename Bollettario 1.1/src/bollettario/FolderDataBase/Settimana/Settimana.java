@@ -5,19 +5,15 @@
  */
 package bollettario.FolderDataBase.Settimana;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author DiegoCarlo
  */
-public class Settimana
+public class Settimana implements Serializable
 {
-    ArrayList<Object> lunedi;
-    ArrayList<Object> martedi;
-    ArrayList<Object> mercoledi;
-    ArrayList<Object> giovedi;
-    ArrayList<Object> venerdi;
-    ArrayList<Object> sabato;
-    ArrayList<Object> domenica;            
+    ArrayList<Long> idPesata;
+    
 }

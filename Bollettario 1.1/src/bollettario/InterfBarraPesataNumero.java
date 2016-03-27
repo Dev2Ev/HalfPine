@@ -1,13 +1,9 @@
 package bollettario;
 
+import static bollettario.Bollettario.debug;
 import bollettario.FolderDataBase.PrototipoPesata;
 import bollettario.FolderDataBase.StatoPesata;
-import java.awt.Event;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 
 public class InterfBarraPesataNumero extends InterfBarraPesata{
    
@@ -19,6 +15,7 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
     public InterfBarraPesataNumero(long id, long idPesata)
     {
         super(id, idPesata);
+        if(debug)System.out.println("InterfBarraPesataNumero.InterfBarraPesataNumero()");
         this.jBMeno = new javax.swing.JButton();
         this.jBPiu = new javax.swing.JButton();
         initComponents();
@@ -27,6 +24,7 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
     
     public void setEnableItems(boolean enable)
     {
+        if(debug)System.out.println("InterfBarraPesataNumero.setEnableItems()");
         jBMeno.setEnabled(enable);
         jBPiu.setEnabled(enable);
         jTFQuantitaRichiesta.setEnabled(enable);
@@ -35,6 +33,7 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
     public void initComponents()
     {
         super.initComponents();
+        if(debug)System.out.println("InterfBarraPesataNumero.initComponents()");
         setEnableItems(false);
         
         jBMeno.setText("-");
@@ -83,15 +82,20 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
                 .addContainerGap())
         );
         
-        jTBOk.addItemListener(new java.awt.event.ItemListener() {
+        jTBOk.addItemListener(new java.awt.event.ItemListener()
+        {
             public void itemStateChanged(java.awt.event.ItemEvent evt)
             {
+                if(debug)System.out.println("InterfBarraPesataNumero.jTBOk.itemStateChanged()");
                 jTBOkStateChanged();
             }
         });
         
-        jTBprodotto.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+        jTBprodotto.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
+                if(debug)System.out.println("InterfBarraPesataNumero.jTBprodotto.itemStateChanged()");
                 jTBprodottoStateChanged();
                 if(jTBprodotto.isSelected())
                 {
@@ -105,6 +109,7 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
         });
         jTBprodotto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
+                if(debug)System.out.println("InterfBarraPesataNumero.jTBprodotto.mousePressed()");
                 /*switch(stato)
                 {
                     case ESAURITA: break;
@@ -124,6 +129,7 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
         });
         jTFQuantitaRichiesta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
+                if(debug)System.out.println("InterfBarraPesataNumero.jTFQuantitaRichiesta.mousePressed()");
                 if(jTFQuantitaRichiesta.isEnabled())
                 {
                     aggiornaQFisica(quantitaRichiesta);
@@ -133,6 +139,7 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
         });
         jBPiu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
+                if(debug)System.out.println("InterfBarraPesataNumero.jBPiu.mousePressed()");
                 if(jBPiu.isEnabled())
                 {
                     aggiornaQFisica(quantitaFisica+1);
@@ -143,6 +150,7 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
         });
         jBMeno.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
+                if(debug)System.out.println("InterfBarraPesataNumero.jBMeno.mousePressed()");
                 if(jBMeno.isEnabled())
                 {
                     float temp = quantitaFisica - 1;
@@ -156,6 +164,7 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
     }
     protected void jTBOkStateChanged()
     {
+        if(debug)System.out.println("InterfBarraPesataNumero.jTBOkStateChanged()");
         PrototipoPesata pe = getPesata();
         boolean valida = jTBOk.isSelected();
         if(valida)
@@ -179,6 +188,7 @@ public class InterfBarraPesataNumero extends InterfBarraPesata{
     }
     private void aggiornaQFisica(float valore)
     {
+        if(debug)System.out.println("InterfBarraPesataNumero.aggiornaQFisica()");
         quantitaFisica = valore;
         jTFQuantitaFisica.setText((int)valore+"");
         getPesata().quantitaFisica = quantitaFisica;

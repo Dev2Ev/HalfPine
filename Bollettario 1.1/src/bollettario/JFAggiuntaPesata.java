@@ -5,6 +5,7 @@
  */
 package bollettario;
 
+import static bollettario.Bollettario.debug;
 import bollettario.FolderDataBase.Cliente;
 import bollettario.FolderDataBase.ElencoProdotti;
 import bollettario.FolderDataBase.Ordine;
@@ -31,6 +32,7 @@ public class JFAggiuntaPesata extends javax.swing.JFrame {
     long idOrdine;
     
     public JFAggiuntaPesata(long idOrdine, Font font) {
+        if(debug)System.out.println("JFAggiuntaPesata.JFAggiuntaPesata()");
         this.font = font;
         this.idOrdine = idOrdine;
         initComponents();
@@ -170,11 +172,13 @@ public class JFAggiuntaPesata extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if(debug)System.out.println("JFAggiuntaPesata.formWindowClosing()");
         Bollettario.interfaccia.setEnabled(true);
     }//GEN-LAST:event_formWindowClosing
 
     public void aggiornaJList()
     {
+        if(debug)System.out.println("JFAggiuntaPesata.aggiornaJList()");
         ElencoProdotti e = Bollettario.dataBase.elencoProdotti;
         elencoJListProdotti = new ArrayList<Long>();
         final String[] testoLista = new String[e.size()];
@@ -196,15 +200,18 @@ public class JFAggiuntaPesata extends javax.swing.JFrame {
     }
     public void reset()
     {
+        if(debug)System.out.println("JFAggiuntaPesata.reset()");
         aggiornaJList();
         quantita = 0;
         jTextField1.setText(quantita+"");
     }
     private void jButtonResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonResetMouseClicked
+        if(debug)System.out.println("JFAggiuntaPesata.jButtonResetMouseClicked()");
         reset();
     }//GEN-LAST:event_jButtonResetMouseClicked
 
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
+        if(debug)System.out.println("JFAggiuntaPesata.jList1ValueChanged()");
         int i = jList1.getSelectedIndex();
         if(i >= 0 && i < elencoJListProdotti.size())
         {
@@ -216,6 +223,7 @@ public class JFAggiuntaPesata extends javax.swing.JFrame {
     }//GEN-LAST:event_jList1ValueChanged
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        if(debug)System.out.println("JFAggiuntaPesata.jTextField1KeyReleased()");
         try
         {
             float valore = Float.parseFloat(jTextField1.getText());
@@ -230,6 +238,7 @@ public class JFAggiuntaPesata extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1KeyReleased
 
     private void jButtonAggiungiMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAggiungiMousePressed
+        if(debug)System.out.println("JFAggiuntaPesata.jButtonAggiungiMousePressed()");
         if(jButtonAggiungi.isEnabled())
         {
             Bollettario.dataBase.elencoPesate.add
@@ -259,6 +268,7 @@ public class JFAggiuntaPesata extends javax.swing.JFrame {
 
     private void verificaCorrettezza()
     {
+        if(debug)System.out.println("JFAggiuntaPesata.verificaCorrettezza()");
         int i = jList1.getSelectedIndex();
         if(quantita > 0 && (i >= 0 && i < elencoJListProdotti.size()))
         {

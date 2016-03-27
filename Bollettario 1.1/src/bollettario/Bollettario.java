@@ -13,13 +13,14 @@ public class Bollettario
     public static DataBase dataBase;
     public static String nomeDB = "DataBaseGF";
     public static String estensione = ".dbn";
-
+    public static boolean debug = true;
     /**
      * main
      * @param args 
      */
     public static void main(String[] args)
     {
+        if(debug)System.out.println("Bollettario.main()");
         caricaStile();
         dataBase = new DataBase();
         carica();
@@ -35,6 +36,7 @@ public class Bollettario
     }
     static private void caricaStile()
     {
+        if(debug)System.out.println("Bollettario.caricaStile()");
         try
         {
             UIManager.setLookAndFeel(
@@ -58,6 +60,7 @@ public class Bollettario
     */
     public static void salva()
     {
+        if(debug)System.out.println("Bollettario.salva()");
         OutputFile.scrivi(nomeDB+estensione, dataBase);
     }
     /**
@@ -65,6 +68,7 @@ public class Bollettario
      */
     public static void carica()
     {
+        if(debug)System.out.println("Bollettario.carica()");
         try
         {
             dataBase = (DataBase)InputFile.leggi(nomeDB+estensione);

@@ -5,6 +5,7 @@
  */
 package bollettario.FolderDataBase;
 
+import static bollettario.Bollettario.debug;
 import bollettario.FolderDataBase.Calendario.PeriodoEFrequenza;
 import bollettario.FolderDataBase.Calendario.RipetizioneSettimanale;
 import java.util.ArrayList;
@@ -20,17 +21,20 @@ public class ElencoPrototipiPesate {
 
     public ElencoPrototipiPesate()
     {
+        if(debug)System.out.println("ElencoPrototipiPesate.ElencoPrototipiPesate()");
         this.elenco = new ArrayList<PrototipoPesata>();
         this.idCounter = 0;
     }
     private long getNewId()
     {
+        if(debug)System.out.println("ElencoPrototipiPesate.getNewId()");
         long temp = idCounter;
         idCounter++;
         return temp;
     }
     public void test()
     {
+        if(debug)System.out.println("ElencoPrototipiPesate.test()");
         long idProdotto = 0;
         long idCliente = 0;
         float quantitaRichiesta = 10;

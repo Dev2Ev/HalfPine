@@ -5,9 +5,9 @@
  */
 package bollettario;
 
+import static bollettario.Bollettario.debug;
 import bollettario.FolderDataBase.*;
-import java.io.InputStream;
-import bollettario.FolderDataBase.Ordine;
+
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.print.PrinterException;
@@ -39,6 +39,7 @@ public class Interfaccia extends javax.swing.JFrame {
     
     public Interfaccia()
     {
+        if(debug)System.out.println("Interfaccia.Interfaccia()");
         /*try { 
            font = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, new java.io.File("src\\Font\\OpenDyslexicAlta-Regular.ttf")); 
            font =  font.deriveFont(30F);
@@ -54,11 +55,13 @@ public class Interfaccia extends javax.swing.JFrame {
 
     private void initGiorno()
     {
+        if(debug)System.out.println("Interfaccia.initGiorno()");
         Calendar c = GregorianCalendar.getInstance();
         giornoDaVisualizzare = c.get(Calendar.DAY_OF_WEEK);
     }
     private void initComponents2()
     {
+        if(debug)System.out.println("Interfaccia.initComponents2()");
         initJRBGiorni();
         initJTable();
         ricercaComboCalendario.setText("");
@@ -71,6 +74,7 @@ public class Interfaccia extends javax.swing.JFrame {
     }
     private void aggiuntaListener()
     {
+        if(debug)System.out.println("Interfaccia.aggiuntaListener()");
         jButtonStampa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 
@@ -84,10 +88,12 @@ public class Interfaccia extends javax.swing.JFrame {
     }
     private void initScrollPanelPesate()
     {
+        if(debug)System.out.println("Interfaccia.initScrollPanelPesate()");
         jScrollPane5.getVerticalScrollBar().setPreferredSize(new Dimension(50, 0));
     }
     private void initJRBGiorni()
     {
+        if(debug)System.out.println("Interfaccia.initJRBGiorni()");
         jRadioButtonLunedi.setText("Lunedì");
         jRadioButtonMartedi.setText("Martedì");
         jRadioButtonMercoledi.setText("Mercoledì");
@@ -130,7 +136,7 @@ public class Interfaccia extends javax.swing.JFrame {
     }
     private void initJTable()
     {
-        
+        if(debug)System.out.println("Interfaccia.initJTable()");
         int righe = 25;
         int colonne = 8;
         Object[][] tab = new Object [righe][colonne];
@@ -167,6 +173,7 @@ public class Interfaccia extends javax.swing.JFrame {
     }
     private void stampa()
     {
+        if(debug)System.out.println("Interfaccia.stampa()");
         if(interfPesate.idOrdine >= 0)
         {
             ElencoPesate elenco = new ElencoPesate();
@@ -193,6 +200,7 @@ public class Interfaccia extends javax.swing.JFrame {
     }
     private void togglePannelloPulsantiProdotto()
     {
+        if(debug)System.out.println("Interfaccia.togglePannelloPulsantiProdotto()");
         int indiceLista = jList1.getSelectedIndex();
         System.out.print(indiceLista);
         if(indiceLista >= 0 && indiceLista < elencoJListOrdini.size())
@@ -210,6 +218,7 @@ public class Interfaccia extends javax.swing.JFrame {
     }
     private void aggiornaTab()
     {
+        if(debug)System.out.println("Interfaccia.aggiornaTab()");
         int tabSelected = jTabbedPane.getSelectedIndex();
         switch(tabSelected)
         {
@@ -220,7 +229,7 @@ public class Interfaccia extends javax.swing.JFrame {
     }
     private void setGiornoDaVisualizzare()
     {
-        
+        if(debug)System.out.println("Interfaccia.setGiornoDaVisualizzare()");
         if(jRadioButtonLunedi.isSelected())
         {
             giornoDaVisualizzare = GregorianCalendar.MONDAY;
@@ -252,6 +261,7 @@ public class Interfaccia extends javax.swing.JFrame {
     }
     public void aggiornaPannelloOrdini()
     {
+        if(debug)System.out.println("Interfaccia.aggiornaPannelloOrdini()");
         setGiornoDaVisualizzare();
         togglePulsanti();
         aggiornaListaOrdini();
@@ -260,6 +270,7 @@ public class Interfaccia extends javax.swing.JFrame {
     }
     private void aggiornaInterfacciaPesate()
     {
+        if(debug)System.out.println("Interfaccia.aggiornaInterfacciaPesate()");
         interfPesate = new InterfPesate();
         int indJlist = jList1.getSelectedIndex();
         if(indJlist >= 0 && indJlist < elencoJListOrdini.size())
@@ -283,6 +294,7 @@ public class Interfaccia extends javax.swing.JFrame {
     }
     public void aggiorna()
     {
+        if(debug)System.out.println("Interfaccia.aggiorna()");
         this.setEnabled(true);
         
         jList1.setSelectedIndex(jList1.getSelectedIndex());
@@ -291,6 +303,7 @@ public class Interfaccia extends javax.swing.JFrame {
     }
     private void aggiornaListaOrdini()
     {
+        if(debug)System.out.println("Interfaccia.aggiornaListaOrdini()");
         int gap = giornoDaVisualizzare - GregorianCalendar.getInstance().get(Calendar.DAY_OF_WEEK);
         Calendar c = GregorianCalendar.getInstance();
         c.add(GregorianCalendar.DAY_OF_MONTH, gap);
@@ -319,7 +332,7 @@ public class Interfaccia extends javax.swing.JFrame {
     }
     private void togglePulsanti()
     {
-        
+        if(debug)System.out.println("Interfaccia.togglePulsanti()");
         if(GregorianCalendar.getInstance().get(Calendar.DAY_OF_WEEK) == giornoDaVisualizzare)
         {
             jButtonStampa.setEnabled(true);
@@ -335,11 +348,13 @@ public class Interfaccia extends javax.swing.JFrame {
     }
     private void aggiornaPannelloCalendario()
     {
+        if(debug)System.out.println("Interfaccia.aggiornaPannelloCalendario()");
         
     }
     private void initComboCalendario()
     {
         
+        if(debug)System.out.println("Interfaccia.initComboCalendario()");
         /*ElencoClienti selezione = new ElencoClienti();
         ElencoClienti el = Bollettario.dataBase.elencoClienti;
         for(int i=0; i<el.size(); i++)
@@ -360,6 +375,7 @@ public class Interfaccia extends javax.swing.JFrame {
     }
     private void aggiornaPannelloOpzioni()
     {
+        if(debug)System.out.println("Interfaccia.aggiornaPannelloOpzioni()");
         
     }
     /**
@@ -801,47 +817,58 @@ public class Interfaccia extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTabbedPaneStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPaneStateChanged
+        if(debug)System.out.println("Interfaccia.jTabbedPaneStateChanged()");
         aggiornaTab();
     }//GEN-LAST:event_jTabbedPaneStateChanged
 
     private void ricercaComboCalendarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ricercaComboCalendarioKeyReleased
+        if(debug)System.out.println("Interfaccia.ricercaComboCalendarioKeyReleased()");
         initComboCalendario();
     }//GEN-LAST:event_ricercaComboCalendarioKeyReleased
 
     private void jButton6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MousePressed
+        if(debug)System.out.println("Interfaccia.jButton6MousePressed()");
         ricercaComboCalendario.setText("");
         initComboCalendario();
     }//GEN-LAST:event_jButton6MousePressed
 
     private void jRadioButtonLunediItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonLunediItemStateChanged
+        if(debug)System.out.println("Interfaccia.jRadioButtonLunediItemStateChanged()");
         aggiornaPannelloOrdini();
     }//GEN-LAST:event_jRadioButtonLunediItemStateChanged
 
     private void jRadioButtonMartediItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonMartediItemStateChanged
+        if(debug)System.out.println("Interfaccia.jRadioButtonMartediItemStateChanged()");
         aggiornaPannelloOrdini();
     }//GEN-LAST:event_jRadioButtonMartediItemStateChanged
 
     private void jRadioButtonMercolediItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonMercolediItemStateChanged
+        if(debug)System.out.println("Interfaccia.jRadioButtonMercolediItemStateChanged()");
         aggiornaPannelloOrdini();
     }//GEN-LAST:event_jRadioButtonMercolediItemStateChanged
 
     private void jRadioButtonGiovediItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonGiovediItemStateChanged
+        if(debug)System.out.println("Interfaccia.jRadioButtonGiovediItemStateChanged()");
         aggiornaPannelloOrdini();
     }//GEN-LAST:event_jRadioButtonGiovediItemStateChanged
 
     private void jRadioButtonVenerdiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonVenerdiItemStateChanged
+        if(debug)System.out.println("Interfaccia.jRadioButtonVenerdiItemStateChanged()");
         aggiornaPannelloOrdini();
     }//GEN-LAST:event_jRadioButtonVenerdiItemStateChanged
 
     private void jRadioButtonSabatoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonSabatoItemStateChanged
+        if(debug)System.out.println("Interfaccia.jRadioButtonSabatoItemStateChanged()");
         aggiornaPannelloOrdini();
     }//GEN-LAST:event_jRadioButtonSabatoItemStateChanged
 
     private void jRadioButtonDomenicaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonDomenicaItemStateChanged
+        if(debug)System.out.println("Interfaccia.jRadioButtonDomenicaItemStateChanged()");
         aggiornaPannelloOrdini();
     }//GEN-LAST:event_jRadioButtonDomenicaItemStateChanged
 
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
+        if(debug)System.out.println("Interfaccia.jList1ValueChanged()");
         if (!evt.getValueIsAdjusting())
         {//This line prevents double events
             aggiornaInterfacciaPesate();
@@ -850,6 +877,7 @@ public class Interfaccia extends javax.swing.JFrame {
     }//GEN-LAST:event_jList1ValueChanged
 
     private void jButtonProdottoAggiungiMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonProdottoAggiungiMousePressed
+        if(debug)System.out.println("Interfaccia.jButtonProdottoAggiungiMousePressed()");
         if(jButtonProdottoAggiungi.isEnabled())
         {
             JFAggiuntaPesata a = new JFAggiuntaPesata(interfPesate.idOrdine, font);
@@ -859,6 +887,7 @@ public class Interfaccia extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonProdottoAggiungiMousePressed
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
+        if(debug)System.out.println("Interfaccia.jButton1MousePressed()");
         PrinterJob pj = PrinterJob.getPrinterJob();
         if (pj.printDialog()) {
         try {pj.print();}
@@ -869,6 +898,7 @@ public class Interfaccia extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1MousePressed
 
     private void jBProdottoEliminaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBProdottoEliminaMousePressed
+        if(debug)System.out.println("Interfaccia.jBProdottoEliminaMousePressed()");
         if(jBProdottoElimina.isEnabled())
         {
             JFEliminaPesata a = new JFEliminaPesata(interfPesate.idOrdine, font);
@@ -878,6 +908,7 @@ public class Interfaccia extends javax.swing.JFrame {
     }//GEN-LAST:event_jBProdottoEliminaMousePressed
 
     private void jBProdottoModificaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBProdottoModificaMousePressed
+        if(debug)System.out.println("Interfaccia.jBProdottoModificaMousePressed()");
         if(jBProdottoModifica.isEnabled())
         {
             JFModificaPesata a = new JFModificaPesata(interfPesate.idOrdine, font);
